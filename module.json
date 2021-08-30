@@ -1,0 +1,44 @@
+{
+    "name": "share-media",
+    "title": "Share Media",
+    "description": "A module to easily share media to players",
+    "version": "",
+    "library": "false",
+    "manifestPlusVersion": "1.0.0",
+    "minimumCoreVersion": "0.8.6",
+    "compatibleCoreVersion": "0.8.9",
+    "authors": [
+        {
+            "name": "DarKDinDoN",
+            "url": "https://github.com/DarKDinDoN",
+            "discord": "Maxime#1562"
+        }
+    ],
+    "dependencies": [
+        {
+            "name": "socketlib",
+            "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json"
+        }
+    ],
+    "conflicts": [],
+    "socket": true,
+    "esmodules": [
+        "/modules/main.js",
+        "/modules/socket.js"
+    ],
+    "scripts": [],
+    "styles": [
+        "/styles/main.css"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        }
+    ],
+    "url": "",
+    "manifest": "",
+    "download": "",
+    "media": []
+}

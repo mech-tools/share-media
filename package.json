@@ -1,0 +1,21 @@
+{
+    "name": "share-media",
+    "version": "1.0.0",
+    "description": "A module to easily share media to players",
+    "scripts": {
+        "gulp": "gulp",
+        "build": "gulp build"
+    },
+    "browserslist": [
+        "last 3 versions"
+    ],
+    "author": "DarKDinDoN",
+    "license": "MIT",
+    "private": true,
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^7.0.1",
+        "gulp-sass": "^4.1.0",
+        "gulp-sourcemaps": "^2.6.5"
+    }
+}

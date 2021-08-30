@@ -1,0 +1,17 @@
+<div class="players-selection">
+    <div class="how-to">
+        <img src="{{url}}">
+        <span>{{localize 'share-media.players-selection.how-to' }}</span>
+    </div>
+    <hr>
+    <form>
+        {{#each players}}
+            <div class="form-group {{#unless this.active}}disabled{{/unless}}">
+                <span class="player-color" {{#if this.active}}{{#if this.color}}style="background: {{this.color}};border-color: {{this.color}};" {{/if}}{{/if}}></span>
+                <label for="{{this.id}}">{{this.name}} {{#unless this.active}}({{localize 'share-media.players-selection.not-logged-in' }}){{/unless}}</label>
+                <input type="checkbox" name="playerId" value="{{this.id}}" id="{{this.id}}" {{#if this.active}}checked{{/if}} {{#unless this.active}}disabled{{/unless}}>
+            </div>
+        {{/each}}
+    </form>
+    <hr>
+</div>
