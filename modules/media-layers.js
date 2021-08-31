@@ -86,6 +86,9 @@ class ShareMediaLayer extends CanvasLayer {
         container.addChild(mask)
     }
 
+    /**
+     * Create a sprite from a texture and an url
+     */
     async _createSprite(url) {
         const texture = await loadTexture(url)
         const sprite = new PIXI.Sprite(texture)

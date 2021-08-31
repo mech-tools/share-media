@@ -35,7 +35,7 @@ export const wrapMedias = html => {
 }
 
 /**
- * Activate listeners on image actions
+ * Activate listeners on media actions
  */
 export const activateMediaListeners = html => {
     html.find('div.editor-content span[data-action="share-popout"]').click(evt => {
