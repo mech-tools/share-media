@@ -37,34 +37,44 @@ Hooks.on('renderActorSheet', (app, html) => {
 })
 
 Hooks.on('canvasReady', () => {
-    const mediaFlag = canvas.scene.getFlag(constants.moduleName, 'media')
+    const mediaFlags = canvas.scene.data.flags?.[constants.moduleName]
 
-    if (mediaFlag) {
-        canvas.shareMedia.createBoundedSprite(mediaFlag.url, mediaFlag.style)
+    if (mediaFlags) {
+        for (let [boundingTileName, { url, style } = value] of Object.entries(mediaFlags)) {
+            canvas.shareMedia.createBoundedSprite(boundingTileName, url, style)
+        }
     }
 })
 
 Hooks.on('updateScene', (scene, data) => {
-    if (data.flags?.[constants.moduleName]?.['-=media'] === null && scene.id === canvas.scene.id) {
-        canvas.shareMedia.deleteBoundedSprite()
-    } else if (data.flags?.[constants.moduleName]?.media && scene.id === canvas.scene.id) {
-        const mediaFlag = scene.getFlag(constants.moduleName, 'media')
-        canvas.shareMedia.createBoundedSprite(mediaFlag.url, mediaFlag.style)
+    if (data.flags?.[constants.moduleName] && scene.id === canvas.scene.id) {
+        for (let boundingTileName of Object.keys(data.flags[constants.moduleName])) {
+            if (boundingTileName.startsWith('-=')) {
+                canvas.shareMedia.deleteBoundedSprite(boundingTileName.substring(2))
+            } else {
+                const mediaFlag = canvas.scene.data.flags[constants.moduleName][boundingTileName]
+                canvas.shareMedia.createBoundedSprite(boundingTileName, mediaFlag.url, mediaFlag.style)
+            }
+        }
     }
 })
 
 Hooks.on('updateTile', tile => {
-    const mediaFlag = tile.parent.getFlag(constants.moduleName, 'media')
-
-    if (tile.data.flags?.[constants.moduleName]?.isBounding && mediaFlag && tile.parent.id === canvas.scene.id) {
-        canvas.shareMedia.createBoundedSprite(mediaFlag.url, mediaFlag.style)
+    if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
+        const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[tile.data.flags[constants.moduleName].name]
+        if (mediaFlag) {
+            canvas.shareMedia.createBoundedSprite(tile.data.flags[constants.moduleName].name, mediaFlag.url, mediaFlag.style)
+        }
     }
 })
 
 Hooks.on('deleteTile', tile => {
     if (game.user.isGM) {
-        if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.getFlag(constants.moduleName, 'media') && tile.parent.id === canvas.scene.id) {
-            tile.parent.unsetFlag(constants.moduleName, 'media')
+        if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
+            const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[tile.data.flags[constants.moduleName].name]
+            if (mediaFlag) {
+                canvas.scene.unsetFlag(constants.moduleName, tile.data.flags[constants.moduleName].name)
+            }
         }
     }
 })

@@ -16,30 +16,49 @@
         },
         "bounding-tile": {
             "create-button": "Create a bounding tile",
-            "already-exists": "Bounding tile already created for this scene.",
             "create-success": "Successfully created a bounding tile.",
-            "create-error": "Error while attempting to create a bounding tile. Please check the JS console.",
+            "create-already-exists": "This bounding tile already exists on this scene.",
+            "clear-button": "Clear bounding tile",
+            "clear-success": "Successfully cleared bounding tile.",
+            "clear-failed": "Bounding tile already cleared.",
             "not-found": "No existing bounding tile. Please create a bounding tile on this scene."
-        },
-        "display-tile": {
-            "clear-button": "Clear display tile",
-            "clear-success": "Successfully cleared display tile.",
-            "clear-failed": "Display tile already cleared or missing bounding tile."
         },
         "share": {
             "scene-button": "Share on the scene",
             "scene-success": "Media successfully shared on the scene.",
+            "scene-no-scene": "No scene viewed. Please display a scene first.",
             "popout-button": "Share in a popout",
             "popout-success-all": "Media successfully shared to all players.",
-            "popout-success-some": "Media successfully shared to selected players.",
-            "no-scene": "No scene viewed. Please display a scene first."
+            "popout-success-some": "Media successfully shared to selected players."
         },
-        "players-selection": {
-            "title": "Which players should the media be shared with?",
-            "how-to": "Please select the players to whom the media will be shared.",
-            "cancel-button": "Cancel",
-            "share-button": "Share",
-            "not-logged-in": "not logged in"
+        "dialogs": {
+            "bounding-tile-creation": {
+                "title": "What should this bounding tile be named?",
+                "how-to": "Please fill in the bounding tile name field. Bounding tiles on the same scene must have different names.",
+                "field-name": "Bounding tile name",
+                "cancel-button": "Cancel",
+                "create-button": "Create",
+                "default-tile-name": "Stage"
+            },
+            "share-bounding-tile-selection": {
+                "title": "Which bounding tile to display the media?",
+                "how-to": "Please select the bounding tile that will be used to display the media.",
+                "cancel-button": "Cancel",
+                "share-button": "Share"
+            },
+            "clear-bounding-tile-selection": {
+                "title": "Which bounding tile to clear?",
+                "how-to": "Please select the bounding tile that will be cleared.",
+                "cancel-button": "Cancel",
+                "clear-button": "Clear"
+            },
+            "players-selection": {
+                "title": "Which players should the media be shared with?",
+                "how-to": "Please select the players to whom the media will be shared.",
+                "cancel-button": "Cancel",
+                "share-button": "Share",
+                "not-logged-in": "not logged in"
+            }
         }
     }
 }

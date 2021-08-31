@@ -1,5 +1,5 @@
 import constants from './settings/constants.js'
-import { findBoundingTile } from './helpers.js'
+import { getAllBoundingTiles, findBoundingTileByName, dialog } from './helpers.js'
 
 /**
  * Create a control button to create a bounding tile
@@ -20,12 +20,12 @@ export const addTileControls = controls => {
                 button: true,
             },
             {
-                name: 'clear-display-tile',
-                title: game.i18n.localize(`${constants.moduleName}.display-tile.clear-button`),
+                name: 'clear-bounding-tile',
+                title: game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-button`),
                 icon: 'fas fa-eraser',
                 visible: true,
                 onClick: () => {
-                    _clearDisplayTile()
+                    _clearBoundingTile()
                 },
                 button: true,
             }
@@ -37,63 +37,156 @@ export const addTileControls = controls => {
  * Create a bounding tile
  */
 async function _createBoundingTile() {
-    const scene = game.scenes.viewed
+    const existingBoundingTiles = getAllBoundingTiles()
 
-    const existingBoundingTile = findBoundingTile()
+    const nextBoundingTileNumber = existingBoundingTiles.length + 1
+    const newBoundingTileName = await _promptBoundingTileCreation(nextBoundingTileNumber)
+
+    const existingBoundingTile = findBoundingTileByName(newBoundingTileName)
     if (existingBoundingTile) {
         existingBoundingTile.object.control()
-        return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.bounding-tile.already-exists`))
+        return ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.create-already-exists`))
     }
 
     const tileData = {
         img: `${constants.modulePath}/images/transparent.png`,
-        flags: { [constants.moduleName]: { isBounding: true } },
+        flags: { [constants.moduleName]: { isBounding: true, name: newBoundingTileName } },
         hidden: true,
-        width: scene.data.width / 4,
-        height: scene.data.height / 4,
-        x: scene.dimensions.paddingX,
-        y: scene.dimensions.paddingY
+        width: canvas.scene.data.width,
+        height: canvas.scene.data.height,
+        x: canvas.scene.dimensions.paddingX,
+        y: canvas.scene.dimensions.paddingY
     }
-    await scene.createEmbeddedDocuments('Tile', [tileData])
+    await canvas.scene.createEmbeddedDocuments('Tile', [tileData])
 
-    const boundingTile = findBoundingTile()
-    if (boundingTile) {
-        ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.create-success`))
-        boundingTile.object.control()
-    } else {
-        ui.notifications.error(game.i18n.localize(`${constants.moduleName}.bounding-tile.create-error`))
-    }
+    const boundingTile = findBoundingTileByName(newBoundingTileName)
+    ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.create-success`))
+    boundingTile.object.control()
 }
 
 /**
- * Clear and delete the display tile
+ * Prompt the user with a field to name the bounding tile
  */
-async function _clearDisplayTile() {
-    if (!canvas.scene.getFlag(constants.moduleName, 'media')) {
-        return ui.notifications.info(game.i18n.localize(`${constants.moduleName}.display-tile.clear-failed`))
+async function _promptBoundingTileCreation(nextNumber) {
+    const content = await renderTemplate(
+        `${constants.modulePath}/templates/bounding-tile-creation-dialog.hbs`,
+        { defaultName: game.i18n.localize(`${constants.moduleName}.dialogs.bounding-tile-creation.default-tile-name`) + ` ${nextNumber}` }
+    )
+
+    return dialog({
+        id: 'bounding-tile-creation-dialog',
+        title: game.i18n.localize(`${constants.moduleName}.dialogs.bounding-tile-creation.title`),
+        content,
+        cancelLabel: game.i18n.localize(`${constants.moduleName}.dialogs.bounding-tile-creation.cancel-button`),
+        validateLabel: game.i18n.localize(`${constants.moduleName}.dialogs.bounding-tile-creation.create-button`),
+        validateCallback: (html) => html.find('input').val().trim(),
+        render: html => html.find('input').focus(),
+        top: ui.controls.element.position().top + 80,
+        left: ui.controls.element.position().left + 110
+    })
+}
+
+/**
+ * Clear a bounding tile
+ */
+async function _clearBoundingTile() {
+    const boundingTiles = getAllBoundingTiles()
+
+    if (!boundingTiles.length) {
+        return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.bounding-tile.not-found`))
     }
 
-    await canvas.scene.unsetFlag(constants.moduleName, 'media')
-    ui.notifications.info(game.i18n.localize(`${constants.moduleName}.display-tile.clear-success`))
+    const boundingTile = boundingTiles.length > 1 ?
+        await _promptClearBoundingTileSection(boundingTiles) :
+        boundingTiles[0]
+
+    const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
+    if (!mediaFlag) {
+        return ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-failed`))
+    }
+
+    const mediaFlags = foundry.utils.deepClone(canvas.scene.data.flags[constants.moduleName])
+    delete mediaFlags[boundingTile.data.flags[constants.moduleName].name]
+
+    await canvas.scene.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+    ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-success`))
+}
+
+/**
+ * Prompt with the list of boundind tiles to clear
+ */
+async function _promptClearBoundingTileSection(boundingTiles) {
+    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.data.flags[constants.moduleName].name }))
+        .sort((a, b) => a.name.localeCompare(b.name))
+
+    const content = await renderTemplate(
+        `${constants.modulePath}/templates/clear-bounding-tile-selection-dialog.hbs`,
+        { boundingTiles: boundingTilesData }
+    )
+
+    return dialog({
+        id: 'clear-bounding-tile-selection-dialog',
+        title: game.i18n.localize(`${constants.moduleName}.dialogs.clear-bounding-tile-selection.title`),
+        content,
+        cancelLabel: game.i18n.localize(`${constants.moduleName}.dialogs.clear-bounding-tile-selection.cancel-button`),
+        validateLabel: game.i18n.localize(`${constants.moduleName}.dialogs.clear-bounding-tile-selection.clear-button`),
+        validateCallback: (html) => {
+            const boundingTileId = html.find('input:radio[name=boundingTileId]:checked').get().map(r => $(r).val())[0]
+            return boundingTiles.find(b => b.id === boundingTileId)
+        },
+        top: ui.controls.element.position().top + 110,
+        left: ui.controls.element.position().left + 110
+    })
 }
 
 /**
  * Share a media on the scene
  */
 export const shareSceneMedia = async (url, altStyle = false) => {
-    if (!game.scenes.viewed) {
-        return ui.notifications.error(game.i18n.localize(`${constants.moduleName}.share.no-scene`))
+    if (!canvas.scene) {
+        return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.share.scene-no-scene`))
     }
 
-    if (!findBoundingTile()) {
+    const boundingTiles = getAllBoundingTiles()
+
+    if (!boundingTiles.length) {
         return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.bounding-tile.not-found`))
     }
+
+    const boundingTile = boundingTiles.length > 1 ?
+        await _promptShareBoundingTileSection(boundingTiles) :
+        boundingTiles[0]
 
     const style = altStyle ?
         (game.settings.get(constants.moduleName, 'scene-display-style') === 'fit' ? 'cover' : 'fit') :
         game.settings.get(constants.moduleName, 'scene-display-style')
 
-    await canvas.scene.setFlag(constants.moduleName, 'media', { url, style })
+    await canvas.scene.setFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name, { url, style })
 
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.scene-success`))
+}
+
+/**
+ * Prompt the sharer with the list of boundind tiles to select from
+ */
+async function _promptShareBoundingTileSection(boundingTiles) {
+    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.data.flags[constants.moduleName].name }))
+        .sort((a, b) => a.name.localeCompare(b.name))
+
+    const content = await renderTemplate(
+        `${constants.modulePath}/templates/share-bounding-tile-selection-dialog.hbs`,
+        { boundingTiles: boundingTilesData }
+    )
+
+    return dialog({
+        id: 'share-bounding-tile-selection-dialog',
+        title: game.i18n.localize(`${constants.moduleName}.dialogs.share-bounding-tile-selection.title`),
+        content,
+        cancelLabel: game.i18n.localize(`${constants.moduleName}.dialogs.share-bounding-tile-selection.cancel-button`),
+        validateLabel: game.i18n.localize(`${constants.moduleName}.dialogs.share-bounding-tile-selection.share-button`),
+        validateCallback: (html) => {
+            const boundingTileId = html.find('input:radio[name=boundingTileId]:checked').get().map(r => $(r).val())[0]
+            return boundingTiles.find(b => b.id === boundingTileId)
+        }
+    })
 }

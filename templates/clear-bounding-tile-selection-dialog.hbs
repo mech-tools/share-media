@@ -1,0 +1,16 @@
+<div class="clear-bounding-tile-selection">
+    <div class="how-to">
+        <i class="fas fa-eraser"></i>
+        <span>{{localize 'share-media.dialogs.clear-bounding-tile-selection.how-to' }}</span>
+    </div>
+    <hr>
+    <form>
+        {{#each boundingTiles}}
+            <div class="form-group">
+                <label for="{{this.id}}">{{this.name}}</label>
+                <input type="radio" name="boundingTileId" value="{{this.id}}" id="{{this.id}}" {{#unless @index}}checked{{/unless}}>
+            </div>
+        {{/each}}
+    </form>
+    <hr>
+</div>

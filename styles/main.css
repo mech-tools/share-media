@@ -21,11 +21,12 @@
 }
 
 .show-media .media-actions .media-action {
-  background: url("../../../ui/denim075.png") repeat;
+  background-image: url("../../../ui/denim075.png");
+  background-repeat: "repeat";
   margin-left: 8px;
   padding: 8px;
   font-size: 12px;
-  color: #cccccc;
+  color: #bbbbbb;
   border: 1px solid transparent;
   border-radius: 4px;
   cursor: pointer;
@@ -37,11 +38,17 @@
   box-shadow: 0 0 6px inset #ff6400;
 }
 
-#share-media-player-selection-dialog hr {
+#share-media-player-selection-dialog hr,
+#share-media-bounding-tile-creation-dialog hr,
+#share-media-share-bounding-tile-selection-dialog hr,
+#share-media-clear-bounding-tile-selection-dialog hr {
   margin: 15px 0;
 }
 
-#share-media-player-selection-dialog .how-to {
+#share-media-player-selection-dialog .how-to,
+#share-media-bounding-tile-creation-dialog .how-to,
+#share-media-share-bounding-tile-selection-dialog .how-to,
+#share-media-clear-bounding-tile-selection-dialog .how-to {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -54,12 +61,39 @@
   font-weight: 700;
 }
 
-#share-media-player-selection-dialog .how-to img {
-  width: 50px;
-  height: 50px;
-  -o-object-fit: cover;
-  object-fit: cover;
+#share-media-player-selection-dialog .how-to i,
+#share-media-bounding-tile-creation-dialog .how-to i,
+#share-media-share-bounding-tile-selection-dialog .how-to i,
+#share-media-clear-bounding-tile-selection-dialog .how-to i {
+  background-image: url("../../../ui/denim075.png");
+  background-repeat: "no-repeat";
   margin-right: 15px;
+  font-size: 30px;
+  color: #bbbbbb;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#share-media-player-selection-dialog .form-group.disabled,
+#share-media-bounding-tile-creation-dialog .form-group.disabled,
+#share-media-share-bounding-tile-selection-dialog .form-group.disabled,
+#share-media-clear-bounding-tile-selection-dialog .form-group.disabled {
+  color: #c0c0c0;
+}
+
+#share-media-player-selection-dialog .form-group,
+#share-media-share-bounding-tile-selection-dialog .form-group,
+#share-media-clear-bounding-tile-selection-dialog .form-group {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#share-media-player-selection-dialog .form-group :last-child,
+#share-media-share-bounding-tile-selection-dialog .form-group :last-child,
+#share-media-clear-bounding-tile-selection-dialog .form-group :last-child {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20px;
+  flex: 0 0 20px;
 }
 
 #share-media-player-selection-dialog .player-color {
@@ -71,8 +105,4 @@
   background: #c0c0c0;
   border: 1px solid #c0c0c0;
   margin-right: 10px;
-}
-
-#share-media-player-selection-dialog .form-group.disabled {
-  color: #c0c0c0;
 }

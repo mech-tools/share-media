@@ -1,5 +1,5 @@
 import constants from './settings/constants.js'
-import { findBoundingTile } from './helpers.js'
+import { findBoundingTileByName } from './helpers.js'
 
 /**
  * Create a dedicated layer for sharing a media on a scene
@@ -7,7 +7,7 @@ import { findBoundingTile } from './helpers.js'
 class ShareMediaLayer extends CanvasLayer {
     constructor() {
         super()
-        this.container = null
+        this.containers = []
     }
 
     static get layerOptions() {
@@ -21,11 +21,11 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite on the scene bounded by a tile and a style
      */
-    async createBoundedSprite(url, style) {
-        const boundingTile = findBoundingTile()
+    async createBoundedSprite(boundingTileName, url, style) {
+        const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
-        this._prepareContainer()
+        const container = this._prepareContainer(boundingTileName)
 
         const sprite = await this._createSprite(url)
 
@@ -38,46 +38,52 @@ class ShareMediaLayer extends CanvasLayer {
         sprite.position.set(spriteCoordinates.x, spriteCoordinates.y)
 
         if (style === 'cover') {
-            this._addMask(boundingTile.data.x, boundingTile.data.y, boundingTile.data.width, boundingTile.data.height)
+            this._addMask(container, boundingTile.data.x, boundingTile.data.y, boundingTile.data.width, boundingTile.data.height)
         }
 
-        this.container.addChild(sprite)
+        container.addChild(sprite)
     }
 
     /**
-     * Delete a sprite on the scene
+     * Delete a sprite on the scene by container parentName
      */
-    deleteBoundedSprite() {
-        this.container.destroy()
+    deleteBoundedSprite(parentName) {
+        this.containers = this.containers.filter(c => {
+            if (c.parentName === parentName) {
+                c.destroy()
+            }
+
+            return c.parentName !== parentName
+        })
     }
 
     /**
-     * (Re)Create the PIXI container
+     * (Re)Create a PIXI container
      */
-    _prepareContainer() {
-        if (this.container) {
-            this.container.destroy()
-        }
+    _prepareContainer(name) {
+        this.deleteBoundedSprite(name)
 
         const container = new PIXI.Container()
         container.sortableChildren = true
-        container.parentName = constants.moduleName
+        container.parentName = name
         container.zIndex = 1
-        this.container = container
+        this.containers.push(container)
         this.addChild(container)
+
+        return container
     }
 
     /**
      * Add a mask to the current container
      */
-    _addMask(x, y, width, height) {
+    _addMask(container, x, y, width, height) {
         const mask = new PIXI.Graphics()
             .beginFill(0xFF3300)
             .drawRect(x, y, width, height)
             .endFill()
 
-        this.container.mask = mask
-        this.container.addChild(mask)
+        container.mask = mask
+        container.addChild(mask)
     }
 
     async _createSprite(url) {

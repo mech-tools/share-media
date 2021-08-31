@@ -1,0 +1,9 @@
+$icon-color: #bbbbbb;
+$disabled-color: #c0c0c0;
+$red-border: #ff0000;
+$red-border-shadow: #ff6400;
+
+@mixin denim-background($repeat: 'no-repeat') {
+    background-image: url("../../../ui/denim075.png");
+    background-repeat: $repeat;
+}

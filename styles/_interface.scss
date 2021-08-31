@@ -17,18 +17,18 @@
         transition: opacity 250ms;
 
         .media-action {
-            background: url("../../../ui/denim075.png") repeat;
+            @include denim-background('repeat');
             margin-left: 8px;
             padding: 8px;
             font-size: 12px;
-            color: #cccccc;
+            color: $icon-color;
             border: 1px solid transparent;
             border-radius: 4px;
             cursor: pointer;
 
             &:hover {
-                border: 1px solid #ff0000;
-                box-shadow: 0 0 6px inset #ff6400;
+                border: 1px solid $red-border;
+                box-shadow: 0 0 6px inset $red-border-shadow;
             }
         }
     }

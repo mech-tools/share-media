@@ -1,4 +1,7 @@
-#share-media-player-selection-dialog {
+#share-media-player-selection-dialog,
+#share-media-bounding-tile-creation-dialog,
+#share-media-share-bounding-tile-selection-dialog,
+#share-media-clear-bounding-tile-selection-dialog {
     hr {
         margin: 15px 0;
     }
@@ -11,24 +14,41 @@
         text-align: center;
         font-weight: 700;
 
-        img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
+        i {
+            @include denim-background;
             margin-right: 15px;
+            font-size: 30px;
+            color: $icon-color;
+            padding: 10px;
+            border-radius: 5px;
         }
     }
 
+    .form-group.disabled {
+        color: $disabled-color;
+    }
+}
+
+#share-media-player-selection-dialog,
+#share-media-share-bounding-tile-selection-dialog,
+#share-media-clear-bounding-tile-selection-dialog {
+    .form-group {
+        width: 90%;
+        margin: 0 auto;
+
+        :last-child {
+            flex: 0 0 20px;
+        }
+    }
+}
+
+#share-media-player-selection-dialog {
     .player-color {
         flex: 0 0 7px;
         height: 7px;
         border-radius: 50%;
-        background: #c0c0c0;
-        border: 1px solid #c0c0c0;
+        background: $disabled-color;
+        border: 1px solid $disabled-color;
         margin-right: 10px;
-    }
-
-    .form-group.disabled {
-        color: #c0c0c0;
     }
 }
