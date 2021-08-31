@@ -142,7 +142,7 @@ async function _promptClearBoundingTileSection(boundingTiles) {
 /**
  * Share a media on the scene
  */
-export const shareSceneMedia = async (url, altStyle = false) => {
+export const shareSceneMedia = async (url, style) => {
     if (!canvas.scene) {
         return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.share.scene-no-scene`))
     }
@@ -156,10 +156,6 @@ export const shareSceneMedia = async (url, altStyle = false) => {
     const boundingTile = boundingTiles.length > 1 ?
         await _promptShareBoundingTileSection(boundingTiles) :
         boundingTiles[0]
-
-    const style = altStyle ?
-        (game.settings.get(constants.moduleName, 'scene-display-style') === 'fit' ? 'cover' : 'fit') :
-        game.settings.get(constants.moduleName, 'scene-display-style')
 
     await canvas.scene.setFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name, { url, style })
 

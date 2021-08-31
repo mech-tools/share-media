@@ -5,11 +5,7 @@ import { dialog } from './helpers.js'
 /**
  * Media popout event
  */
-export const sharePopoutMedia = async (url, altMode = false) => {
-    const mode = altMode ?
-        (game.settings.get(constants.moduleName, 'popout-display-mode') === 'all' ? 'some' : 'all') :
-        game.settings.get(constants.moduleName, 'popout-display-mode')
-
+export const sharePopoutMedia = async (url, mode) => {
     const players = mode === 'all' ?
         game.users.filter(u => u.active).map(u => u.id) :
         await _promptPlayersSelection(game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active })))

@@ -14,9 +14,21 @@ export const wrapMedias = html => {
         $(media)
             .wrap('<div class="show-media clickable-media"></div>')
             .after(`
-                <div class="media-actions">
-                    <i data-action="share-scene" data-url="${mediaUrl}" class="media-action fas fa-map" title="${game.i18n.localize(`${constants.moduleName}.share.scene-button`)}"></i>
-                    <i data-action="share-popout" data-url="${mediaUrl}" class="media-action fas fa-book-open" title="${game.i18n.localize(`${constants.moduleName}.share.popout-button`)}"></i>
+                <div class="media-actions-container">
+                    <div class="media-actions">
+                        <i class="drawer fas fa-book-open" title="${game.i18n.localize(`${constants.moduleName}.share.popout-button`)}"></i>
+                        <div class="actions">
+                            <span data-action="share-popout" data-mode="all" data-url="${mediaUrl}">${game.i18n.localize(`${constants.moduleName}.share.popout-all-button`)}</span>
+                            <span data-action="share-popout" data-mode="some" data-url="${mediaUrl}">${game.i18n.localize(`${constants.moduleName}.share.popout-some-button`)}</i>
+                        </div>
+                    </div>
+                    <div class="media-actions">
+                        <i class="drawer fas fa-map" title="${game.i18n.localize(`${constants.moduleName}.share.scene-button`)}"></i>
+                        <div class="actions">
+                            <span data-action="share-scene" data-style="fit" data-url="${mediaUrl}">${game.i18n.localize(`${constants.moduleName}.share.scene-fit-button`)}</span>
+                            <span data-action="share-scene" data-style="cover" data-url="${mediaUrl}">${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}</span>
+                        </div>
+                    </div>
                 </div>
             `)
     })
@@ -26,21 +38,21 @@ export const wrapMedias = html => {
  * Activate listeners on image actions
  */
 export const activateMediaListeners = html => {
-    html.find('div.editor-content i[data-action="share-popout"]').click(evt => {
+    html.find('div.editor-content span[data-action="share-popout"]').click(evt => {
         evt.preventDefault()
 
         const button = $(evt.target)[0]
         if (button) {
-            sharePopoutMedia(button.dataset.url, evt.shiftKey)
+            sharePopoutMedia(button.dataset.url, button.dataset.mode)
         }
     })
 
-    html.find('div.editor-content i[data-action="share-scene"]').click(evt => {
+    html.find('div.editor-content span[data-action="share-scene"]').click(evt => {
         evt.preventDefault()
 
         const button = $(evt.target)[0]
         if (button) {
-            shareSceneMedia(button.dataset.url, evt.shiftKey)
+            shareSceneMedia(button.dataset.url, button.dataset.style)
         }
     })
 }
