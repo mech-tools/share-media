@@ -1,4 +1,5 @@
 import constants from './settings/constants.js'
+import MediaPopout from './media-popout.js'
 
 /**
  * Start socketlib & register events
@@ -20,8 +21,5 @@ export const socketSharePopoutMedia = async (url, players) => {
  * Show media popout on event fired
  */
 const _socketSharePopoutMedia = url => {
-    new ImagePopout(url, {
-        shareable: false,
-        editable: false
-    }).render(true)
+    MediaPopout._handleShareMedia(url)
 }

@@ -40,8 +40,8 @@ Hooks.on('canvasReady', () => {
     const mediaFlags = canvas.scene.data.flags?.[constants.moduleName]
 
     if (mediaFlags) {
-        for (let [boundingTileName, { url, style } = value] of Object.entries(mediaFlags)) {
-            canvas.shareMedia.createBoundedSprite(boundingTileName, url, style)
+        for (let [boundingTileName, { url, style, type } = value] of Object.entries(mediaFlags)) {
+            canvas.shareMedia.createBoundedSprite(boundingTileName, url, style, type === 'video')
         }
     }
 })
@@ -53,7 +53,7 @@ Hooks.on('updateScene', (scene, data) => {
                 canvas.shareMedia.deleteBoundedSprite(boundingTileName.substring(2))
             } else {
                 const mediaFlag = canvas.scene.data.flags[constants.moduleName][boundingTileName]
-                canvas.shareMedia.createBoundedSprite(boundingTileName, mediaFlag.url, mediaFlag.style)
+                canvas.shareMedia.createBoundedSprite(boundingTileName, mediaFlag.url, mediaFlag.style, mediaFlag.type === 'video')
             }
         }
     }
@@ -63,7 +63,7 @@ Hooks.on('updateTile', tile => {
     if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
         const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[tile.data.flags[constants.moduleName].name]
         if (mediaFlag) {
-            canvas.shareMedia.createBoundedSprite(tile.data.flags[constants.moduleName].name, mediaFlag.url, mediaFlag.style)
+            canvas.shareMedia.createBoundedSprite(tile.data.flags[constants.moduleName].name, mediaFlag.url, mediaFlag.style, mediaFlag.type === 'video')
         }
     }
 })

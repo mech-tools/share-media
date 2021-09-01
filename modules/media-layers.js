@@ -21,13 +21,13 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite on the scene bounded by a tile and a style
      */
-    async createBoundedSprite(boundingTileName, url, style) {
+    async createBoundedSprite(boundingTileName, url, style, isVideo = false) {
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
         const container = this._prepareContainer(boundingTileName, boundingTile.data.z)
 
-        const sprite = await this._createSprite(url)
+        const sprite = await this._createSprite(url, isVideo)
 
         const spriteScaleFactor = style === 'fit' ?
             this._calculateScaleFactorFit(sprite.width, sprite.height, boundingTile.data.width, boundingTile.data.height) :
@@ -90,9 +90,15 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite from a texture and an url
      */
-    async _createSprite(url) {
+    async _createSprite(url, isVideo) {
         const texture = await loadTexture(url)
         const sprite = new PIXI.Sprite(texture)
+
+        if (isVideo) {
+            sprite.texture.baseTexture.resource.source.muted = true
+            sprite.texture.baseTexture.resource.source.loop = true
+            sprite.texture.baseTexture.resource.source.play()
+        }
 
         return sprite
     }
