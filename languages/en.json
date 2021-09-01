@@ -1,19 +1,5 @@
 {
     "share-media": {
-        "settings": {
-            "scene-display-style": {
-                "name": "Default scene display style",
-                "hint": "Whether the media should fit or cover the bounding tile (shift-key to use the non-default display style).",
-                "fit": "Fit",
-                "cover": "Cover"
-            },
-            "popout-display-mode": {
-                "name": "Default popout sharing mode",
-                "hint": "Whether a popout media should be shared to all players or a selection of players (shift-key to use the non-default sharing mode).",
-                "all": "All players",
-                "some": "Selected players"
-            }
-        },
         "bounding-tile": {
             "create-button": "Create a bounding tile",
             "create-success": "Successfully created a bounding tile.",
