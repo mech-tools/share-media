@@ -25,7 +25,7 @@ class ShareMediaLayer extends CanvasLayer {
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
-        const container = this._prepareContainer(boundingTileName)
+        const container = this._prepareContainer(boundingTileName, boundingTile.data.z)
 
         const sprite = await this._createSprite(url)
 
@@ -60,15 +60,16 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * (Re)Create a PIXI container
      */
-    _prepareContainer(name) {
+    _prepareContainer(name, zIndex) {
         this.deleteBoundedSprite(name)
 
         const container = new PIXI.Container()
         container.sortableChildren = true
         container.parentName = name
-        container.zIndex = 1
+        container.zIndex = zIndex
         this.containers.push(container)
         this.addChild(container)
+        this.sortChildren()
 
         return container
     }
