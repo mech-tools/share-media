@@ -1,0 +1,54 @@
+{
+    "share-media": {
+        "bounding-tile": {
+            "create-button": "Créer une tuile de délimitation",
+            "create-success": "Tuile de délimitation créée avec succès.",
+            "create-already-exists": "Cette tuile de délimitation existe déjà sur la scène.",
+            "clear-button": "Effacer une tuile de délimitation",
+            "clear-success": "Tuile de délimitation effacée avec succès.",
+            "clear-failed": "Tuile de délimitation déjà effacée.",
+            "not-found": "Aucune tuile de délimitation trouvée. Veuillez créer une tuile de délimitation."
+        },
+        "share": {
+            "scene-button": "Partager sur la scène",
+            "scene-fit-button": "Contraint",
+            "scene-cover-button": "Contenu",
+            "scene-success": "Média partagé avec succès sur la scène.",
+            "scene-no-scene": "Aucune scène affichée. Veuillez afficher une scène.",
+            "popout-button": "Partager dans une fenêtre",
+            "popout-all-button": "Tous les joueurs",
+            "popout-some-button": "Sélection",
+            "popout-success-all": "Média partagé à tous les joueurs avec succès.",
+            "popout-success-some": "Média partagé aux joueurs sélectionnés avec succès."
+        },
+        "dialogs": {
+            "bounding-tile-creation": {
+                "title": "Quel est le nom de cette tuile de délimitation ?",
+                "how-to": "Veuillez remplir le champ nom de la tuile de délimitation. Le nom de chaque tuile de délimitation d'une même scène doit être unique.",
+                "field-name": "Nom de la tuile de délimitation",
+                "cancel-button": "Annuler",
+                "create-button": "Créer",
+                "default-tile-name": "Zone"
+            },
+            "share-bounding-tile-selection": {
+                "title": "Dans quelle tuile de délimitation afficher le média ?",
+                "how-to": "Veuillez sélectionner la tuile de délimitation dans laquelle sera affiché le média.",
+                "cancel-button": "Annuler",
+                "share-button": "Partager"
+            },
+            "clear-bounding-tile-selection": {
+                "title": "Quelle tuile de délimitation effacer ?",
+                "how-to": "Veuillez sélectionner la tuile de délimitation qui sera effacée.",
+                "cancel-button": "Annuler",
+                "clear-button": "Effacer"
+            },
+            "players-selection": {
+                "title": "À quels joueurs partager le média ?",
+                "how-to": "Veuillez sélectionner les joueurs avec lesquels le média sera partagé.",
+                "cancel-button": "Annuler",
+                "share-button": "Partager",
+                "not-logged-in": "non connecté"
+            }
+        }
+    }
+}
