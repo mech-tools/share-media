@@ -72,7 +72,22 @@ Click on the "Clear bounding tile" button and select the bounding tile to clear.
 
 <img src="./readme-assets/helper8.jpg" height="275">
 
-## 3. Notes
+## 3. Share an image (soon video!) fullscreen
+Once an image or a video is inserted, hover over the media preview to display two buttons.
+
+<img src="./readme-assets/helper9.jpg" height="400">
+
+Hover over the first button to display two popout options:
+- Click on "All players" to share the media to all players
+- Click on "Selected" to share the media to some players
+
+<img src="./readme-assets/helper4.jpg" height="250">
+
+Once the media is shared, a "Dismiss" button should appear. As the GM, you can click this button to dismiss the media for all players (only the GM can see this button).
+
+<img src="./readme-assets/helper10.jpg" height="450">
+
+## 4. Notes
 - "Share Media" creates a new layer just above the background layer (map & tiles)
 - Videos are automatically played and muted
 - If only one bounding tile is present on the scene the module won't prompt to choose between bounding tiles
