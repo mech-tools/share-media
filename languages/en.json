@@ -19,7 +19,13 @@
             "popout-all-button": "All players",
             "popout-some-button": "Selected",
             "popout-success-all": "Media successfully shared to all players.",
-            "popout-success-some": "Media successfully shared to selected players."
+            "popout-success-some": "Media successfully shared to selected players.",
+            "fullscreen-button": "Share fullscreen",
+            "fullscreen-dismiss-button": "Dismiss media",
+            "fullscreen-all-button": "All players",
+            "fullscreen-some-button": "Selected",
+            "fullscreen-success-all": "Media successfully shared to all players.",
+            "fullscreen-success-some": "Media successfully shared to selected players."
         },
         "dialogs": {
             "bounding-tile-creation": {

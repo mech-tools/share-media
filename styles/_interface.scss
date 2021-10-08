@@ -1,4 +1,4 @@
-.show-media{
+.show-media {
     &.clickable-media {
         position: relative;
         display: inline-block;
@@ -32,10 +32,12 @@
             background-color: $icon-color;
             margin-bottom: 5px;
             padding: 8px;
+            min-width: 30px;
             font-size: 12px;
             color: $inverted-icon-color;
             box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
             border-radius: 4px;
+            text-align: center;
         }
 
         .actions {

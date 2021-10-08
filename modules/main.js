@@ -1,12 +1,17 @@
 import registerSettings from './settings/settings.js'
 import constants from './settings/constants.js'
-import registerLayer from './media-layers.js'
+import registerCanvasLayer from './media-canvas-layer.js'
+import fullscreenLayer from './media-fullscreen-layer.js'
 import { wrapMedias, activateMediaListeners } from './media-wrapper.js'
 import { addTileControls } from './scene-handler.js'
 
 Hooks.once('init', () => {
     registerSettings()
-    registerLayer()
+    registerCanvasLayer()
+})
+
+Hooks.once('ready', () => {
+    fullscreenLayer.init()
 })
 
 Hooks.on('getSceneControlButtons', controls => {

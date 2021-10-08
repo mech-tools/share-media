@@ -1,6 +1,7 @@
 import constants from './settings/constants.js'
 import { sharePopoutMedia } from './popout-handler.js'
 import { shareSceneMedia } from './scene-handler.js'
+import { shareFullscreenMedia } from './fullscreen-handler.js'
 
 /**
  * Get all images & videos and wrap each with action buttons
@@ -35,6 +36,13 @@ function _wrapImageVideoMedia(media, src, type = 'image') {
                     </div>
                 </div>
                 <div class="media-actions">
+                    <i class="drawer fas fa-expand-arrows-alt" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-button`)}"></i>
+                    <div class="actions">
+                        <span data-action="share-fullscreen" data-mode="all" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}</span>
+                        <span data-action="share-fullscreen" data-mode="some" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}</i>
+                    </div>
+                </div>
+                <div class="media-actions">
                     <i class="drawer fas fa-map" title="${game.i18n.localize(`${constants.moduleName}.share.scene-button`)}"></i>
                     <div class="actions">
                         <span data-action="share-scene" data-style="fit" data-type="${type}" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.scene-fit-button`)}</span>
@@ -64,6 +72,15 @@ export const activateMediaListeners = html => {
         const button = $(evt.target)[0]
         if (button) {
             shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type)
+        }
+    })
+
+    html.find('div.editor-content span[data-action="share-fullscreen"]').click(evt => {
+        evt.preventDefault()
+
+        const button = $(evt.target)[0]
+        if (button) {
+            shareFullscreenMedia(button.dataset.url, button.dataset.mode)
         }
     })
 }

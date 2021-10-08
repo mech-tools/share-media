@@ -40,11 +40,13 @@
   background-color: #bbbbbb;
   margin-bottom: 5px;
   padding: 8px;
+  min-width: 30px;
   font-size: 12px;
   color: #444444;
   -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
+  text-align: center;
 }
 
 .show-media .media-actions-container .actions {
@@ -91,6 +93,59 @@
 
 .show-media .media-actions-container .actions span[data-action]:hover {
   background-color: #959595;
+}
+
+#fullscreen-layer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: transparent;
+}
+
+#fullscreen-layer.hidden {
+  display: none;
+  pointer-events: none;
+}
+
+#fullscreen-layer .dismiss {
+  z-index: 3;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width: auto;
+  padding: 1px 15px;
+  cursor: pointer;
+}
+
+#fullscreen-layer .background {
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
+}
+
+#fullscreen-layer img {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  right: 0;
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
 #share-media-player-selection-dialog hr,
