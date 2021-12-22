@@ -138,17 +138,5 @@ class ShareMediaLayer extends CanvasLayer {
  * Register the media sharing canvas layer
  */
 export default function registerCanvasLayer() {
-    CONFIG.Canvas.layers = foundry.utils.mergeObject(Canvas.layers, {
-        shareMedia: ShareMediaLayer
-    })
-
-    if (!Object.is(Canvas.layers, CONFIG.Canvas.layers)) {
-        const layers = Canvas.layers
-
-        Object.defineProperty(Canvas, 'layers', {
-            get: function () {
-                return foundry.utils.mergeObject(layers, CONFIG.Canvas.layers)
-            }
-        })
-    }
+    CONFIG.Canvas.layers.shareMedia = { layerClass: ShareMediaLayer, group: 'primary' }
 }
