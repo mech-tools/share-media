@@ -8,7 +8,7 @@ import { dialog } from './helpers.js'
 export const shareFullscreenMedia = async (url, mode) => {
     const players = mode === 'all' ?
         game.users.filter(u => u.active).map(u => u.id) :
-        await _promptPlayersSelection(game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active })))
+        await _promptPlayersSelection(game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active, isGM: u.isGM })))
 
     await socketshareFullscreenMedia(url, players)
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.fullscreen-success-${mode}`))
