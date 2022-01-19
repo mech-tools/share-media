@@ -10,20 +10,22 @@ export const wrapMedias = html => {
     const medias = html.find('div.editor-content img:not([data-edit]),div.editor-content video:not([data-edit])')
 
     medias.each((index, media) => {
-        const mediaType = $(media).is('img') ? 'image' : 'video'
+        const htmlMedia = $(media)
+        const mediaType = htmlMedia.is('img') ? 'image' : 'video'
+        const smallMediaSize = htmlMedia.innerWidth() <= 250
 
         const mediaUrl = mediaType === 'image' ?
-            $(media).attr('src') :
-            $(media).find('source:first').attr('src')
+            htmlMedia.attr('src') :
+            htmlMedia.find('source:first').attr('src')
 
-        _wrapImageVideoMedia(media, mediaUrl, mediaType)
+        _wrapImageVideoMedia(media, mediaUrl, mediaType, smallMediaSize)
     })
 }
 
 /**
  * Wrap media with action buttons
  */
-function _wrapImageVideoMedia(media, src, type = 'image') {
+function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false) {
     $(media)
         .wrap('<div class="show-media clickable-media"></div>')
         .after(`
@@ -31,22 +33,22 @@ function _wrapImageVideoMedia(media, src, type = 'image') {
                 <div class="media-actions">
                     <i class="drawer fas fa-book-open" title="${game.i18n.localize(`${constants.moduleName}.share.popout-button`)}"></i>
                     <div class="actions">
-                        <span data-action="share-popout" data-mode="all" data-type="${type}" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.popout-all-button`)}</span>
-                        <span data-action="share-popout" data-mode="some" data-type="${type}" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.popout-some-button`)}</i>
+                            <span data-action="share-popout" data-mode="all" data-type="${type}" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.popout-all-button`)}"><i class="fas fa-users"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.popout-all-button`)}` : ``}</span>
+                            <span data-action="share-popout" data-mode="some" data-type="${type}" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.popout-some-button`)}"><i class="fas fa-user-friends"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.popout-some-button`)}` : ``}</span>
                     </div>
                 </div>
                 <div class="media-actions">
                     <i class="drawer fas fa-expand-arrows-alt" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-button`)}"></i>
                     <div class="actions">
-                        <span data-action="share-fullscreen" data-mode="all" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}</span>
-                        <span data-action="share-fullscreen" data-mode="some" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}</i>
+                        <span data-action="share-fullscreen" data-mode="all" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}"><i class="fas fa-users"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}` : ``}</span>
+                        <span data-action="share-fullscreen" data-mode="some" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}"><i class="fas fa-user-friends"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}` : ``}</span>
                     </div>
                 </div>
                 <div class="media-actions">
                     <i class="drawer fas fa-map" title="${game.i18n.localize(`${constants.moduleName}.share.scene-button`)}"></i>
                     <div class="actions">
-                        <span data-action="share-scene" data-style="fit" data-type="${type}" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.scene-fit-button`)}</span>
-                        <span data-action="share-scene" data-style="cover" data-type="${type}" data-url="${src}">${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}</span>
+                        <span data-action="share-scene" data-style="fit" data-type="${type}" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.scene-fit-button`)}"><i class="fas fa-compress-arrows-alt"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.scene-fit-button`)}` : ``}</span>
+                        <span data-action="share-scene" data-style="cover" data-type="${type}" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}"><i class="fas fa-expand"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}` : ``}</span>
                     </div>
                 </div>
             </div>
