@@ -5,8 +5,7 @@
             "create-success": "Successfully created a bounding tile.",
             "create-already-exists": "This bounding tile already exists on this scene.",
             "clear-button": "Clear bounding tile",
-            "clear-success": "Successfully cleared bounding tile.",
-            "clear-failed": "Bounding tile already cleared.",
+            "clear-success": "Successfully cleared bounding tile(s).",
             "not-found": "No existing bounding tile. Please create a bounding tile on this scene."
         },
         "share": {
@@ -46,7 +45,8 @@
                 "title": "Which bounding tile to clear?",
                 "how-to": "Please select the bounding tile that will be cleared.",
                 "cancel-button": "Cancel",
-                "clear-button": "Clear"
+                "clear-button": "Clear",
+                "clear-all-button": "Clear all"
             },
             "players-selection": {
                 "title": "Which players should the media be shared with?",

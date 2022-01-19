@@ -24,29 +24,45 @@ export const dialog = async ({
     cancelLabel,
     validateLabel,
     validateCallback,
+    otherButtons = [],
+    defaultButton = 'validate',
     render = null,
     top = null,
     left = null
 }) => {
     return new Promise((resolve, reject) => {
+        const supplementaryButtons = {}
+
+        otherButtons.forEach(b => {
+            supplementaryButtons[b.id] = {
+                icon: b.icon,
+                label: b.label,
+                callback: html => {
+                    resolve(b.callback(html))
+                }
+            }
+        })
+
+        const buttons = foundry.utils.mergeObject({
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: cancelLabel,
+                callback: () => reject
+            },
+            validate: {
+                icon: '<i class="fas fa-check"></i>',
+                label: validateLabel,
+                callback: html => {
+                    resolve(validateCallback(html))
+                }
+            }
+        }, supplementaryButtons)
+
         new Dialog({
             title,
             content,
-            buttons: {
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: cancelLabel,
-                    callback: () => reject
-                },
-                validate: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: validateLabel,
-                    callback: html => {
-                        resolve(validateCallback(html))
-                    }
-                }
-            },
-            default: 'validate',
+            buttons,
+            default: defaultButton,
             render
         }, {
             id: `${constants.moduleName}-${id}`,

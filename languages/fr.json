@@ -5,8 +5,7 @@
             "create-success": "Tuile de délimitation créée avec succès.",
             "create-already-exists": "Cette tuile de délimitation existe déjà sur la scène.",
             "clear-button": "Effacer une tuile de délimitation",
-            "clear-success": "Tuile de délimitation effacée avec succès.",
-            "clear-failed": "Tuile de délimitation déjà effacée.",
+            "clear-success": "Tuile(s) de délimitation effacée(s) avec succès.",
             "not-found": "Aucune tuile de délimitation trouvée. Veuillez créer une tuile de délimitation."
         },
         "share": {
@@ -46,7 +45,8 @@
                 "title": "Quelle tuile de délimitation effacer ?",
                 "how-to": "Veuillez sélectionner la tuile de délimitation qui sera effacée.",
                 "cancel-button": "Annuler",
-                "clear-button": "Effacer"
+                "clear-button": "Effacer",
+                "clear-all-button": "Tout effacer"
             },
             "players-selection": {
                 "title": "À quels joueurs partager le média ?",

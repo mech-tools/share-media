@@ -96,19 +96,22 @@ async function _clearBoundingTile() {
         return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.bounding-tile.not-found`))
     }
 
-    const boundingTile = boundingTiles.length > 1 ?
+    const boundingTilesToClear = boundingTiles.length > 1 ?
         await _promptClearBoundingTileSection(boundingTiles) :
-        boundingTiles[0]
+        boundingTiles
 
-    const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
-    if (!mediaFlag) {
-        return ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-failed`))
-    }
 
-    const mediaFlags = foundry.utils.deepClone(canvas.scene.data.flags[constants.moduleName])
-    delete mediaFlags[boundingTile.data.flags[constants.moduleName].name]
+    boundingTilesToClear.forEach(async (boundingTile) => {
+        const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
 
-    await canvas.scene.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+        if (!mediaFlag) return
+
+        const mediaFlags = foundry.utils.deepClone(canvas.scene.data.flags[constants.moduleName])
+        delete mediaFlags[boundingTile.data.flags[constants.moduleName].name]
+
+        await canvas.scene.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+    })
+
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-success`))
 }
 
@@ -132,8 +135,15 @@ async function _promptClearBoundingTileSection(boundingTiles) {
         validateLabel: game.i18n.localize(`${constants.moduleName}.dialogs.clear-bounding-tile-selection.clear-button`),
         validateCallback: (html) => {
             const boundingTileId = html.find('input:radio[name=boundingTileId]:checked').get().map(r => $(r).val())[0]
-            return boundingTiles.find(b => b.id === boundingTileId)
+            return [boundingTiles.find(b => b.id === boundingTileId)]
         },
+        otherButtons: [{
+            id: 'all',
+            icon: '<i class="fas fa-check-double"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.clear-bounding-tile-selection.clear-all-button`),
+            callback: html => boundingTiles
+        }],
+        defaultButton: 'all',
         top: ui.controls.element.position().top + 110,
         left: ui.controls.element.position().left + 110
     })
