@@ -62,7 +62,7 @@ export const activateMediaListeners = html => {
     html.find('div.editor-content span[data-action="share-popout"]').click(evt => {
         evt.preventDefault()
 
-        const button = $(evt.target)[0]
+        const button = $(evt.currentTarget)[0]
         if (button) {
             sharePopoutMedia(button.dataset.url, button.dataset.mode)
         }
@@ -71,7 +71,7 @@ export const activateMediaListeners = html => {
     html.find('div.editor-content span[data-action="share-scene"]').click(evt => {
         evt.preventDefault()
 
-        const button = $(evt.target)[0]
+        const button = $(evt.currentTarget)[0]
         if (button) {
             shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type)
         }
@@ -80,7 +80,7 @@ export const activateMediaListeners = html => {
     html.find('div.editor-content span[data-action="share-fullscreen"]').click(evt => {
         evt.preventDefault()
 
-        const button = $(evt.target)[0]
+        const button = $(evt.currentTarget)[0]
         if (button) {
             shareFullscreenMedia(button.dataset.url, button.dataset.mode)
         }
