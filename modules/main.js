@@ -41,6 +41,13 @@ Hooks.on('renderActorSheet', (app, html) => {
     }
 })
 
+Hooks.on('renderGMNote', (app, html) => {
+    if (game.user.isGM) {
+        wrapMedias(html)
+        activateMediaListeners(html)
+    }
+})
+
 Hooks.on('canvasReady', () => {
     const mediaFlags = canvas.scene.data.flags?.[constants.moduleName]
 
