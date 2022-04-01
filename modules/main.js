@@ -4,6 +4,7 @@ import registerCanvasLayer from './media-canvas-layer.js'
 import fullscreenLayer from './media-fullscreen-layer.js'
 import { wrapMedias, activateMediaListeners } from './media-wrapper.js'
 import { addTileControls } from './scene-handler.js'
+import { addSidebarContextEntries } from './sidebar-handler.js'
 
 Hooks.once('init', () => {
     registerSettings()
@@ -39,6 +40,14 @@ Hooks.on('renderActorSheet', (app, html) => {
         wrapMedias(html)
         activateMediaListeners(html)
     }
+})
+
+Hooks.on('getActorDirectoryEntryContext', (html, contextEntries) => {
+    addSidebarContextEntries(contextEntries, 'actors')
+})
+
+Hooks.on('getItemDirectoryEntryContext', (html, contextEntries) => {
+    addSidebarContextEntries(contextEntries, 'items')
 })
 
 Hooks.on('renderGMNote', (app, html) => {

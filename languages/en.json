@@ -26,6 +26,14 @@
             "fullscreen-success-all": "Media successfully shared to all players.",
             "fullscreen-success-some": "Media successfully shared to selected players."
         },
+        "context-entries": {
+            "popout-all": "Share Artwork in Popout (All Players)",
+            "popout-some": "Share Artwork in Popout (Selected)",
+            "fullscreen-all": "Share Artwork Fullscreen (All Players)",
+            "fullscreen-some": "Share Artwork Fullscreen (Selected)",
+            "scene-fit": "Share Artwork on Scene (Fit)",
+            "scene-cover": "Share Artwork on Scene (Cover)"
+        },
         "dialogs": {
             "bounding-tile-creation": {
                 "title": "What should this bounding tile be named?",
