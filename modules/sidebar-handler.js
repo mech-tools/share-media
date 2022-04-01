@@ -15,10 +15,10 @@ export function addSidebarContextEntries(contextEntries = [], context) {
     }
 
 
-    const charArt = contextEntries.find(entry => entry.name === contextString)
-    const charArtIndex = contextEntries.findIndex(entry => entry.name === contextString)
+    const viewArt = contextEntries.find(entry => entry.name === contextString)
+    const viewArtIndex = contextEntries.findIndex(entry => entry.name === contextString)
 
-    if (!charArt || charArtIndex) return
+    if (!viewArt || viewArtIndex) return
 
     const choices = [
         {
@@ -60,7 +60,7 @@ export function addSidebarContextEntries(contextEntries = [], context) {
     ]
 
     choices.forEach((choice, index) => {
-        const newEntry = deepClone(charArt)
+        const newEntry = deepClone(viewArt)
 
         newEntry.name = choice.name
         newEntry.icon = choice.icon
@@ -69,7 +69,6 @@ export function addSidebarContextEntries(contextEntries = [], context) {
           choice.action(object.data.img, choice.mode)
         }
 
-        contextEntries.splice(charArtIndex + 1 + index, 0, newEntry)
-
+        contextEntries.splice(viewArtIndex + 1 + index, 0, newEntry)
     })
 }
