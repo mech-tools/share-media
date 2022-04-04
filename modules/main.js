@@ -1,4 +1,4 @@
-import registerSettings from './settings/settings.js'
+import { registerSettings, SETTINGS } from './settings/settings.js'
 import constants from './settings/constants.js'
 import registerCanvasLayer from './media-canvas-layer.js'
 import fullscreenLayer from './media-fullscreen-layer.js'
@@ -43,11 +43,13 @@ Hooks.on('renderActorSheet', (app, html) => {
 })
 
 Hooks.on('getActorDirectoryEntryContext', (html, contextEntries) => {
-    addSidebarContextEntries(contextEntries, 'actors')
+    const contextOptionsDisabled = game.settings.get(constants.moduleName, SETTINGS.DISABLE_CONTEXT_OPTIONS)
+    if (!contextOptionsDisabled) addSidebarContextEntries(contextEntries, 'actors')
 })
 
 Hooks.on('getItemDirectoryEntryContext', (html, contextEntries) => {
-    addSidebarContextEntries(contextEntries, 'items')
+    const contextOptionsDisabled = game.settings.get(constants.moduleName, SETTINGS.DISABLE_CONTEXT_OPTIONS)
+    if (!contextOptionsDisabled) addSidebarContextEntries(contextEntries, 'items')
 })
 
 Hooks.on('renderGMNote', (app, html) => {

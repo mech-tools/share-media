@@ -63,6 +63,10 @@
                 "share-button": "Partager",
                 "not-logged-in": "non connecté"
             }
+        },
+        "settings": {
+            "disable-context-options-name": "Désactiver les options contextuelles",
+            "disable-context-options-hint": "Désactive les options contextuelles au clic-droit sur les acteurs et les objets."
         }
     }
 }

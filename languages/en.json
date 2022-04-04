@@ -63,6 +63,10 @@
                 "share-button": "Share",
                 "not-logged-in": "not logged in"
             }
+        },
+        "settings": {
+            "disable-context-options-name": "Disable the context options",
+            "disable-context-options-hint": "Disable the right click context options on actors and items."
         }
     }
 }
