@@ -7,11 +7,18 @@ import { shareFullscreenMedia } from './fullscreen-handler.js'
  * Get all images & videos and wrap each with action buttons
  */
 export const wrapMedias = html => {
-    const medias = html.find('div.editor-content img:not([data-edit]),div.editor-content video:not([data-edit])')
+    const selectors = [
+        'div.editor-content img:not([data-edit])', // FVTT imgs
+        'div.editor-content video:not([data-edit])', // FVTT videos
+        'section.tab-container img:not([data-edit])', // Kanka imgs
+        'section.tab-container input[type="image"]' // Kanka inputs
+    ]
+
+    const medias = html.find(selectors.join(','))
 
     medias.each((index, media) => {
         const htmlMedia = $(media)
-        const mediaType = htmlMedia.is('img') ? 'image' : 'video'
+        const mediaType = htmlMedia.is('img') || htmlMedia.is('input[type="image"]') ? 'image' : 'video'
         const smallMediaSize = htmlMedia.innerWidth() <= 250
 
         const mediaUrl = mediaType === 'image' ?
@@ -59,8 +66,14 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
  * Activate listeners on media actions
  */
 export const activateMediaListeners = html => {
-    html.find('div.editor-content span[data-action="share-popout"]').click(evt => {
+    const popoutSelectors = [
+        'div.editor-content span[data-action="share-popout"]', // Default FVTT
+        'section.tab-container span[data-action="share-popout"]' // Kanka
+    ]
+
+    html.find(popoutSelectors.join(',')).click(evt => {
         evt.preventDefault()
+        evt.stopPropagation()
 
         const button = $(evt.currentTarget)[0]
         if (button) {
@@ -68,8 +81,14 @@ export const activateMediaListeners = html => {
         }
     })
 
-    html.find('div.editor-content span[data-action="share-scene"]').click(evt => {
+    const sceneSelectors = [
+        'div.editor-content span[data-action="share-scene"]', // Default FVTT
+        'section.tab-container span[data-action="share-scene"]' // Kanka
+    ]
+
+    html.find(sceneSelectors.join(',')).click(evt => {
         evt.preventDefault()
+        evt.stopPropagation()
 
         const button = $(evt.currentTarget)[0]
         if (button) {
@@ -77,8 +96,14 @@ export const activateMediaListeners = html => {
         }
     })
 
-    html.find('div.editor-content span[data-action="share-fullscreen"]').click(evt => {
+    const fullscreenSelectors = [
+        'div.editor-content span[data-action="share-fullscreen"]', // Default FVTT
+        'section.tab-container span[data-action="share-fullscreen"]' // Kanka
+    ]
+
+    html.find(fullscreenSelectors.join(',')).click(evt => {
         evt.preventDefault()
+        evt.stopPropagation()
 
         const button = $(evt.currentTarget)[0]
         if (button) {

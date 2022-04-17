@@ -95,6 +95,10 @@
   background-color: #959595;
 }
 
+.kanka .show-media .media-actions-container .actions {
+  margin-bottom: 5px;
+}
+
 #fullscreen-layer {
   position: absolute;
   left: 0px;
