@@ -27,8 +27,6 @@ export default class MediaPopout extends ImagePopout {
             editable: false
         }).render(true)
 
-        console.warn(mediaPopout)
-
         // Fix: force play after rendering
         if (mediaPopout.video) {
             setTimeout(() => {

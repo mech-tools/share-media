@@ -30,15 +30,15 @@ const _socketSharePopoutMedia = (url, loop = false) => {
 /**
  * Show fullscreen media event
  */
-export const socketshareFullscreenMedia = async (url, players) => {
-    return await socket.executeForUsers('shareFullscreenMedia', players, url)
+export const socketshareFullscreenMedia = async (url, players, type = 'image', loop = false) => {
+    return await socket.executeForUsers('shareFullscreenMedia', players, url, type, loop)
 }
 
 /**
  * Show fullscreen media on event fired
  */
-const _socketshareFullscreenMedia = (url, type) => {
-    fullscreenLayer.handleShare(url)
+const _socketshareFullscreenMedia = (url, type = 'image', loop = false) => {
+    fullscreenLayer.handleShare(url, type, loop)
 }
 
 /**

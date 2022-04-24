@@ -18,6 +18,7 @@ class shareFullscreenLayer {
             .append(`
                 <div class="background"></div>
                 <img src="${constants.modulePath}/images/transparent.png" alt="">
+                <video muted autoplay loop playsinline src="" class="disabled"></video>
                 ${dismissButton}
             `)
 
@@ -28,15 +29,48 @@ class shareFullscreenLayer {
         this.container.find('button').click(e => socketDismissFullscreenMedia())
     }
 
-    handleShare(url, type) {
-        this.container.find('.background').css('background-image', `url("${url}")`)
-        this.container.find('img').attr('src', url)
+    handleShare(url, type = 'image', loop = false) {
+        const background = this.container.find('.background')
+        const img = this.container.find('img')
+        const video = this.container.find('video')
+        const videoContainer = video.get(0)
+
+        if (type === 'image') {
+            background.css('background-image', `url("${url}")`)
+
+            img.attr('src', url)
+            img.removeClass('disabled')
+
+            video.addClass('disabled')
+        }
+
+        if (type === 'video') {
+            background.css('background-image', `url("${constants.modulePath}/images/transparent.png")`)
+
+            videoContainer.loop = loop
+            videoContainer.onended = loop ?
+            null :
+            () => this.handleDismiss()
+            video.attr('src', url)
+            video.removeClass('disabled')
+
+            img.addClass('disabled')
+        }
+
         this.container.removeClass('hidden')
     }
 
     handleDismiss() {
-        this.container.find('.background').css('background-image', `url("${constants.modulePath}/images/transparent.png")`)
-        this.container.find('img').attr('src', `${constants.modulePath}/images/transparent.png`)
+        const background = this.container.find('.background')
+        const img = this.container.find('img')
+        const video = this.container.find('video')
+        const videoContainer = video.get(0)
+
+        background.css('background-image', `url("${constants.modulePath}/images/transparent.png")`)
+        img.attr('src', `${constants.modulePath}/images/transparent.png`)
+        videoContainer.pause()
+        video.attr('src', ``)
+
         this.container.addClass('hidden')
     }
 }

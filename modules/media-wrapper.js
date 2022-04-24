@@ -48,8 +48,8 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
                 <div class="media-actions">
                     <i class="drawer fas fa-expand-arrows-alt" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-button`)}"></i>
                     <div class="actions">
-                        <span data-action="share-fullscreen" data-mode="all" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}"><i class="fas fa-users"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}` : ``}</span>
-                        <span data-action="share-fullscreen" data-mode="some" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}"><i class="fas fa-user-friends"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}` : ``}</span>
+                        <span data-action="share-fullscreen" data-mode="all" data-url="${src}" data-type="${type}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}"><i class="fas fa-users"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}` : ``}</span>
+                        <span data-action="share-fullscreen" data-mode="some" data-url="${src}" data-type="${type}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}"><i class="fas fa-user-friends"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}` : ``}</span>
                     </div>
                 </div>
                 <div class="media-actions">
@@ -121,7 +121,8 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            shareFullscreenMedia(button.dataset.url, button.dataset.mode)
+            const loopingParameter = getLoopingParameter(button)
+            shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, loopingParameter)
         }
     })
 

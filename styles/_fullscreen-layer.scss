@@ -36,7 +36,7 @@
         filter: blur(8px);
     }
 
-    img {
+    img, video {
         z-index: 2;
         position: fixed;
         left: 0;
@@ -44,5 +44,10 @@
         object-fit: contain;
         width: 100%;
         height: 100%;
+
+        &.disabled {
+            display: none;
+            pointer-events: none;
+        }
     }
 }
