@@ -76,7 +76,7 @@ Click on the "Clear bounding tile" button and select the bounding tile to clear.
 
 <img src="./readme-assets/helper8.jpg" height="275">
 
-## 5. Share an image (soon video!) fullscreen
+## 5. Share an image and video fullscreen
 Once an image or a video is inserted, hover over the media preview to display two buttons.
 
 <img src="./readme-assets/helper9.jpg" height="400">
@@ -91,7 +91,15 @@ Once the media is shared, a "Dismiss" button should appear. As the GM, you can c
 
 <img src="./readme-assets/helper10.jpg" height="450">
 
-## 6. Notes
+## 6. Loop option (video only)
+If the media is a video another button is displayed: the loop button option.  
+This button controls if the video is to be shared as a looping video or not.
+
+If the video is **not** set to loop, then the video container will be hidden once the video has ended.
+
+A general setting allow the user to set the default looping option for all videos.
+
+## 7. Notes
 - "Share Media" creates a new layer just above the background layer (map & tiles)
 - Videos are automatically played and muted
 - If only one bounding tile is present on the scene the module won't prompt to choose between bounding tiles
