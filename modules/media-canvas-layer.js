@@ -96,13 +96,11 @@ class ShareMediaLayer extends CanvasLayer {
 
         if (isVideo) {
             sprite.texture.baseTexture.resource.source.loop = loop
-            sprite.texture.baseTexture.resource.source.onended = loop ?
-                null :
-                () => {
-                    if (game.user.isGM) {
-                        boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
-                    }
-                }
+            if (game.user.isGM) {
+                sprite.texture.baseTexture.resource.source.addEventListener('ended', () => {
+                    if (!loop) boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+                })
+            }
 
             sprite.texture.baseTexture.resource.source.muted = true
             sprite.texture.baseTexture.resource.source.play()
