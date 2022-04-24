@@ -11,6 +11,7 @@ A module to easily share images and videos on a scene or in a popout to all or s
 This module is compatible with:
 - [Kanka-Foundry](https://github.com/eXaminator/kanka-foundry)
 - [GM Notes](https://github.com/syl3r86/gm-notes)
+- [AppBar](https://github.com/xaukael/taskbar/)
 
 This module is inspired by the excellent [Journal-To-Canvas-Slideshow](https://github.com/EvanesceExotica/Journal-To-Canvas-Slideshow) module developed by EvanesceExotica.
 
