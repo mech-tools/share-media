@@ -102,14 +102,14 @@ async function _clearBoundingTile() {
 
 
     boundingTilesToClear.forEach(async (boundingTile) => {
-        const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
+        const mediaFlag = boundingTile.parent.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
 
         if (!mediaFlag) return
 
-        const mediaFlags = foundry.utils.deepClone(canvas.scene.data.flags[constants.moduleName])
+        const mediaFlags = foundry.utils.deepClone(boundingTile.parent.data.flags[constants.moduleName])
         delete mediaFlags[boundingTile.data.flags[constants.moduleName].name]
 
-        await canvas.scene.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+        await boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
     })
 
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-success`))
@@ -152,7 +152,7 @@ async function _promptClearBoundingTileSection(boundingTiles) {
 /**
  * Share a media on the scene
  */
-export const shareSceneMedia = async (url, style, type = 'image') => {
+export const shareSceneMedia = async (url, style, type = 'image', loop = false) => {
     if (!canvas.scene) {
         return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.share.scene-no-scene`))
     }
@@ -167,7 +167,7 @@ export const shareSceneMedia = async (url, style, type = 'image') => {
         await _promptShareBoundingTileSection(boundingTiles) :
         boundingTiles[0]
 
-    await canvas.scene.setFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name, { url, style, type })
+    await boundingTile.parent.setFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name, { url, style, type, loop })
 
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.scene-success`))
 }

@@ -21,13 +21,13 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite on the scene bounded by a tile and a style
      */
-    async createBoundedSprite(boundingTileName, url, style, isVideo = false) {
+    async createBoundedSprite(boundingTileName, url, style, isVideo = false, loop = false) {
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
         const container = this._prepareContainer(boundingTileName, boundingTile.data.z)
 
-        const sprite = await this._createSprite(url, isVideo)
+        const sprite = await this._createSprite(url, isVideo, boundingTile, loop)
 
         const spriteScaleFactor = style === 'fit' ?
             this._calculateScaleFactorFit(sprite.width, sprite.height, boundingTile.data.width, boundingTile.data.height) :
@@ -90,13 +90,21 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite from a texture and an url
      */
-    async _createSprite(url, isVideo) {
+    async _createSprite(url, isVideo, boundingTile, loop = false) {
         const texture = await loadTexture(url)
         const sprite = new PIXI.Sprite(texture)
 
         if (isVideo) {
+            sprite.texture.baseTexture.resource.source.loop = loop
+            sprite.texture.baseTexture.resource.source.onended = loop ?
+                null :
+                () => {
+                    if (game.user.isGM) {
+                        boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+                    }
+                }
+
             sprite.texture.baseTexture.resource.source.muted = true
-            sprite.texture.baseTexture.resource.source.loop = true
             sprite.texture.baseTexture.resource.source.play()
         }
 

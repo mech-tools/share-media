@@ -16,15 +16,15 @@ Hooks.once('socketlib.ready', () => {
 /**
  * Show media popout event
  */
-export const socketSharePopoutMedia = async (url, players) => {
-    return await socket.executeForUsers('sharePopoutMedia', players, url)
+export const socketSharePopoutMedia = async (url, players, loop = false) => {
+    return await socket.executeForUsers('sharePopoutMedia', players, url, loop)
 }
 
 /**
  * Show media popout on event fired
  */
-const _socketSharePopoutMedia = url => {
-    MediaPopout._handleShareMedia(url)
+const _socketSharePopoutMedia = (url, loop = false) => {
+    MediaPopout._handleShareMedia(url, loop)
 }
 
 /**

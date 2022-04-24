@@ -20,6 +20,23 @@
             align-items: center;
             height: 28px;
             margin-top: 5px;
+
+            &.loop-action {
+                cursor: pointer;
+
+                .drawer {
+                    transition: background-color .25s, color .25s;
+
+                    &:hover {
+                        background-color: darken($icon-color, 15%);
+                    }
+                }
+
+                &.active .drawer {
+                    background-color: lighten($icon-color, 15%);
+                    color: $loop-icon-color;
+                }
+            }
         }
 
         .media-actions:hover .actions {

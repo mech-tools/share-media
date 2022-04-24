@@ -28,6 +28,25 @@
   margin-top: 5px;
 }
 
+.show-media .media-actions-container .media-actions.loop-action {
+  cursor: pointer;
+}
+
+.show-media .media-actions-container .media-actions.loop-action .drawer {
+  -webkit-transition: background-color .25s, color .25s;
+  -o-transition: background-color .25s, color .25s;
+  transition: background-color .25s, color .25s;
+}
+
+.show-media .media-actions-container .media-actions.loop-action .drawer:hover {
+  background-color: #959595;
+}
+
+.show-media .media-actions-container .media-actions.loop-action.active .drawer {
+  background-color: #e1e1e1;
+  color: #B79D48;
+}
+
 .show-media .media-actions-container .media-actions:hover .actions {
   width: auto;
   -webkit-transform: scaleX(1);

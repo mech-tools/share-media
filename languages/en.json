@@ -24,7 +24,8 @@
             "fullscreen-all-button": "All players",
             "fullscreen-some-button": "Selected",
             "fullscreen-success-all": "Media successfully shared to all players.",
-            "fullscreen-success-some": "Media successfully shared to selected players."
+            "fullscreen-success-some": "Media successfully shared to selected players.",
+            "loop-button": "Loop video"
         },
         "context-entries": {
             "popout-all": "Share Artwork in Popout (All Players)",
@@ -66,7 +67,9 @@
         },
         "settings": {
             "disable-context-options-name": "Disable the context options",
-            "disable-context-options-hint": "Disable the right click context options on actors and items."
+            "disable-context-options-hint": "Disable the right click context options on actors and items.",
+            "video-looping-option-name": "Loop videos by default?",
+            "video-looping-option-hint": "Loop a video by default. If the setting is set to not loop, the video container will be destroyed once the video has ended."
         }
     }
 }

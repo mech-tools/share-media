@@ -2,6 +2,7 @@ import constants from './settings/constants.js'
 import { sharePopoutMedia } from './popout-handler.js'
 import { shareSceneMedia } from './scene-handler.js'
 import { shareFullscreenMedia } from './fullscreen-handler.js'
+import { SETTINGS } from './settings/settings.js'
 
 /**
  * Get all images & videos and wrap each with action buttons
@@ -60,6 +61,17 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
                 </div>
             </div>
         `)
+
+        if (type === 'video') {
+            const loopSetting = game.settings.get(constants.moduleName, SETTINGS.VIDEO_LOOPING_OPTION)
+
+            $(media).parent().find('div.media-actions-container')
+                .append(`
+                    <div class="media-actions loop-action ${loopSetting ? 'active' : ''}" data-action="loop" data-value="${loopSetting}">
+                        <i class="drawer fas fa-undo" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
+                    </div>
+                `)
+        }
 }
 
 /**
@@ -92,7 +104,8 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type)
+            const loopingParameter = getLoopingParameter(button)
+            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopingParameter)
         }
     })
 
@@ -110,4 +123,29 @@ export const activateMediaListeners = html => {
             shareFullscreenMedia(button.dataset.url, button.dataset.mode)
         }
     })
+
+    const loopVideoSelectors = [
+        'div.editor-content div[data-action="loop"]', // Default FVTT
+        'section.tab-container div[data-action="loop"]' // Kanka
+    ]
+
+    html.find(loopVideoSelectors.join(',')).click(evt => {
+        evt.preventDefault()
+        evt.stopPropagation()
+
+        const button = $(evt.currentTarget)[0]
+        if (button) {
+            $(button).toggleClass('active')
+            $(button).attr('data-value', $(button).hasClass('active'))
+        }
+    })
+}
+
+/**
+ * Get the corresponding loop setting for the media
+ */
+function getLoopingParameter(button) {
+    const loopButton = $(button).closest('div.media-actions-container').find('div.media-actions.loop-action')
+
+    return loopButton.length === 0 ? false : loopButton.attr('data-value') === 'true'
 }
