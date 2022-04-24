@@ -21,16 +21,22 @@ export default class MediaPopout extends ImagePopout {
     /**
      * Create a new Media Popout and display it
      */
-    static _handleShareMedia(url) {
+    static _handleShareMedia(url, loop = false) {
         const mediaPopout = new this(url, {
             shareable: false,
             editable: false
         }).render(true)
 
+        console.warn(mediaPopout)
+
         // Fix: force play after rendering
         if (mediaPopout.video) {
             setTimeout(() => {
                 const video = mediaPopout.element.find('video')[0]
+                video.loop = loop
+                video.onended = loop ?
+                null :
+                () => mediaPopout.close(true)
                 video.play()
             }, 250)
         }

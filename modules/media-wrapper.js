@@ -89,7 +89,8 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            sharePopoutMedia(button.dataset.url, button.dataset.mode)
+            const loopingParameter = getLoopingParameter(button)
+            sharePopoutMedia(button.dataset.url, button.dataset.mode, loopingParameter)
         }
     })
 
