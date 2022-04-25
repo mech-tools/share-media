@@ -100,7 +100,7 @@ If the video is **not** set to loop, then the video container will be hidden onc
 
 A general setting allows the user to set the default looping option for all videos.
 
-## 6. Mute option (video only)
+## 7. Mute option (video only)
 If the media is a video another button is displayed: the mute button option.  
 This button controls if the video is to be muted or not.
 
@@ -108,7 +108,7 @@ This button controls if the video is to be muted or not.
 
 A general setting allows the user to set the default mute option for all videos.
 
-## 7. Notes
+## 8. Notes
 - "Share Media" creates a new layer just above the background layer (map & tiles)
 - Videos are automatically played and muted
 - If only one bounding tile is present on the scene the module won't prompt to choose between bounding tiles
