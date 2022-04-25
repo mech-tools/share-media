@@ -72,7 +72,7 @@
             "video-looping-option-name": "Les vidéos doivent-elle boucler par defaut ?",
             "video-looping-option-hint": "Fait boucler les videos par défaut. Si une vidéo est paramétrée pour ne pas boucler, alors le conteneur de la vidéo est détruit lorsque celle-ci se termine.",
             "video-mute-option-name": "Mettre les videos en sourdine par défaut ?",
-            "video-mute-option-hint": "Ne joue le son des vidéos par défaut. ⚠️ ⚠️ les navigateurs ont une restriction spéciale sur les vidéos lues et qui ne sont pas en sourdine. L'utilisateur doit d'abord interagir avec l'interface (cliquer dans la scène, ouvrir une feuille de personnage, etc.) pour qu'une video sans sourdine soit lue. À cause de cette restriction, les videos sans sourdine placées sur une scène ne seront pas lues automatiquement lorsque le navigateur est rafraîchi (car il n'y a pas d'interaction de l'utilisateur avant que la vidéo soit lancée)."
+            "video-mute-option-hint": "Ne joue pas le son des vidéos par défaut. ⚠️ ⚠️ Les navigateurs ont une restriction spéciale sur les vidéos lues et qui ne sont pas en sourdine. L'utilisateur doit d'abord interagir avec l'interface (cliquer dans la scène, ouvrir une feuille de personnage, etc.) pour qu'une video sans sourdine soit lue. À cause de cette restriction, Share Media tentera de lire les vidéos avec le son (si demandé), mais si le module n'en ai pas capable, les vidéos seront lues sans le son. Cela peut être le cas pour les vidéos qui sont lues immédiatement après le rafraîchissement du navigateur ou s'il n'y pas encore eu d'interaction utilisateur."
         }
     }
 }

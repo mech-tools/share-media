@@ -97,7 +97,15 @@ This button controls if the video is to be shared as a looping video or not.
 
 If the video is **not** set to loop, then the video container will be hidden once the video has ended.
 
-A general setting allow the user to set the default looping option for all videos.
+A general setting allows the user to set the default looping option for all videos.
+
+## 6. Mute option (video only)
+If the media is a video another button is displayed: the mute button option.  
+This button controls if the video is to be muted or not.
+
+⚠️ ⚠️ Browsers have a special restriction about playing unmuted videos. The user must interact with the interface before (click on the canvas, open a character sheet, etc.), for a video to be played with sound. Because of this restriction, share media will try to play unmuted videos with sound (if needed), but if unable, will play them without sound. This could be the case for videos that are immediately played after the browser is reloaded or when no user interaction occurred.
+
+A general setting allows the user to set the default mute option for all videos.
 
 ## 7. Notes
 - "Share Media" creates a new layer just above the background layer (map & tiles)
