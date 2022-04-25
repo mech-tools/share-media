@@ -21,13 +21,13 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite on the scene bounded by a tile and a style
      */
-    async createBoundedSprite(boundingTileName, url, style, isVideo = false, loop = false) {
+    async createBoundedSprite(boundingTileName, url, style, isVideo = false, loop = false, mute = true) {
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
         const container = this._prepareContainer(boundingTileName, boundingTile.data.z)
 
-        const sprite = await this._createSprite(url, isVideo, boundingTile, loop)
+        const sprite = await this._createSprite(url, isVideo, boundingTile, loop, mute)
 
         const spriteScaleFactor = style === 'fit' ?
             this._calculateScaleFactorFit(sprite.width, sprite.height, boundingTile.data.width, boundingTile.data.height) :
@@ -90,20 +90,24 @@ class ShareMediaLayer extends CanvasLayer {
     /**
      * Create a sprite from a texture and an url
      */
-    async _createSprite(url, isVideo, boundingTile, loop = false) {
+    async _createSprite(url, isVideo, boundingTile, loop = false, mute = true) {
         const texture = await loadTexture(url)
         const sprite = new PIXI.Sprite(texture)
 
         if (isVideo) {
-            sprite.texture.baseTexture.resource.source.loop = loop
             if (game.user.isGM) {
                 sprite.texture.baseTexture.resource.source.addEventListener('ended', () => {
                     if (!loop) boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
                 })
             }
 
-            sprite.texture.baseTexture.resource.source.muted = true
-            sprite.texture.baseTexture.resource.source.play()
+            sprite.texture.baseTexture.resource.source.loop = loop
+            sprite.texture.baseTexture.resource.source.muted = mute
+
+            sprite.texture.baseTexture.resource.source.play().catch(e => {
+                sprite.texture.baseTexture.resource.source.muted = true
+                sprite.texture.baseTexture.resource.source.play()
+            })
         }
 
         return sprite

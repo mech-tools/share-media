@@ -111,7 +111,8 @@ export const activateMediaListeners = html => {
         const button = $(evt.currentTarget)[0]
         if (button) {
             const loopParameter = getLoopParameter(button)
-            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopParameter)
+            const muteParameter = getMuteParameter(button)
+            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopParameter, muteParameter)
         }
     })
 
