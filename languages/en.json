@@ -25,7 +25,8 @@
             "fullscreen-some-button": "Selected",
             "fullscreen-success-all": "Media successfully shared to all players.",
             "fullscreen-success-some": "Media successfully shared to selected players.",
-            "loop-button": "Loop video"
+            "loop-button": "Loop video",
+            "mute-button": "Unmute video"
         },
         "context-entries": {
             "popout-all": "Share Artwork in Popout (All Players)",
@@ -69,7 +70,9 @@
             "disable-context-options-name": "Disable the context options",
             "disable-context-options-hint": "Disable the right click context options on actors and items.",
             "video-looping-option-name": "Loop videos by default?",
-            "video-looping-option-hint": "Loop a video by default. If the setting is set to not loop, the video container will be destroyed once the video has ended."
+            "video-looping-option-hint": "Loop a video by default. If the setting is set to not loop, the video container will be destroyed once the video has ended.",
+            "video-mute-option-name": "Mute videos by default?",
+            "video-mute-option-hint": "Mute a video by default. ⚠️ ⚠️ browsers have a special restriction about playing unmuted videos. The user must interact with the interface before (click on the canvas, open a character sheet, etc.), for a video to be played with sound. Because of this restriction, unmuted videos placed on a scene won't start when the browser is reloaded (because the video will try to start before any actual user interaction)."
         }
     }
 }

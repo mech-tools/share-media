@@ -21,7 +21,7 @@ export default class MediaPopout extends ImagePopout {
     /**
      * Create a new Media Popout and display it
      */
-    static _handleShareMedia(url, loop = false) {
+    static _handleShareMedia(url, loop = false, mute = true) {
         const mediaPopout = new this(url, {
             shareable: false,
             editable: false
@@ -32,10 +32,14 @@ export default class MediaPopout extends ImagePopout {
             setTimeout(() => {
                 const video = mediaPopout.element.find('video')[0]
                 video.loop = loop
+                video.muted = mute
                 video.onended = loop ?
-                null :
-                () => mediaPopout.close(true)
-                video.play()
+                    null :
+                    () => mediaPopout.close(true)
+                video.play().catch(e => {
+                    video.muted = true
+                    video.play()
+                })
             }, 250)
         }
     }

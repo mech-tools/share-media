@@ -64,11 +64,15 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
 
         if (type === 'video') {
             const loopSetting = game.settings.get(constants.moduleName, SETTINGS.VIDEO_LOOPING_OPTION)
+            const muteSetting = game.settings.get(constants.moduleName, SETTINGS.VIDEO_MUTE_OPTION)
 
             $(media).parent().find('div.media-actions-container')
                 .append(`
                     <div class="media-actions loop-action ${loopSetting ? 'active' : ''}" data-action="loop" data-value="${loopSetting}">
                         <i class="drawer fas fa-undo" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
+                    </div>
+                    <div class="media-actions mute-action ${muteSetting ? 'active' : ''}" data-action="mute" data-value="${muteSetting}">
+                        <i class="drawer fas fa-volume-mute" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
                     </div>
                 `)
         }
@@ -89,8 +93,9 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            const loopingParameter = getLoopingParameter(button)
-            sharePopoutMedia(button.dataset.url, button.dataset.mode, loopingParameter)
+            const loopParameter = getLoopParameter(button)
+            const muteParameter = getMuteParameter(button)
+            sharePopoutMedia(button.dataset.url, button.dataset.mode, loopParameter, muteParameter)
         }
     })
 
@@ -105,8 +110,8 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            const loopingParameter = getLoopingParameter(button)
-            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopingParameter)
+            const loopParameter = getLoopParameter(button)
+            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopParameter)
         }
     })
 
@@ -121,8 +126,8 @@ export const activateMediaListeners = html => {
 
         const button = $(evt.currentTarget)[0]
         if (button) {
-            const loopingParameter = getLoopingParameter(button)
-            shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, loopingParameter)
+            const loopParameter = getLoopParameter(button)
+            shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, loopParameter)
         }
     })
 
@@ -141,13 +146,38 @@ export const activateMediaListeners = html => {
             $(button).attr('data-value', $(button).hasClass('active'))
         }
     })
+
+    const muteVideoSelectors = [
+        'div.editor-content div[data-action="mute"]', // Default FVTT
+        'section.tab-container div[data-action="mute"]' // Kanka
+    ]
+
+    html.find(muteVideoSelectors.join(',')).click(evt => {
+        evt.preventDefault()
+        evt.stopPropagation()
+
+        const button = $(evt.currentTarget)[0]
+        if (button) {
+            $(button).toggleClass('active')
+            $(button).attr('data-value', $(button).hasClass('active'))
+        }
+    })
 }
 
 /**
  * Get the corresponding loop setting for the media
  */
-function getLoopingParameter(button) {
+function getLoopParameter(button) {
     const loopButton = $(button).closest('div.media-actions-container').find('div.media-actions.loop-action')
 
     return loopButton.length === 0 ? false : loopButton.attr('data-value') === 'true'
+}
+
+/**
+ * Get the corresponding mute setting for the media
+ */
+function getMuteParameter(button) {
+    const muteButton = $(button).closest('div.media-actions-container').find('div.media-actions.mute-action')
+
+    return muteButton.length === 0 ? false : muteButton.attr('data-value') === 'true'
 }

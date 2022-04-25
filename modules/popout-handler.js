@@ -5,12 +5,12 @@ import { dialog } from './helpers.js'
 /**
  * Media popout event
  */
-export const sharePopoutMedia = async (url, mode, loop = false) => {
+export const sharePopoutMedia = async (url, mode, loop = false, mute = true) => {
     const players = mode === 'all' ?
         game.users.filter(u => u.active).map(u => u.id) :
         await _promptPlayersSelection(game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active })))
 
-    await socketSharePopoutMedia(url, players, loop)
+    await socketSharePopoutMedia(url, players, loop, mute)
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.popout-success-${mode}`))
 }
 

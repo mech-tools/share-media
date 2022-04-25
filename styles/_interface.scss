@@ -21,7 +21,7 @@
             height: 28px;
             margin-top: 5px;
 
-            &.loop-action {
+            &.loop-action, &.mute-action {
                 cursor: pointer;
 
                 .drawer {
