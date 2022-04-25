@@ -50,7 +50,7 @@ class ShareMediaLayer extends CanvasLayer {
     deleteBoundedSprite(parentName) {
         this.containers = this.containers.filter(c => {
             if (c.parentName === parentName) {
-                c.destroy()
+                c.destroy(true)
             }
 
             return c.parentName !== parentName
