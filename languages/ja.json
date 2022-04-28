@@ -1,0 +1,77 @@
+{
+    "share-media": {
+        "bounding-tile": {
+            "create-button": "境界タイルを作成する",
+            "create-success": "境界タイルの作成に成功しました。",
+            "create-already-exists": "この境界タイルは、すでにシーンに存在しています。",
+            "clear-success": "境界タイルを消すことに成功しました。",
+            "not-found": "境界タイルが存在しません。このシーンに境界タイルを作成してください。"
+        },
+        "share": {
+            "scene-button": "シーンに共有する",
+            "scene-fit-button": "フィット",
+            "scene-cover-button": "カバー",
+            "scene-success": "シーンとの共有に性交しました。",
+            "scene-no-scene": "シーンが表示されていません。まずはシーンを表示してください。",
+            "popout-button": "ポップアウトとして共有する",
+            "popout-all-button": "全プレイヤー",
+            "popout-some-button": "選択されたプレイヤー",
+            "popout-success-all": "全プレイヤーに共有されました。",
+            "popout-success-some": "選択されたプレイヤーに共有されました。",
+            "fullscreen-button": "全スクリーンに共有",
+            "fullscreen-dismiss-button": "共有を消す",
+            "fullscreen-all-button": "全プレイヤー",
+            "fullscreen-some-button": "選択されたプレイヤー",
+            "fullscreen-success-all": "全プレイヤーに共有されました",
+            "fullscreen-success-some": "選択されたプレイヤーに共有されました。",
+            "loop-button": "ビデオのループ",
+            "mute-button": "ミュート"
+        },
+        "context-entries": {
+            "popout-all": "ポップアウトした画像の共有 (全プレイヤー)",
+            "popout-some": "ポップアウトした画像の(選択されたプレイヤー)",
+            "fullscreen-all": "フルスクリーンの画像の共有 (全プレイヤー)",
+            "fullscreen-some": "フルスクリーンの画像の共有 (選択されたプレイヤー)",
+            "scene-fit": "シーンの画像の共有 (フィット)",
+            "scene-cover": "シーンの画像の共有 (カバー)"
+        },
+        "dialogs": {
+            "bounding-tile-creation": {
+                "title": "この境界タイルの名前は？",
+                "how-to": "境界タイルに名前を付けてください。 同じシーンにある境界タイルは、異なる名前でなければなりません。",
+                "field-name": "境界タイルの名前",
+                "cancel-button": "キャンセル",
+                "create-button": "作成",
+                "default-tile-name": "ステージ"
+            },
+            "share-bounding-tile-selection": {
+                "title": "どの境界タイルに画像を表示させますか？",
+                "how-to": "画像を表示させる境界タイルを選択してください。",
+                "cancel-button": "キャンセル",
+                "share-button": "共有"
+            },
+            "clear-bounding-tile-selection": {
+                "title": "どの境界タイルをクリアしますか？",
+                "how-to": "クリアする境界タイルを選択してください。",
+                "cancel-button": "キャンセル",
+                "clear-button": "クリア",
+                "clear-all-button": "全てをクリアする"
+            },
+            "players-selection": {
+                "title": "どのプレイヤーと画像を共有しますか？",
+                "how-to": "画像を共有するプレイヤーを選択してください。",
+                "cancel-button": "キャンセル",
+                "share-button": "共有",
+                "not-logged-in": "ログインしていないプレイヤー"
+            }
+        },
+        "settings": {
+            "disable-context-options-name": "コンテクストオプションを無効化する。",
+            "disable-context-options-hint": "アクターとアイテムの右クリックコンテクストオプションを無効にする。",
+            "video-looping-option-name": "ビデオをループさせるのをデフォルトにしますか？",
+            "video-looping-option-hint": "デフォルトでビデオをループさせます。ループさせない設定にすると、ビデオが終了した時点でビデオコンテナが履きされます。",
+            "video-mute-option-name": "ビデオのミュートをデフォルトにしますか？",
+            "video-mute-option-hint": "ビデオのミュートをデフォルトにする。⚠️ ⚠️ ブラウザは、ミュートされていないビデオの再生に関して特別な制限を持っています。ビデオを音声付きで再生するには、ユーザーが事前にインターフェイスを操作する必要があります（キャンバスをクリックする、キャラクターシートを開くなど）。この制限のため、share mediaは、ミュートされていないビデオを音声付きで再生しようとしますが、出来ない場合は音声なしで再生します。これはブラウザを再読み込みした後すぐに再生されるビデオや、ユーザーとのインタラクションが発生しないビデオに当てはまると思われます。"
+        }
+    }
+}
