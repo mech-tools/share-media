@@ -1,13 +1,3 @@
-#show-media.clickable-media * {
-  padding: 0;
-  margin: 0;
-  width: auto;
-}
-
-#show-media.clickable-media *:not(i) {
-  font-family: Signika, sans-serif;
-}
-
 #show-media.clickable-media {
   position: relative;
   display: inline-block;
@@ -15,6 +5,18 @@
 
 #show-media.clickable-media:hover .media-actions-container {
   opacity: 1;
+}
+
+#show-media .media-actions-container,
+#show-media .media-actions-container * {
+  padding: 0;
+  margin: 0;
+  width: auto;
+}
+
+#show-media .media-actions-container:not(i),
+#show-media .media-actions-container *:not(i) {
+  font-family: Signika, sans-serif;
 }
 
 #show-media .media-actions-container {
