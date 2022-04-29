@@ -126,6 +126,11 @@
   margin-top: 5px;
 }
 
+.actor.sheet .crb-style .sheet-body .sheet-content .tab.biography .biography-details .actions span,
+.actor.sheet.character .crb-style .sheet-body .sheet-content .tab.biography .biography-campaign-notes .actions span {
+  width: auto;
+}
+
 #fullscreen-layer {
   position: absolute;
   left: 0px;

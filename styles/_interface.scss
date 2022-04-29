@@ -96,10 +96,16 @@
 }
 
 // PF2 Fix
-.journal-sheet.pf2e form .editor-content .show-media.clickable-media * {
-    margin-top: 0px;
+.journal-sheet.pf2e form .editor-content .show-media.clickable-media {
+    * {
+        margin-top: 0px;
+    }
+    .media-actions {
+        margin-top: 5px;
+    }
 }
 
-.journal-sheet.pf2e form .editor-content .show-media.clickable-media .media-actions {
-    margin-top: 5px;
+.actor.sheet .crb-style .sheet-body .sheet-content .tab.biography .biography-details  .actions span,
+.actor.sheet.character .crb-style .sheet-body .sheet-content .tab.biography .biography-campaign-notes .actions span {
+    width: auto;
 }
