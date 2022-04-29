@@ -26,7 +26,7 @@
             "fullscreen-success-all": "Média partagé à tous les joueurs avec succès.",
             "fullscreen-success-some": "Média partagé aux joueurs sélectionnés avec succès.",
             "loop-button": "Boucler la vidéo",
-            "mute-button": "Ne pas mettre en sourdine"
+            "mute-button": "Mettre en sourdine"
         },
         "context-entries": {
             "popout-all": "Partager dans une fenêtre (Tous les joueurs)",

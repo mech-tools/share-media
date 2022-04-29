@@ -72,7 +72,7 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
                         <i class="drawer fas fa-undo" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
                     </div>
                     <div class="media-actions mute-action ${muteSetting ? 'active' : ''}" data-action="mute" data-value="${muteSetting}">
-                        <i class="drawer fas fa-volume-mute" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
+                        <i class="drawer fas fa-volume-mute" title="${game.i18n.localize(`${constants.moduleName}.share.mute-button`)}"></i>
                     </div>
                 `)
         }
