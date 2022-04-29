@@ -1,4 +1,15 @@
-.show-media {
+#show-media {
+    // Reset CSS Fix
+    &.clickable-media * {
+        padding: 0;
+        margin: 0;
+        width: auto;
+
+        &:not(i) {
+            font-family: Signika, sans-serif;
+        }
+    }
+
     &.clickable-media {
         position: relative;
         display: inline-block;
@@ -88,24 +99,4 @@
             }
         }
     }
-}
-
-// Kanka positon fix
-.kanka .show-media .media-actions-container .actions {
-    margin-bottom: 5px;
-}
-
-// PF2 Fix
-.journal-sheet.pf2e form .editor-content .show-media.clickable-media {
-    * {
-        margin-top: 0px;
-    }
-    .media-actions {
-        margin-top: 5px;
-    }
-}
-
-.actor.sheet .crb-style .sheet-body .sheet-content .tab.biography .biography-details  .actions span,
-.actor.sheet.character .crb-style .sheet-body .sheet-content .tab.biography .biography-campaign-notes .actions span {
-    width: auto;
 }
