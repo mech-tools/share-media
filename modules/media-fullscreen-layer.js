@@ -19,14 +19,24 @@ class shareFullscreenLayer {
                 <div class="background"></div>
                 <img src="${constants.modulePath}/images/transparent.png" alt="">
                 <video playsinline src="" class="disabled"></video>
-                ${dismissButton}
+                <div class="buttons">
+                    ${dismissButton}
+                    <button class="minimize" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-minimize-button`)}">
+                        <i class="fas fa-window-minimize"></i>
+                    </button>
+                    <button class="maximize hidden" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-maximize-button`)}">
+                        <i class="fas fa-window-maximize"></i>
+                    </button>
+                </div>
             `)
 
         $('body').append(this.container)
     }
 
     _activateListeners() {
-        this.container.find('button').click(e => socketDismissFullscreenMedia())
+        this.container.find('button.dismiss').click(e => socketDismissFullscreenMedia())
+        this.container.find('button.minimize').click(e => this.toggleMinimize())
+        this.container.find('button.maximize').click(e => this.toggleMinimize())
     }
 
     handleShare(url, type = 'image', loop = false, mute = true) {
@@ -34,6 +44,8 @@ class shareFullscreenLayer {
         const img = this.container.find('img')
         const video = this.container.find('video')
         const videoContainer = video.get(0)
+        const minimizeButton = this.container.find('.minimize')
+        const maximizeButton = this.container.find('.maximize')
 
         if (type === 'image') {
             background.css('background-image', `url("${url}")`)
@@ -64,6 +76,9 @@ class shareFullscreenLayer {
         }
 
         this.container.removeClass('hidden')
+        this.container.removeClass('minimized')
+        minimizeButton.removeClass('hidden')
+        maximizeButton.addClass('hidden')
     }
 
     handleDismiss() {
@@ -78,6 +93,15 @@ class shareFullscreenLayer {
         video.attr('src', '')
 
         this.container.addClass('hidden')
+    }
+
+    toggleMinimize(evt) {
+        const minimizeButton = this.container.find('.minimize')
+        const maximizeButton = this.container.find('.maximize')
+        minimizeButton.toggleClass('hidden')
+        maximizeButton.toggleClass('hidden')
+
+        this.container.toggleClass('minimized')
     }
 }
 

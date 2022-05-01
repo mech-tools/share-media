@@ -21,6 +21,8 @@
             "popout-success-some": "Media successfully shared to selected players.",
             "fullscreen-button": "Share fullscreen",
             "fullscreen-dismiss-button": "Dismiss media",
+            "fullscreen-minimize-button": "Minimize media",
+            "fullscreen-maximize-button": "Maximize media",
             "fullscreen-all-button": "All players",
             "fullscreen-some-button": "Selected",
             "fullscreen-success-all": "Media successfully shared to all players.",

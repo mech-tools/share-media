@@ -12,15 +12,46 @@
         pointer-events: none;
     }
 
-    .dismiss {
+    &.minimized {
+        pointer-events: none;
+
+        >.background,
+        >img,
+        >video {
+            display: none;
+        }
+
+        .buttons {
+            pointer-events: auto;
+        }
+    }
+
+    .buttons {
         z-index: 3;
         position: absolute;
         top: 50px;
         left: 50%;
         transform: translate(-50%, 0);
-        width: auto;
-        padding: 1px 15px;
-        cursor: pointer;
+
+        .dismiss,
+        .minimize,
+        .maximize {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .dismiss {
+            padding: 1px 15px;
+        }
+
+        .minimize,
+        .maximize {
+            padding: 1px 8px 1px 11px;
+
+            &.hidden {
+                display: none;
+            }
+        }
     }
 
     .background {

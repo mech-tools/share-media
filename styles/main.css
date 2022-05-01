@@ -141,7 +141,21 @@
   pointer-events: none;
 }
 
-#fullscreen-layer .dismiss {
+#fullscreen-layer.minimized {
+  pointer-events: none;
+}
+
+#fullscreen-layer.minimized > .background,
+#fullscreen-layer.minimized > img,
+#fullscreen-layer.minimized > video {
+  display: none;
+}
+
+#fullscreen-layer.minimized .buttons {
+  pointer-events: auto;
+}
+
+#fullscreen-layer .buttons {
   z-index: 3;
   position: absolute;
   top: 50px;
@@ -149,9 +163,27 @@
   -webkit-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
+}
+
+#fullscreen-layer .buttons .dismiss,
+#fullscreen-layer .buttons .minimize,
+#fullscreen-layer .buttons .maximize {
   width: auto;
-  padding: 1px 15px;
   cursor: pointer;
+}
+
+#fullscreen-layer .buttons .dismiss {
+  padding: 1px 15px;
+}
+
+#fullscreen-layer .buttons .minimize,
+#fullscreen-layer .buttons .maximize {
+  padding: 1px 8px 1px 11px;
+}
+
+#fullscreen-layer .buttons .minimize.hidden,
+#fullscreen-layer .buttons .maximize.hidden {
+  display: none;
 }
 
 #fullscreen-layer .background {

@@ -20,6 +20,8 @@
             "popout-success-some": "選択されたプレイヤーに共有されました。",
             "fullscreen-button": "全スクリーンに共有",
             "fullscreen-dismiss-button": "共有を消す",
+            "fullscreen-minimize-button": "ミニマイズ",
+            "fullscreen-maximize-button": "最大化",
             "fullscreen-all-button": "全プレイヤー",
             "fullscreen-some-button": "選択されたプレイヤー",
             "fullscreen-success-all": "全プレイヤーに共有されました",
