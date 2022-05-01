@@ -88,7 +88,8 @@ Hover over the first button to display two popout options:
 
 <img src="./readme-assets/helper4.jpg" height="250">
 
-Once the media is shared, a "Dismiss" button should appear. As the GM, you can click this button to dismiss the media for all players (only the GM can see this button).
+Once the media is shared, a "Dismiss" button should appear. As the GM, you can click this button to dismiss the media for all players (only the GM can see this button).  
+A "Minimize/Maximize" button will show/hide the media being shared in fullscreen mode (client only, not synced).
 
 <img src="./readme-assets/helper10.jpg" height="450">
 
