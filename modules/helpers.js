@@ -71,3 +71,26 @@ export const dialog = async ({
         }).render(true)
     })
 }
+
+/**
+ * Returns the inline styles of an HTML Element as array
+ */
+export const parseInlineStyles = (element) => {
+    const styles = ($(element).attr('style') || '').split(';')
+    let i = styles.length
+    const arr = []
+    let style, k, v
+
+    while (i--)
+    {
+        style = styles[i].split(':')
+        k = $.trim(style[0])
+        v = $.trim(style[1])
+        if (k.length > 0 && v.length > 0)
+        {
+            arr[k] = v
+        }
+    }
+
+    return arr
+}

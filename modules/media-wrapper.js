@@ -3,6 +3,7 @@ import { sharePopoutMedia } from './popout-handler.js'
 import { shareSceneMedia } from './scene-handler.js'
 import { shareFullscreenMedia } from './fullscreen-handler.js'
 import { SETTINGS } from './settings/settings.js'
+import { parseInlineStyles } from './helpers.js'
 
 /**
  * Get all images & videos and wrap each with action buttons
@@ -34,8 +35,13 @@ export const wrapMedias = html => {
  * Wrap media with action buttons
  */
 function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false) {
+    const sourceStyles = parseInlineStyles(media)
+    const inlineStyles = ['display', 'float', 'margin', 'margin-left', 'margin-right'].reduce((style, current) => {
+        return sourceStyles.hasOwnProperty(current) ? `${style} ${current}: ${sourceStyles[current]};` : style
+    }, '')
+
     $(media)
-        .wrap(`<div id="show-media" class="clickable-media" style="${$(media).attr('style') || ''}"></div>`)
+        .wrap(`<div id="show-media" class="clickable-media" style="${inlineStyles || ''}"></div>`)
         .after(`
             <div class="media-actions-container">
                 <div class="media-actions">
