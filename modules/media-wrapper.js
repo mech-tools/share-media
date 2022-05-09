@@ -35,7 +35,7 @@ export const wrapMedias = html => {
  */
 function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false) {
     $(media)
-        .wrap('<div id="show-media" class="clickable-media"></div>')
+        .wrap(`<div id="show-media" class="clickable-media" style="${$(media).attr('style') || ''}"></div>`)
         .after(`
             <div class="media-actions-container">
                 <div class="media-actions">
