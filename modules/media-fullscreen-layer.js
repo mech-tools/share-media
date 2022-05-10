@@ -30,7 +30,11 @@ class shareFullscreenLayer {
                 </div>
             `)
 
-        $('body').append(this.container)
+        const otherModules = document.querySelectorAll(".gm-screen-app, #dice-box-canvas");
+
+        otherModules?.[0]
+            ? this.container.insertBefore($(otherModules[0]))
+            : this.container.insertBefore($(document.getElementById("pause")));
     }
 
     _activateListeners() {
