@@ -1,9 +1,13 @@
 import constants from "./constants.js"
 
+/** Debounce calls before reloading page */
+const debouncedReload = foundry.utils.debounce(() => window.location.reload(), 500);
+
 export const SETTINGS = {
   DISABLE_CONTEXT_OPTIONS: "disable-context-options",
   VIDEO_LOOPING_OPTION: "video-looping-option",
-  VIDEO_MUTE_OPTION: "video-muted-option"
+  VIDEO_MUTE_OPTION: "video-muted-option",
+  ENABLE_HUD_BUTTON: "enable-hud-button"
 }
 
 /**
@@ -21,7 +25,7 @@ export function registerSettings() {
     config: true,
     default: false,
     type: Boolean,
-    onChange: () => window.location.reload()
+    onChange: () => debouncedReload()
   })
 
   game.settings.register(constants.moduleName, SETTINGS.VIDEO_LOOPING_OPTION, {
@@ -35,7 +39,7 @@ export function registerSettings() {
     config: true,
     default: false,
     type: Boolean,
-    onChange: () => window.location.reload()
+    onChange: () => debouncedReload()
   })
 
   game.settings.register(constants.moduleName, SETTINGS.VIDEO_MUTE_OPTION, {
@@ -49,6 +53,20 @@ export function registerSettings() {
     config: true,
     default: true,
     type: Boolean,
-    onChange: () => window.location.reload()
+    onChange: () => debouncedReload()
+  })
+
+  game.settings.register(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON, {
+    name: game.i18n.localize(
+      "share-media.settings.enable-hud-button-name"
+    ),
+    hint: game.i18n.localize(
+      "share-media.settings.enable-hud-button-hint"
+    ),
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: () => debouncedReload()
   })
 }

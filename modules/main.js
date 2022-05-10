@@ -5,6 +5,7 @@ import fullscreenLayer from './media-fullscreen-layer.js'
 import { wrapMedias, activateMediaListeners } from './media-wrapper.js'
 import { addTileControls } from './scene-handler.js'
 import { addSidebarContextEntries } from './sidebar-handler.js'
+import { addHUDControls } from './token-hud-handler.js'
 
 Hooks.once('init', () => {
     registerSettings()
@@ -18,6 +19,13 @@ Hooks.once('ready', () => {
 Hooks.on('getSceneControlButtons', controls => {
     if (game.user.isGM) {
         addTileControls(controls)
+    }
+})
+
+Hooks.on('renderTokenHUD', (app, html) => {
+    const enableHUDButton = game.settings.get(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON)
+    if(game.user.isGM && enableHUDButton) {
+        addHUDControls(app, html)
     }
 })
 
