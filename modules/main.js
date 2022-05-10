@@ -22,24 +22,18 @@ Hooks.on('getSceneControlButtons', controls => {
 })
 
 Hooks.on('renderJournalSheet', (app, html) => {
-    if (game.user.isGM) {
-        wrapMedias(html)
-        activateMediaListeners(html)
-    }
+    wrapMedias(html)
+    activateMediaListeners(html)
 })
 
 Hooks.on('renderItemSheet', (app, html) => {
-    if (game.user.isGM) {
-        wrapMedias(html)
-        activateMediaListeners(html)
-    }
+    wrapMedias(html)
+    activateMediaListeners(html)
 })
 
 Hooks.on('renderActorSheet', (app, html) => {
-    if (game.user.isGM) {
-        wrapMedias(html)
-        activateMediaListeners(html)
-    }
+    wrapMedias(html)
+    activateMediaListeners(html)
 })
 
 Hooks.on('getActorDirectoryEntryContext', (html, contextEntries) => {
@@ -53,10 +47,8 @@ Hooks.on('getItemDirectoryEntryContext', (html, contextEntries) => {
 })
 
 Hooks.on('renderGMNote', (app, html) => {
-    if (game.user.isGM) {
-        wrapMedias(html)
-        activateMediaListeners(html)
-    }
+    wrapMedias(html)
+    activateMediaListeners(html)
 })
 
 Hooks.on('canvasReady', () => {

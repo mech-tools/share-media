@@ -27,7 +27,8 @@
             "fullscreen-success-all": "全プレイヤーに共有されました",
             "fullscreen-success-some": "選択されたプレイヤーに共有されました。",
             "loop-button": "ビデオのループ",
-            "mute-button": "ミュート"
+            "mute-button": "ミュート",
+            "miro-button": "送信先 Miro"
         },
         "context-entries": {
             "popout-all": "ポップアウトした画像の共有 (全プレイヤー)",

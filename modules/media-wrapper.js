@@ -40,10 +40,12 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
         return sourceStyles.hasOwnProperty(current) ? `${style} ${current}: ${sourceStyles[current]};` : style
     }, '')
 
-    $(media)
-        .wrap(`<div id="show-media" class="clickable-media" style="${inlineStyles || ''}"></div>`)
-        .after(`
-            <div class="media-actions-container">
+    $(media).wrap(`<div id="show-media" class="clickable-media" style="${inlineStyles || ''}"></div>`)
+        .after(`<div class="media-actions-container"></div>`)
+
+    if(game.user.isGM) {
+        $(media).parent().find('div.media-actions-container')
+            .append(`
                 <div class="media-actions">
                     <i class="drawer fas fa-book-open" title="${game.i18n.localize(`${constants.moduleName}.share.popout-button`)}"></i>
                     <div class="actions">
@@ -65,19 +67,32 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
                         <span data-action="share-scene" data-style="cover" data-type="${type}" data-url="${src}" title="${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}"><i class="fas fa-expand"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.scene-cover-button`)}` : ``}</span>
                     </div>
                 </div>
-            </div>
-        `)
+            `)
+        }
 
-        if (type === 'video') {
+        if (type === 'image' && game.modules.get('foundryvtt-miro-connector')?.active && window["foundryvtt-miro-connector"].MiroAPI) {
+            const playerApiAccess = game.settings.get('foundryvtt-miro-connector', 'player-api-access')
+
+            if(game.user.isGM || playerApiAccess) {
+                $(media).parent().find('div.media-actions-container')
+                .append(`
+                    <div class="media-actions miro-action" data-action="share-miro" data-url="${src}">
+                        <i class="drawer fas fa-cloud-upload-alt" title="${game.i18n.localize(`${constants.moduleName}.share.miro-button`)}"></i>
+                    </div>
+                `)
+            }
+        }
+
+        if (game.user.isGM && type === 'video') {
             const loopSetting = game.settings.get(constants.moduleName, SETTINGS.VIDEO_LOOPING_OPTION)
             const muteSetting = game.settings.get(constants.moduleName, SETTINGS.VIDEO_MUTE_OPTION)
 
             $(media).parent().find('div.media-actions-container')
                 .append(`
-                    <div class="media-actions loop-action ${loopSetting ? 'active' : ''}" data-action="loop" data-value="${loopSetting}">
+                    <div class="media-actions loop-action ${loopSetting ? 'active' : ''}" data-action="share-loop" data-value="${loopSetting}">
                         <i class="drawer fas fa-undo" title="${game.i18n.localize(`${constants.moduleName}.share.loop-button`)}"></i>
                     </div>
-                    <div class="media-actions mute-action ${muteSetting ? 'active' : ''}" data-action="mute" data-value="${muteSetting}">
+                    <div class="media-actions mute-action ${muteSetting ? 'active' : ''}" data-action="share-mute" data-value="${muteSetting}">
                         <i class="drawer fas fa-volume-mute" title="${game.i18n.localize(`${constants.moduleName}.share.mute-button`)}"></i>
                     </div>
                 `)
@@ -140,8 +155,8 @@ export const activateMediaListeners = html => {
     })
 
     const loopVideoSelectors = [
-        'div.editor-content div[data-action="loop"]', // Default FVTT
-        'section.tab-container div[data-action="loop"]' // Kanka
+        'div.editor-content div[data-action="share-loop"]', // Default FVTT
+        'section.tab-container div[data-action="share-loop"]' // Kanka
     ]
 
     html.find(loopVideoSelectors.join(',')).click(evt => {
@@ -156,8 +171,8 @@ export const activateMediaListeners = html => {
     })
 
     const muteVideoSelectors = [
-        'div.editor-content div[data-action="mute"]', // Default FVTT
-        'section.tab-container div[data-action="mute"]' // Kanka
+        'div.editor-content div[data-action="share-mute"]', // Default FVTT
+        'section.tab-container div[data-action="share-mute"]' // Kanka
     ]
 
     html.find(muteVideoSelectors.join(',')).click(evt => {
@@ -168,6 +183,21 @@ export const activateMediaListeners = html => {
         if (button) {
             $(button).toggleClass('active')
             $(button).attr('data-value', $(button).hasClass('active'))
+        }
+    })
+
+    const miroSelectors = [
+        'div.editor-content div[data-action="share-miro"]', // Default FVTT
+        'section.tab-container div[data-action="share-miro"]' // Kanka
+    ]
+
+    html.find(miroSelectors.join(',')).click(evt => {
+        evt.preventDefault()
+        evt.stopPropagation()
+
+        const button = $(evt.currentTarget)[0]
+        if (button) {
+            window["foundryvtt-miro-connector"].MiroAPI.sendJournalEntryImage(button.dataset.url)
         }
     })
 }

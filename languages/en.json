@@ -28,7 +28,8 @@
             "fullscreen-success-all": "Media successfully shared to all players.",
             "fullscreen-success-some": "Media successfully shared to selected players.",
             "loop-button": "Loop video",
-            "mute-button": "Mute video"
+            "mute-button": "Mute video",
+            "miro-button": "Send to Miro"
         },
         "context-entries": {
             "popout-all": "Share Artwork in Popout (All Players)",
