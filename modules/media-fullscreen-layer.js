@@ -52,7 +52,12 @@ class shareFullscreenLayer {
         const maximizeButton = this.container.find('.maximize')
 
         if (type === 'image') {
-            background.css('background-image', `url("${url}")`)
+            if(url.endsWith('.jpg')) {
+                background.css('background-image', `url("${url}")`)
+            } else {
+                background.css('background-image', `url("${constants.modulePath}/images/black.png")`)
+            }
+
 
             video.addClass('disabled')
 
@@ -61,7 +66,7 @@ class shareFullscreenLayer {
         }
 
         if (type === 'video') {
-            background.css('background-image', `url("${constants.modulePath}/images/transparent.png")`)
+            background.css('background-image', `url("${constants.modulePath}/images/black.png")`)
 
             img.addClass('disabled')
 

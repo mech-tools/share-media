@@ -65,6 +65,7 @@
         background-size: cover;
         background-position: center;
         filter: blur(8px);
+        backdrop-filter: blur(8px);
     }
 
     img, video {

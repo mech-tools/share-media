@@ -198,6 +198,8 @@
   background-position: center;
   -webkit-filter: blur(8px);
   filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 #fullscreen-layer img, #fullscreen-layer video {
