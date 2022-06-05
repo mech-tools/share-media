@@ -59,5 +59,19 @@ export function registerSettings() {
     onChange: () => debouncedReload()
   })
 
+  game.settings.register(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON, {
+    name: game.i18n.localize(
+      "share-media.settings.enable-hud-button-name"
+    ),
+    hint: game.i18n.localize(
+      "share-media.settings.enable-hud-button-hint"
+    ),
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: () => debouncedReload()
+  })
+
   BlackListSetting.init()
 }
