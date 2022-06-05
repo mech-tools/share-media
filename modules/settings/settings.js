@@ -1,3 +1,4 @@
+import { BlackListSetting } from "./BlackListSetting.js";
 import constants from "./constants.js"
 
 /** Debounce calls before reloading page */
@@ -7,7 +8,9 @@ export const SETTINGS = {
   DISABLE_CONTEXT_OPTIONS: "disable-context-options",
   VIDEO_LOOPING_OPTION: "video-looping-option",
   VIDEO_MUTE_OPTION: "video-muted-option",
-  ENABLE_HUD_BUTTON: "enable-hud-button"
+  ENABLE_HUD_BUTTON: "enable-hud-button",
+  BLACKLIST_FORM: "blacklist-form",
+  BLACKLIST: "blacklist"
 }
 
 /**
@@ -56,17 +59,5 @@ export function registerSettings() {
     onChange: () => debouncedReload()
   })
 
-  game.settings.register(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON, {
-    name: game.i18n.localize(
-      "share-media.settings.enable-hud-button-name"
-    ),
-    hint: game.i18n.localize(
-      "share-media.settings.enable-hud-button-hint"
-    ),
-    scope: "world",
-    config: true,
-    default: true,
-    type: Boolean,
-    onChange: () => debouncedReload()
-  })
+  BlackListSetting.init()
 }

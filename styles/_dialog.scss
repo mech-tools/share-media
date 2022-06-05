@@ -1,7 +1,8 @@
 #share-media-player-selection-dialog,
 #share-media-bounding-tile-creation-dialog,
 #share-media-share-bounding-tile-selection-dialog,
-#share-media-clear-bounding-tile-selection-dialog {
+#share-media-clear-bounding-tile-selection-dialog,
+#share-media-blacklist-settings {
     hr {
         margin: 15px 0;
     }
@@ -31,7 +32,8 @@
 
 #share-media-player-selection-dialog,
 #share-media-share-bounding-tile-selection-dialog,
-#share-media-clear-bounding-tile-selection-dialog {
+#share-media-clear-bounding-tile-selection-dialog,
+#share-media-blacklist-settings {
     .form-group {
         width: 90%;
         margin: 0 auto;
@@ -42,7 +44,8 @@
     }
 }
 
-#share-media-player-selection-dialog {
+#share-media-player-selection-dialog,
+#share-media-blacklist-settings {
     .player-color {
         flex: 0 0 7px;
         height: 7px;

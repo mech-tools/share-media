@@ -1,5 +1,6 @@
 import constants from './settings/constants.js'
 import { findBoundingTileByName } from './helpers.js'
+import { SETTINGS } from './settings/settings.js'
 
 /**
  * Create a dedicated layer for sharing a media on a scene
@@ -22,6 +23,9 @@ class ShareMediaLayer extends CanvasLayer {
      * Create a sprite on the scene bounded by a tile and a style
      */
     async createBoundedSprite(boundingTileName, url, style, isVideo = false, loop = false, mute = true) {
+        const blacklist = game.settings.get(constants.moduleName, SETTINGS.BLACKLIST).split(";")
+        if(blacklist.includes(game.user.id)) { return }
+
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
@@ -48,6 +52,9 @@ class ShareMediaLayer extends CanvasLayer {
      * Delete a sprite on the scene by container parentName
      */
     deleteBoundedSprite(parentName) {
+        const blacklist = game.settings.get(constants.moduleName, SETTINGS.BLACKLIST).split(";")
+        if(blacklist.includes(game.user.id)) { return }
+
         this.containers = this.containers.filter(c => {
             if (c.parentName === parentName) {
                 c.destroy(true)

@@ -1,14 +1,21 @@
 import constants from './settings/constants.js'
 import { socketshareFullscreenMedia } from './socket.js'
 import { dialog } from './helpers.js'
+import { SETTINGS } from './settings/settings.js'
 
 /**
  * Media fullscreen event
  */
 export const shareFullscreenMedia = async (url, mode, type = 'image', loop = false, mute = true) => {
+    const blacklist = game.settings.get(constants.moduleName, SETTINGS.BLACKLIST).split(";")
+
     const players = mode === 'all' ?
-        game.users.filter(u => u.active).map(u => u.id) :
-        await _promptPlayersSelection(game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active, isGM: u.isGM })))
+        game.users.filter(u => u.active && !blacklist.includes(u.id)).map(u => u.id) :
+        await _promptPlayersSelection(
+            game.users
+                .filter(u => !blacklist.includes(u.id))
+                .map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active, isGM: u.isGM }))
+        )
 
     await socketshareFullscreenMedia(url, players, type, loop, mute)
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.fullscreen-success-${mode}`))

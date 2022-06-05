@@ -1,0 +1,22 @@
+<div class="players-selection">
+    <div class="how-to">
+        <i class="fas fa-ban"></i>
+        <span>{{localize 'share-media.dialogs.blacklist-settings.how-to' }}</span>
+    </div>
+    <hr>
+    <form>
+        {{#each players}}
+            <div class="form-group">
+                <span class="player-color" style="background: {{this.color}};border-color: {{this.color}};"></span>
+                <label for="{{this.id}}">{{this.name}}</label>
+                <input type="checkbox" name="playerId" value="{{this.id}}" id="{{this.id}}" {{#if this.checked}}checked{{/if}}>
+            </div>
+        {{/each}}
+        <hr>
+        <footer class="sheet-footer flexrow">
+            <button type="submit" name="submit">
+                <i class="fas fa-save"></i>{{localize 'share-media.dialogs.blacklist-settings.save'}}
+            </button>
+        </footer>
+    </form>
+</div>

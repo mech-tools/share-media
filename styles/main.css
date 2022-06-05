@@ -221,14 +221,16 @@
 #share-media-player-selection-dialog hr,
 #share-media-bounding-tile-creation-dialog hr,
 #share-media-share-bounding-tile-selection-dialog hr,
-#share-media-clear-bounding-tile-selection-dialog hr {
+#share-media-clear-bounding-tile-selection-dialog hr,
+#share-media-blacklist-settings hr {
   margin: 15px 0;
 }
 
 #share-media-player-selection-dialog .how-to,
 #share-media-bounding-tile-creation-dialog .how-to,
 #share-media-share-bounding-tile-selection-dialog .how-to,
-#share-media-clear-bounding-tile-selection-dialog .how-to {
+#share-media-clear-bounding-tile-selection-dialog .how-to,
+#share-media-blacklist-settings .how-to {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -244,7 +246,8 @@
 #share-media-player-selection-dialog .how-to i,
 #share-media-bounding-tile-creation-dialog .how-to i,
 #share-media-share-bounding-tile-selection-dialog .how-to i,
-#share-media-clear-bounding-tile-selection-dialog .how-to i {
+#share-media-clear-bounding-tile-selection-dialog .how-to i,
+#share-media-blacklist-settings .how-to i {
   background-image: url("../../../ui/denim075.png");
   background-repeat: no-repeat;
   margin-right: 15px;
@@ -257,26 +260,30 @@
 #share-media-player-selection-dialog .form-group.disabled,
 #share-media-bounding-tile-creation-dialog .form-group.disabled,
 #share-media-share-bounding-tile-selection-dialog .form-group.disabled,
-#share-media-clear-bounding-tile-selection-dialog .form-group.disabled {
+#share-media-clear-bounding-tile-selection-dialog .form-group.disabled,
+#share-media-blacklist-settings .form-group.disabled {
   color: #c0c0c0;
 }
 
 #share-media-player-selection-dialog .form-group,
 #share-media-share-bounding-tile-selection-dialog .form-group,
-#share-media-clear-bounding-tile-selection-dialog .form-group {
+#share-media-clear-bounding-tile-selection-dialog .form-group,
+#share-media-blacklist-settings .form-group {
   width: 90%;
   margin: 0 auto;
 }
 
 #share-media-player-selection-dialog .form-group :last-child,
 #share-media-share-bounding-tile-selection-dialog .form-group :last-child,
-#share-media-clear-bounding-tile-selection-dialog .form-group :last-child {
+#share-media-clear-bounding-tile-selection-dialog .form-group :last-child,
+#share-media-blacklist-settings .form-group :last-child {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 20px;
   flex: 0 0 20px;
 }
 
-#share-media-player-selection-dialog .player-color {
+#share-media-player-selection-dialog .player-color,
+#share-media-blacklist-settings .player-color {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 7px;
   flex: 0 0 7px;
