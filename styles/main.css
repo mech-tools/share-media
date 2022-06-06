@@ -167,6 +167,14 @@
   -webkit-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
+  opacity: .35;
+  -webkit-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+#fullscreen-layer .buttons:hover {
+  opacity: 1;
 }
 
 #fullscreen-layer .buttons .dismiss,

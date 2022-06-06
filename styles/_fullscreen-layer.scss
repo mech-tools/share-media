@@ -36,6 +36,12 @@
         top: 50px;
         left: 50%;
         transform: translate(-50%, 0);
+        opacity: .35;
+        transition: opacity .5s;
+
+        &:hover {
+            opacity: 1;
+        }
 
         .dismiss,
         .minimize,
