@@ -1,4 +1,5 @@
 import constants from './settings/constants.js'
+import { SETTINGS } from './settings/settings.js'
 import { socketDismissFullscreenMedia } from './socket.js'
 
 /**
@@ -11,10 +12,12 @@ class shareFullscreenLayer {
     }
 
     _createContainer() {
+        const immersiveMode = game.settings.get(constants.moduleName, SETTINGS.FULLSCREEN_IMMERSIVE_MODE)
+
         const dismissButton = game.user.isGM ?
         `<button class="dismiss"><i class="fas fa-times"></i> ${game.i18n.localize(`${constants.moduleName}.share.fullscreen-dismiss-button`)}</button>` : ''
 
-        this.container = $('<div id="fullscreen-layer" class="hidden"></div>')
+        this.container = $(`<div id="fullscreen-layer" class="hidden ${immersiveMode ? 'immersive-mode' : ''}"></div>`)
             .append(`
                 <div class="background"></div>
                 <img src="${constants.modulePath}/images/transparent.png" alt="">

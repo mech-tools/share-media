@@ -136,6 +136,10 @@
   background-color: transparent;
 }
 
+#fullscreen-layer.immersive-mode {
+  z-index: 200;
+}
+
 #fullscreen-layer.hidden {
   display: none;
   pointer-events: none;
