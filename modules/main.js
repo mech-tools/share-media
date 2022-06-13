@@ -6,6 +6,7 @@ import { wrapMedias, activateMediaListeners } from './media-wrapper.js'
 import { addTileControls } from './scene-handler.js'
 import { addSidebarContextEntries } from './sidebar-handler.js'
 import { addHUDControls } from './token-hud-handler.js'
+import Api from './Api.js'
 
 Hooks.once('init', () => {
     registerSettings()
@@ -14,6 +15,7 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', () => {
     fullscreenLayer.init()
+    setProperty(window, `${constants.moduleName}.API`, Api);
 })
 
 Hooks.on('getSceneControlButtons', controls => {

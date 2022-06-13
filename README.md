@@ -15,6 +15,8 @@ This module is compatible with:
 
 This module is inspired by the excellent [Journal-To-Canvas-Slideshow](https://github.com/EvanesceExotica/Journal-To-Canvas-Slideshow) module developed by EvanesceExotica.
 
+## [API DOCUMENTATION HERE](API.md)
+
 # How-to
 ## 1. Install
 Search "Share Media" in the modules installer, or copy paste this link: [https://github.com/DarKDinDoN/share-media/releases/latest/download/module.json](https://github.com/DarKDinDoN/share-media/releases/latest/download/module.json)
