@@ -3,6 +3,7 @@
 ## Access
 The API methods are accessible through: 
 ```
+game.modules.get('share-media').API.some-method()
 window["share-media"].API.some-method()
 ```
 
