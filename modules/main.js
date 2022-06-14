@@ -15,7 +15,10 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', () => {
     fullscreenLayer.init()
-    setProperty(window, `${constants.moduleName}.API`, Api);
+
+    // API
+    setProperty(window, `${constants.moduleName}.API`, Api)
+    game.modules.get(constants.moduleName).API = Api
 })
 
 Hooks.on('getSceneControlButtons', controls => {
