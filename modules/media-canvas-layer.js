@@ -11,6 +11,10 @@ class ShareMediaLayer extends CanvasLayer {
         this.containers = []
     }
 
+    /** @inherit */
+    async _draw() {}
+
+    /** @inherit */
     static get layerOptions() {
         return foundry.utils.mergeObject(super.layerOptions, {
             canDragCreate: false,
@@ -29,20 +33,20 @@ class ShareMediaLayer extends CanvasLayer {
         const boundingTile = findBoundingTileByName(boundingTileName)
         if (!boundingTile) { return }
 
-        const container = this._prepareContainer(boundingTileName, boundingTile.data.z)
+        const container = this._prepareContainer(boundingTileName, boundingTile.z)
 
         const sprite = await this._createSprite(url, isVideo, boundingTile, loop, mute)
 
         const spriteScaleFactor = style === 'fit' ?
-            this._calculateScaleFactorFit(sprite.width, sprite.height, boundingTile.data.width, boundingTile.data.height) :
-            this._calculateScaleFactorCover(sprite.width, sprite.height, boundingTile.data.width, boundingTile.data.height)
+            this._calculateScaleFactorFit(sprite.width, sprite.height, boundingTile.width, boundingTile.height) :
+            this._calculateScaleFactorCover(sprite.width, sprite.height, boundingTile.width, boundingTile.height)
         sprite.scale.set(spriteScaleFactor)
 
-        const spriteCoordinates = this._calculateAspectRatioCoordinates(boundingTile.data.x, boundingTile.data.y, boundingTile.data.width, boundingTile.data.height, sprite.width, sprite.height)
+        const spriteCoordinates = this._calculateAspectRatioCoordinates(boundingTile.x, boundingTile.y, boundingTile.width, boundingTile.height, sprite.width, sprite.height)
         sprite.position.set(spriteCoordinates.x, spriteCoordinates.y)
 
         if (style === 'cover') {
-            this._addMask(container, boundingTile.data.x, boundingTile.data.y, boundingTile.data.width, boundingTile.data.height)
+            this._addMask(container, boundingTile.x, boundingTile.y, boundingTile.width, boundingTile.height)
         }
 
         container.addChild(sprite)
@@ -104,7 +108,7 @@ class ShareMediaLayer extends CanvasLayer {
         if (isVideo) {
             if (game.user.isGM) {
                 sprite.texture.baseTexture.resource.source.addEventListener('ended', () => {
-                    if (!loop) boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+                    if (!loop) boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.flags[constants.moduleName].name)
                 })
             }
 

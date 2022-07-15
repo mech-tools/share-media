@@ -34,7 +34,7 @@ Hooks.on('renderTokenHUD', (app, html) => {
     }
 })
 
-Hooks.on('renderJournalSheet', (app, html) => {
+Hooks.on('renderJournalPageSheet', (app, html) => {
     wrapMedias(html)
     activateMediaListeners(html)
 })
@@ -65,7 +65,7 @@ Hooks.on('renderGMNote', (app, html) => {
 })
 
 Hooks.on('canvasReady', () => {
-    const mediaFlags = canvas.scene.data.flags?.[constants.moduleName]
+    const mediaFlags = canvas.scene.flags?.[constants.moduleName]
 
     if (mediaFlags) {
         for (let [boundingTileName, { url, style, type, loop, mute } = value] of Object.entries(mediaFlags)) {
@@ -80,7 +80,7 @@ Hooks.on('updateScene', (scene, data) => {
             if (boundingTileName.startsWith('-=')) {
                 canvas.shareMedia.deleteBoundedSprite(boundingTileName.substring(2))
             } else {
-                const mediaFlag = canvas.scene.data.flags[constants.moduleName][boundingTileName]
+                const mediaFlag = canvas.scene.flags[constants.moduleName][boundingTileName]
                 canvas.shareMedia.createBoundedSprite(boundingTileName, mediaFlag.url, mediaFlag.style, mediaFlag.type === 'video', mediaFlag.loop, mediaFlag.mute)
             }
         }
@@ -88,20 +88,20 @@ Hooks.on('updateScene', (scene, data) => {
 })
 
 Hooks.on('updateTile', tile => {
-    if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
-        const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[tile.data.flags[constants.moduleName].name]
+    if (tile.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
+        const mediaFlag = canvas.scene.flags?.[constants.moduleName]?.[tile.flags[constants.moduleName].name]
         if (mediaFlag) {
-            canvas.shareMedia.createBoundedSprite(tile.data.flags[constants.moduleName].name, mediaFlag.url, mediaFlag.style, mediaFlag.type === 'video', mediaFlag.loop, mediaFlag.mute)
+            canvas.shareMedia.createBoundedSprite(tile.flags[constants.moduleName].name, mediaFlag.url, mediaFlag.style, mediaFlag.type === 'video', mediaFlag.loop, mediaFlag.mute)
         }
     }
 })
 
 Hooks.on('deleteTile', tile => {
     if (game.user.isGM) {
-        if (tile.data.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
-            const mediaFlag = canvas.scene.data.flags?.[constants.moduleName]?.[tile.data.flags[constants.moduleName].name]
+        if (tile.flags?.[constants.moduleName]?.isBounding && tile.parent.id === canvas.scene.id) {
+            const mediaFlag = canvas.scene.flags?.[constants.moduleName]?.[tile.flags[constants.moduleName].name]
             if (mediaFlag) {
-                canvas.scene.unsetFlag(constants.moduleName, tile.data.flags[constants.moduleName].name)
+                canvas.scene.unsetFlag(constants.moduleName, tile.flags[constants.moduleName].name)
             }
         }
     }

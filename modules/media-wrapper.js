@@ -8,15 +8,20 @@ import { parseInlineStyles } from './helpers.js'
 /**
  * Get all images & videos and wrap each with action buttons
  */
-export const wrapMedias = html => {
+export const wrapMedias = (html) => {
     const selectors = [
+        'article.journal-entry-page.text img', // Default FVTT Text journal sheet
+        'article.journal-entry-page.text video', // Default FVTT Text journal sheet
+        'article.journal-entry-page.image img', // Default FVTT Image journal sheet
+        'article.journal-entry-page.video video', // Default FVTT Video journal sheet
         'div.editor-content img:not([data-edit])', // FVTT imgs
         'div.editor-content video:not([data-edit])', // FVTT videos
         'section.tab-container img:not([data-edit])', // Kanka imgs
         'section.tab-container input[type="image"]' // Kanka inputs
     ]
 
-    const medias = html.find(selectors.join(','))
+
+    const medias = html.find(selectors.join(',')).add(selectors.join(','))
 
     medias.each((index, media) => {
         const htmlMedia = $(media)
@@ -25,7 +30,7 @@ export const wrapMedias = html => {
 
         const mediaUrl = mediaType === 'image' ?
             htmlMedia.attr('src') :
-            htmlMedia.find('source:first').attr('src')
+            htmlMedia.attr('src') || htmlMedia.find('source:first').attr('src')
 
         _wrapImageVideoMedia(media, mediaUrl, mediaType, smallMediaSize)
     })
@@ -104,11 +109,10 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
  */
 export const activateMediaListeners = html => {
     const popoutSelectors = [
-        'div.editor-content span[data-action="share-popout"]', // Default FVTT
-        'section.tab-container span[data-action="share-popout"]' // Kanka
+        'span[data-action="share-popout"]', // Default FVTT
     ]
 
-    html.find(popoutSelectors.join(',')).click(evt => {
+    html.find(popoutSelectors.join(',')).add(popoutSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -121,11 +125,10 @@ export const activateMediaListeners = html => {
     })
 
     const sceneSelectors = [
-        'div.editor-content span[data-action="share-scene"]', // Default FVTT
-        'section.tab-container span[data-action="share-scene"]' // Kanka
+        'span[data-action="share-scene"]', // Default FVTT
     ]
 
-    html.find(sceneSelectors.join(',')).click(evt => {
+    html.find(sceneSelectors.join(',')).add(sceneSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -138,11 +141,10 @@ export const activateMediaListeners = html => {
     })
 
     const fullscreenSelectors = [
-        'div.editor-content span[data-action="share-fullscreen"]', // Default FVTT
-        'section.tab-container span[data-action="share-fullscreen"]' // Kanka
+        'span[data-action="share-fullscreen"]', // Default FVTT
     ]
 
-    html.find(fullscreenSelectors.join(',')).click(evt => {
+    html.find(fullscreenSelectors.join(',')).add(fullscreenSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -155,11 +157,10 @@ export const activateMediaListeners = html => {
     })
 
     const loopVideoSelectors = [
-        'div.editor-content div[data-action="share-loop"]', // Default FVTT
-        'section.tab-container div[data-action="share-loop"]' // Kanka
+        'div[data-action="share-loop"]', // Default FVTT
     ]
 
-    html.find(loopVideoSelectors.join(',')).click(evt => {
+    html.find(loopVideoSelectors.join(',')).add(loopVideoSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -171,11 +172,10 @@ export const activateMediaListeners = html => {
     })
 
     const muteVideoSelectors = [
-        'div.editor-content div[data-action="share-mute"]', // Default FVTT
-        'section.tab-container div[data-action="share-mute"]' // Kanka
+        'div[data-action="share-mute"]', // Default FVTT
     ]
 
-    html.find(muteVideoSelectors.join(',')).click(evt => {
+    html.find(muteVideoSelectors.join(',')).add(muteVideoSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -187,11 +187,10 @@ export const activateMediaListeners = html => {
     })
 
     const miroSelectors = [
-        'div.editor-content div[data-action="share-miro"]', // Default FVTT
-        'section.tab-container div[data-action="share-miro"]' // Kanka
+        'div[data-action="share-miro"]', // Default FVTT
     ]
 
-    html.find(miroSelectors.join(',')).click(evt => {
+    html.find(miroSelectors.join(',')).add(miroSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 

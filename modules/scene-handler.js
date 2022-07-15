@@ -52,10 +52,10 @@ async function _createBoundingTile() {
         img: `${constants.modulePath}/images/transparent.png`,
         flags: { [constants.moduleName]: { isBounding: true, name: newBoundingTileName } },
         hidden: true,
-        width: canvas.scene.data.width,
-        height: canvas.scene.data.height,
-        x: canvas.scene.dimensions.paddingX,
-        y: canvas.scene.dimensions.paddingY
+        width: canvas.scene.width,
+        height: canvas.scene.height,
+        x: canvas.scene.dimensions.sceneX,
+        y: canvas.scene.dimensions.sceneY
     }
     await canvas.scene.createEmbeddedDocuments('Tile', [tileData])
 
@@ -102,14 +102,14 @@ async function _clearBoundingTile() {
 
 
     boundingTilesToClear.forEach(async (boundingTile) => {
-        const mediaFlag = boundingTile.parent.data.flags?.[constants.moduleName]?.[boundingTile.data.flags[constants.moduleName].name]
+        const mediaFlag = boundingTile.parent.flags?.[constants.moduleName]?.[boundingTile.flags[constants.moduleName].name]
 
         if (!mediaFlag) return
 
-        const mediaFlags = foundry.utils.deepClone(boundingTile.parent.data.flags[constants.moduleName])
-        delete mediaFlags[boundingTile.data.flags[constants.moduleName].name]
+        const mediaFlags = foundry.utils.deepClone(boundingTile.parent.flags[constants.moduleName])
+        delete mediaFlags[boundingTile.flags[constants.moduleName].name]
 
-        await boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name)
+        await boundingTile.parent.unsetFlag(constants.moduleName, boundingTile.flags[constants.moduleName].name)
     })
 
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.bounding-tile.clear-success`))
@@ -119,7 +119,7 @@ async function _clearBoundingTile() {
  * Prompt with the list of boundind tiles to clear
  */
 async function _promptClearBoundingTileSection(boundingTiles) {
-    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.data.flags[constants.moduleName].name }))
+    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.flags[constants.moduleName].name }))
         .sort((a, b) => a.name.localeCompare(b.name))
 
     const content = await renderTemplate(
@@ -167,7 +167,7 @@ export const shareSceneMedia = async (url, style, type = 'image', loop = false, 
         await _promptShareBoundingTileSection(boundingTiles) :
         boundingTiles[0]
 
-    await boundingTile.parent.setFlag(constants.moduleName, boundingTile.data.flags[constants.moduleName].name, { url, style, type, loop, mute })
+    await boundingTile.parent.setFlag(constants.moduleName, boundingTile.flags[constants.moduleName].name, { url, style, type, loop, mute })
 
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.scene-success`))
 }
@@ -176,7 +176,7 @@ export const shareSceneMedia = async (url, style, type = 'image', loop = false, 
  * Prompt the sharer with the list of boundind tiles to select from
  */
 async function _promptShareBoundingTileSection(boundingTiles) {
-    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.data.flags[constants.moduleName].name }))
+    const boundingTilesData = boundingTiles.map(b => ({ id: b.id, name: b.flags[constants.moduleName].name }))
         .sort((a, b) => a.name.localeCompare(b.name))
 
     const content = await renderTemplate(

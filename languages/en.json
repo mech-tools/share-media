@@ -33,10 +33,8 @@
             "token-button": "Share token image (right-click to share the actor image instead)"
         },
         "context-entries": {
-            "popout-all": "Share Artwork in Popout (All Players)",
-            "popout-some": "Share Artwork in Popout (Selected)",
-            "fullscreen-all": "Share Artwork Fullscreen (All Players)",
-            "fullscreen-some": "Share Artwork Fullscreen (Selected)",
+            "popout-some": "Share Artwork in Popout",
+            "fullscreen-some": "Share Artwork Fullscreen",
             "scene-fit": "Share Artwork on Scene (Fit)",
             "scene-cover": "Share Artwork on Scene (Cover)"
         },

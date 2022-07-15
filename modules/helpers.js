@@ -4,14 +4,14 @@ import constants from './settings/constants.js'
  * Find the bounding tiles on the viewed scene with a specific name
  */
 export const findBoundingTileByName = name => {
-    return canvas.scene.tiles.find(t => t.data.flags?.[constants.moduleName]?.isBounding && t.data.flags?.[constants.moduleName]?.name === name)
+    return canvas.scene.tiles.find(t => t.flags?.[constants.moduleName]?.isBounding && t.flags?.[constants.moduleName]?.name === name)
 }
 
 /**
  * Get all the bounding tiles on the viewed scene
  */
 export const getAllBoundingTiles = () => {
-    return canvas.scene.tiles.filter(t => t.data.flags?.[constants.moduleName]?.isBounding)
+    return canvas.scene.tiles.filter(t => t.flags?.[constants.moduleName]?.isBounding)
 }
 
 /**

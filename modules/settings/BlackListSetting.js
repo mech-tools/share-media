@@ -44,7 +44,7 @@ export class BlackListSetting extends FormApplication {
     getData() {
 		let data = super.getData()
         const blacklist = game.settings.get(constants.moduleName, SETTINGS.BLACKLIST).split(";")
-		data.players = game.users.map(u => ({ id: u.id, name: u.name, color: u.data.color, active: u.active, checked: blacklist.includes(u.id) }))
+		data.players = game.users.map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active, checked: blacklist.includes(u.id) }))
 		return data
 	}
 

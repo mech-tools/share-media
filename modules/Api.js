@@ -85,7 +85,7 @@ export default class Api {
     /** Valide the common parameters */
     static _validate(url, loop, mute) {
         if(!url) throw new Error('Missing url parameter')
-        if(typeof loop !== 'boolean') throw new Error('Loop parameter not a valid boolean')
+        if(typeof loop !== 'boolean') throw new Error('Loop parameter is not a valid boolean')
         if(typeof mute !== 'boolean') throw new Error('Mute parameter is not a valid boolean')
     }
 }

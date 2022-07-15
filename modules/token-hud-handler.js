@@ -11,8 +11,8 @@ export const addHUDControls = (app, html) => {
         </div>
     `)
 
-    button.click(() => sharePopoutMedia(app.object.data.img, "some"))
-    button.contextmenu(() => sharePopoutMedia(app.object.actor.data.img, "some"))
+    button.click(() => sharePopoutMedia(app.object.document.texture.src, "some"))
+    button.contextmenu(() => sharePopoutMedia(app.object.actor.img, "some"))
 
     html.find('.col.left').append(button)
 }

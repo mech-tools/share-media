@@ -1,12 +1,13 @@
 {
-    "name": "share-media",
+    "id": "share-media",
     "title": "Share Media",
     "description": "A module to easily share media to players",
     "version": "",
     "library": "false",
-    "manifestPlusVersion": "1.0.0",
-    "minimumCoreVersion": "9",
-    "compatibleCoreVersion": "9",
+    "compatibility": {
+        "minimum": 10,
+        "verified": "10.273"
+    },
     "authors": [
         {
             "name": "DarKDinDoN",
@@ -14,12 +15,16 @@
             "discord": "Maxime#1562"
         }
     ],
-    "dependencies": [
-        {
-            "name": "socketlib",
-            "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json"
-        }
-    ],
+    "relationships": {
+        "requires": [{
+            "id": "socketlib",
+            "type": "module",
+            "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
+            "compatibility": {
+                "verified": "1.0.10"
+            }
+        }]
+    },
     "conflicts": [],
     "socket": true,
     "esmodules": [
