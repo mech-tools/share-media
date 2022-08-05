@@ -61,12 +61,13 @@ export default class Api {
      * @param {string} url url to the media
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
+     * @param {string} [boundingTileName=""] the bounding tile name, will default on the bounding tile selection if not found
      */
-    static async shareSceneMediaFit(url, loop = false, mute = true) {
+    static async shareSceneMediaFit(url, loop = false, mute = true, boundingTileName = '') {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareSceneMedia(url, 'fit', type, loop, mute)
+        await shareSceneMedia(url, 'fit', type, loop, mute, boundingTileName)
     }
 
     /**
@@ -74,12 +75,13 @@ export default class Api {
      * @param {string} url url to the media
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
+     * @param {string} [boundingTileName=""] the bounding tile name, will default on the bounding tile selection if not found
      */
-    static async shareSceneMediaCover(url, loop = false, mute = true) {
+    static async shareSceneMediaCover(url, loop = false, mute = true, boundingTileName = '') {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareSceneMedia(url, 'cover', type, loop, mute)
+        await shareSceneMedia(url, 'cover', type, loop, mute, boundingTileName)
     }
 
     /** Valide the common parameters */
