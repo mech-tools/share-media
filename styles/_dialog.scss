@@ -28,6 +28,10 @@
     .form-group.disabled {
         color: $disabled-color;
     }
+
+    button {
+        cursor: pointer;
+    }
 }
 
 #share-media-player-selection-dialog,
@@ -53,5 +57,14 @@
         background: $disabled-color;
         border: 1px solid $disabled-color;
         margin-right: 10px;
+    }
+}
+
+#share-media-share-bounding-tile-selection-dialog,
+#share-media-clear-bounding-tile-selection-dialog {
+    .bounding-tile-buttons {
+        label, input {
+            cursor: pointer;
+        }
     }
 }

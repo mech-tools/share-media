@@ -277,6 +277,14 @@
   color: #c0c0c0;
 }
 
+#share-media-player-selection-dialog button,
+#share-media-bounding-tile-creation-dialog button,
+#share-media-share-bounding-tile-selection-dialog button,
+#share-media-clear-bounding-tile-selection-dialog button,
+#share-media-blacklist-settings button {
+  cursor: pointer;
+}
+
 #share-media-player-selection-dialog .form-group,
 #share-media-share-bounding-tile-selection-dialog .form-group,
 #share-media-clear-bounding-tile-selection-dialog .form-group,
@@ -304,4 +312,10 @@
   background: #c0c0c0;
   border: 1px solid #c0c0c0;
   margin-right: 10px;
+}
+
+#share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons label, #share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons input,
+#share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons label,
+#share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons input {
+  cursor: pointer;
 }
