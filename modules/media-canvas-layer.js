@@ -17,9 +17,15 @@ class ShareMediaLayer extends CanvasLayer {
     /** @inherit */
     static get layerOptions() {
         return foundry.utils.mergeObject(super.layerOptions, {
+            name: constants.moduleName,
             canDragCreate: false,
-            zIndex: 10,
-            name: constants.moduleName
+            controllableObjects: false,
+            rotatableObjects: false,
+            snapToGrid: false,
+            quadtree: false,
+            elevationSorting: false,
+            sortActiveTop: false,
+            zIndex: 0
         })
     }
 
