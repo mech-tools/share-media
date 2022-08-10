@@ -234,7 +234,8 @@
 #share-media-bounding-tile-creation-dialog hr,
 #share-media-share-bounding-tile-selection-dialog hr,
 #share-media-clear-bounding-tile-selection-dialog hr,
-#share-media-blacklist-settings hr {
+#share-media-blacklist-settings hr,
+#share-media-choose-share-action-dialog hr {
   margin: 15px 0;
 }
 
@@ -242,7 +243,8 @@
 #share-media-bounding-tile-creation-dialog .how-to,
 #share-media-share-bounding-tile-selection-dialog .how-to,
 #share-media-clear-bounding-tile-selection-dialog .how-to,
-#share-media-blacklist-settings .how-to {
+#share-media-blacklist-settings .how-to,
+#share-media-choose-share-action-dialog .how-to {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -259,7 +261,8 @@
 #share-media-bounding-tile-creation-dialog .how-to i,
 #share-media-share-bounding-tile-selection-dialog .how-to i,
 #share-media-clear-bounding-tile-selection-dialog .how-to i,
-#share-media-blacklist-settings .how-to i {
+#share-media-blacklist-settings .how-to i,
+#share-media-choose-share-action-dialog .how-to i {
   background-image: url("../../../ui/denim075.png");
   background-repeat: no-repeat;
   margin-right: 15px;
@@ -273,7 +276,8 @@
 #share-media-bounding-tile-creation-dialog .form-group.disabled,
 #share-media-share-bounding-tile-selection-dialog .form-group.disabled,
 #share-media-clear-bounding-tile-selection-dialog .form-group.disabled,
-#share-media-blacklist-settings .form-group.disabled {
+#share-media-blacklist-settings .form-group.disabled,
+#share-media-choose-share-action-dialog .form-group.disabled {
   color: #c0c0c0;
 }
 
@@ -281,7 +285,8 @@
 #share-media-bounding-tile-creation-dialog button,
 #share-media-share-bounding-tile-selection-dialog button,
 #share-media-clear-bounding-tile-selection-dialog button,
-#share-media-blacklist-settings button {
+#share-media-blacklist-settings button,
+#share-media-choose-share-action-dialog button {
   cursor: pointer;
 }
 
@@ -318,4 +323,17 @@
 #share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons label,
 #share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons input {
   cursor: pointer;
+}
+
+#share-media-choose-share-action-dialog .dialog-buttons button {
+  -webkit-box-flex: 45%;
+  -ms-flex: 45%;
+  flex: 45%;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  padding: 6px;
+}
+
+#share-media-choose-share-action-dialog .dialog-buttons button:nth-child(odd) {
+  margin-right: 5px;
 }

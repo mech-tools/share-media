@@ -2,7 +2,8 @@
 #share-media-bounding-tile-creation-dialog,
 #share-media-share-bounding-tile-selection-dialog,
 #share-media-clear-bounding-tile-selection-dialog,
-#share-media-blacklist-settings {
+#share-media-blacklist-settings,
+#share-media-choose-share-action-dialog {
     hr {
         margin: 15px 0;
     }
@@ -65,6 +66,19 @@
     .bounding-tile-buttons {
         label, input {
             cursor: pointer;
+        }
+    }
+}
+
+#share-media-choose-share-action-dialog {
+    .dialog-buttons button {
+        flex: 45%;
+        margin: 0 0 10px 0;
+        line-height: 1.2;
+        padding: 6px;
+
+        &:nth-child(odd) {
+            margin-right: 5px;
         }
     }
 }

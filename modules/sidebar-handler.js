@@ -1,6 +1,4 @@
-import { shareFullscreenMedia } from "./fullscreen-handler.js";
-import { sharePopoutMedia } from "./popout-handler.js";
-import { shareSceneMedia } from "./scene-handler.js";
+import { chooseShareAction } from "./helpers.js"
 
 export function addSidebarContextEntries(contextEntries = [], context) {
     let objectType
@@ -22,28 +20,9 @@ export function addSidebarContextEntries(contextEntries = [], context) {
 
     const choices = [
         {
-            name: game.i18n.localize('share-media.context-entries.popout-some'),
-            icon: '<i class="fas fa-book-open"></i>',
-            action: sharePopoutMedia,
-            mode: 'some'
-        },
-        {
-            name: game.i18n.localize('share-media.context-entries.fullscreen-some'),
-            icon: '<i class="fas fa-expand-arrows-alt"></i>',
-            action: shareFullscreenMedia,
-            mode: 'some'
-        },
-        {
-            name: game.i18n.localize('share-media.context-entries.scene-fit'),
-            icon: '<i class="fas fas fa-map"></i>',
-            action: shareSceneMedia,
-            mode: 'fit'
-        },
-        {
-            name: game.i18n.localize('share-media.context-entries.scene-cover'),
-            icon: '<i class="fas fas fa-map"></i>',
-            action: shareSceneMedia,
-            mode: 'cover'
+            name: game.i18n.localize('share-media.context-entries.options'),
+            icon: '<i class="fas fa-square-share-nodes"></i>',
+            action: chooseShareAction,
         }
     ]
 
@@ -54,7 +33,7 @@ export function addSidebarContextEntries(contextEntries = [], context) {
         newEntry.icon = choice.icon
         newEntry.callback = li => {
           const object = game[objectType].get(li.data('documentId'));
-          choice.action(object.img, choice.mode)
+          choice.action(object.img)
         }
 
         contextEntries.splice(viewArtIndex + 1 + index, 0, newEntry)

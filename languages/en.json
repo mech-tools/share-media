@@ -33,10 +33,7 @@
             "token-button": "Share token image (right-click to share the actor image instead)"
         },
         "context-entries": {
-            "popout-some": "Share Artwork in Popout",
-            "fullscreen-some": "Share Artwork Fullscreen",
-            "scene-fit": "Share Artwork on Scene (Fit)",
-            "scene-cover": "Share Artwork on Scene (Cover)"
+            "options": "Share media options"
         },
         "dialogs": {
             "bounding-tile-creation": {
@@ -71,6 +68,16 @@
                 "title": "Edit blacklist",
                 "how-to": "Please select the players that should never ever received any shared medias.",
                 "save": "Save"
+            },
+            "share-action": {
+                "title": "How should the media be shared?",
+                "how-to": "Please choose how this media should be shared.",
+                "share-popout-all": "Share in a popout (all)",
+                "share-popout-some": "Share in a popout (selected)",
+                "share-fullscreen-all": "Share fullscreen (all)",
+                "share-fullscreen-some": "Share fullscreen (selected)",
+                "share-scene-fit": "Share on the scene (fit)",
+                "share-scene-cover": "Share on the scene (cover)"
             }
         },
         "settings": {

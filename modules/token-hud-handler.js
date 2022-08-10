@@ -1,3 +1,4 @@
+import { chooseShareAction } from "./helpers.js"
 import { sharePopoutMedia } from "./popout-handler.js"
 import constants from "./settings/constants.js"
 
@@ -11,8 +12,8 @@ export const addHUDControls = (app, html) => {
         </div>
     `)
 
-    button.click(() => sharePopoutMedia(app.object.document.texture.src, "some"))
-    button.contextmenu(() => sharePopoutMedia(app.object.actor.img, "some"))
+    button.click(() => chooseShareAction(app.object.document.texture.src))
+    button.contextmenu(() => chooseShareAction(app.object.actor.img))
 
     html.find('.col.left').append(button)
 }

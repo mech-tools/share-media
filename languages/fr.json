@@ -33,10 +33,7 @@
             "token-button": "Partager l'image du token (clic-droit pour partager l'image de l'acteur à la place)"
         },
         "context-entries": {
-            "popout-some": "Partager dans une fenêtre",
-            "fullscreen-some": "Partager en plein écran",
-            "scene-fit": "Partager sur la scene (Contraint)",
-            "scene-cover": "Partager sur la scene (Contenu)"
+            "options": "Options de Share media "
         },
         "dialogs": {
             "bounding-tile-creation": {
@@ -71,6 +68,16 @@
                 "title": "Éditer la blacklist",
                 "how-to": "Sélectionnez les joueurs qui ne doivent jamais recevoir de médias.",
                 "save": "Sauvegarder"
+            },
+            "share-action": {
+                "title": "Comment partager ce média ?",
+                "how-to": "Veuillez sélectionner la façon dont le média doit être partagé.",
+                "share-popout-all": "Partager dans une fenêtre (tous)",
+                "share-popout-some": "Partager dans une fenêtre (sélection)",
+                "share-fullscreen-all": "Partager en plein écran (tous)",
+                "share-fullscreen-some": "Partager en plein écran (sélection)",
+                "share-scene-fit": "Partager sur la scène (contraint)",
+                "share-scene-cover": "Partager sur la scène (contenu)"
             }
         },
         "settings": {

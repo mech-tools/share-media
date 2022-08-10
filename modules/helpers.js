@@ -1,3 +1,6 @@
+import { shareFullscreenMedia } from './fullscreen-handler.js'
+import { sharePopoutMedia } from './popout-handler.js'
+import { shareSceneMedia } from './scene-handler.js'
 import constants from './settings/constants.js'
 
 /**
@@ -43,20 +46,31 @@ export const dialog = async ({
             }
         })
 
-        const buttons = foundry.utils.mergeObject({
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
-                label: cancelLabel,
-                callback: () => reject
-            },
-            validate: {
-                icon: '<i class="fas fa-check"></i>',
-                label: validateLabel,
-                callback: html => {
-                    resolve(validateCallback(html))
+        let buttons = {}
+
+        if(cancelLabel) {
+            buttons = foundry.utils.mergeObject(buttons, {
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: cancelLabel,
+                    callback: () => reject
                 }
-            }
-        }, supplementaryButtons)
+            })
+        }
+
+        if(validateLabel && validateCallback) {
+            buttons = foundry.utils.mergeObject(buttons, {
+                validate: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: validateLabel,
+                    callback: html => {
+                        resolve(validateCallback(html))
+                    }
+                }
+            })
+        }
+
+        buttons = foundry.utils.mergeObject(buttons, supplementaryButtons)
 
         new Dialog({
             title,
@@ -69,6 +83,57 @@ export const dialog = async ({
             top,
             left
         }).render(true)
+    })
+}
+
+export const chooseShareAction = async (url) => {
+    const buttons = [
+        {
+            id: 'share-popout-all',
+            icon: '<i class="fas fa-book-open"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-popout-all`),
+            callback: html => sharePopoutMedia(url, 'all')
+        },
+        {
+            id: 'share-popout-some',
+            icon: '<i class="fas fa-book-open"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-popout-some`),
+            callback: html => sharePopoutMedia(url, 'some')
+        },
+        {
+            id: 'share-fullscreen-all',
+            icon: '<i class="fas fa-expand-arrows-alt"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-fullscreen-all`),
+            callback: html => shareFullscreenMedia(url, 'all')
+        },
+        {
+            id: 'share-fullscreen-some',
+            icon: '<i class="fas fa-expand-arrows-alt"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-fullscreen-some`),
+            callback: html => shareFullscreenMedia(url, 'some')
+        },
+        {
+            id: 'share-scene-fit',
+            icon: '<i class="fas fas fa-map"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-scene-fit`),
+            callback: html => shareSceneMedia(url, 'fit')
+        }
+        ,
+        {
+            id: 'share-scene-cover',
+            icon: '<i class="fas fas fa-map"></i>',
+            label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-scene-cover`),
+            callback: html => shareSceneMedia(url, 'cover')
+        }
+    ]
+
+    const content = await renderTemplate(`${constants.modulePath}/templates/choose-share-action-dialog.hbs`)
+
+    return dialog({
+        id: 'choose-share-action-dialog',
+        content,
+        title: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.title`),
+        otherButtons: buttons
     })
 }
 
