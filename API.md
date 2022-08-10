@@ -56,8 +56,9 @@ static async shareFullscreenMediaToSome(url, loop = false, mute = true)
  * @param {string} url url to the media
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
+ * @param {string} [boundingTileName=""] the bounding tile name, will default on the bounding tile selection if not found
  */
-static async shareSceneMediaFit(url, loop = false, mute = true)
+static async shareSceneMediaFit(url, loop = false, mute = true, boundingTileName = '')
 ```
 
 ```javascript
@@ -66,6 +67,7 @@ static async shareSceneMediaFit(url, loop = false, mute = true)
  * @param {string} url url to the media
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
+ * @param {string} [boundingTileName=""] the bounding tile name, will default on the bounding tile selection if not found
  */
-static async shareSceneMediaCover(url, loop = false, mute = true)
+static async shareSceneMediaCover(url, loop = false, mute = true, boundingTileName = '')
 ```

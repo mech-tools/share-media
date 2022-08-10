@@ -6,7 +6,7 @@
     <hr>
     <form>
         {{#each boundingTiles}}
-            <div class="form-group">
+            <div class="form-group bounding-tile-buttons">
                 <label for="{{this.id}}">{{this.name}}</label>
                 <input type="radio" name="boundingTileId" value="{{this.id}}" id="{{this.id}}" {{#unless @index}}checked{{/unless}}>
             </div>
@@ -14,3 +14,13 @@
     </form>
     <hr>
 </div>
+
+<script>
+    shareMediaFormbuttons = document.querySelectorAll("#share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons")
+    shareMediaFormbuttons.forEach(item => {
+        item.addEventListener("dblclick", (event) => {
+            const formButton = document.querySelector("#share-media-share-bounding-tile-selection-dialog button.dialog-button.validate")
+            formButton.click()
+        })
+    })
+</script>
