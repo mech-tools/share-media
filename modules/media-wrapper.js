@@ -20,8 +20,7 @@ export const wrapMedias = (html) => {
         'section.tab-container input[type="image"]' // Kanka inputs
     ]
 
-
-    const medias = html.find(selectors.join(',')).add(selectors.join(','))
+    const medias = html.find(selectors.join(','))
 
     medias.each((index, media) => {
         const htmlMedia = $(media)
@@ -112,7 +111,7 @@ export const activateMediaListeners = html => {
         'span[data-action="share-popout"]', // Default FVTT
     ]
 
-    html.find(popoutSelectors.join(',')).add(popoutSelectors.join(',')).click(evt => {
+    html.find(popoutSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -128,7 +127,7 @@ export const activateMediaListeners = html => {
         'span[data-action="share-scene"]', // Default FVTT
     ]
 
-    html.find(sceneSelectors.join(',')).add(sceneSelectors.join(',')).click(evt => {
+    html.find(sceneSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -144,7 +143,7 @@ export const activateMediaListeners = html => {
         'span[data-action="share-fullscreen"]', // Default FVTT
     ]
 
-    html.find(fullscreenSelectors.join(',')).add(fullscreenSelectors.join(',')).click(evt => {
+    html.find(fullscreenSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -160,7 +159,7 @@ export const activateMediaListeners = html => {
         'div[data-action="share-loop"]', // Default FVTT
     ]
 
-    html.find(loopVideoSelectors.join(',')).add(loopVideoSelectors.join(',')).click(evt => {
+    html.find(loopVideoSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -175,7 +174,7 @@ export const activateMediaListeners = html => {
         'div[data-action="share-mute"]', // Default FVTT
     ]
 
-    html.find(muteVideoSelectors.join(',')).add(muteVideoSelectors.join(',')).click(evt => {
+    html.find(muteVideoSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
@@ -190,7 +189,7 @@ export const activateMediaListeners = html => {
         'div[data-action="share-miro"]', // Default FVTT
     ]
 
-    html.find(miroSelectors.join(',')).add(miroSelectors.join(',')).click(evt => {
+    html.find(miroSelectors.join(',')).click(evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
