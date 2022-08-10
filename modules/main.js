@@ -35,8 +35,8 @@ Hooks.on('renderTokenHUD', (app, html) => {
 })
 
 Hooks.on('renderJournalPageSheet', (app, html) => {
-    wrapMedias(html.parent().parent())
-    activateMediaListeners(html.parent().parent())
+    wrapMedias(html.closest('.journal-entry-pages'))
+    activateMediaListeners(html.closest('.journal-entry-pages'))
 })
 
 Hooks.on('renderItemSheet', (app, html) => {
