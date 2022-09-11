@@ -24,6 +24,8 @@ export const wrapMedias = (html) => {
 
     medias.each((index, media) => {
         const htmlMedia = $(media)
+        if (htmlMedia.parent().attr('id') === "show-media") return;
+
         const mediaType = htmlMedia.is('img') || htmlMedia.is('input[type="image"]') ? 'image' : 'video'
         const smallMediaSize = htmlMedia.innerWidth() <= 250
 
@@ -111,93 +113,130 @@ export const activateMediaListeners = html => {
         'span[data-action="share-popout"]', // Default FVTT
     ]
 
-    html.find(popoutSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    const htmlPopoutSelectors = html.find(popoutSelectors.join(','))
+    htmlPopoutSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            const loopParameter = getLoopParameter(button)
-            const muteParameter = getMuteParameter(button)
-            sharePopoutMedia(button.dataset.url, button.dataset.mode, loopParameter, muteParameter)
-        }
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                const loopParameter = getLoopParameter(button)
+                const muteParameter = getMuteParameter(button)
+                sharePopoutMedia(button.dataset.url, button.dataset.mode, loopParameter, muteParameter)
+            }
+        })
     })
 
     const sceneSelectors = [
         'span[data-action="share-scene"]', // Default FVTT
     ]
 
-    html.find(sceneSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    const htmlSceneSelectors = html.find(sceneSelectors.join(','))
+    htmlSceneSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            const loopParameter = getLoopParameter(button)
-            const muteParameter = getMuteParameter(button)
-            shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopParameter, muteParameter)
-        }
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                const loopParameter = getLoopParameter(button)
+                const muteParameter = getMuteParameter(button)
+                shareSceneMedia(button.dataset.url, button.dataset.style, button.dataset.type, loopParameter, muteParameter)
+            }
+        })
     })
+
 
     const fullscreenSelectors = [
         'span[data-action="share-fullscreen"]', // Default FVTT
     ]
 
-    html.find(fullscreenSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    const htmlFullscreenSelectors = html.find(fullscreenSelectors.join(','))
+    htmlFullscreenSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            const loopParameter = getLoopParameter(button)
-            const muteParameter = getMuteParameter(button)
-            shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, loopParameter, muteParameter)
-        }
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                const loopParameter = getLoopParameter(button)
+                const muteParameter = getMuteParameter(button)
+                shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, loopParameter, muteParameter)
+            }
+        })
     })
+
 
     const loopVideoSelectors = [
         'div[data-action="share-loop"]', // Default FVTT
     ]
 
-    html.find(loopVideoSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            $(button).toggleClass('active')
-            $(button).attr('data-value', $(button).hasClass('active'))
-        }
+    const htmlLoopVideoSelectors = html.find(loopVideoSelectors.join(','))
+    htmlLoopVideoSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
+
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                $(button).toggleClass('active')
+                $(button).attr('data-value', $(button).hasClass('active'))
+            }
+        })
     })
+
+
 
     const muteVideoSelectors = [
         'div[data-action="share-mute"]', // Default FVTT
     ]
 
-    html.find(muteVideoSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    const htmlMuteVideoSelectors = html.find(muteVideoSelectors.join(','))
+    htmlMuteVideoSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            $(button).toggleClass('active')
-            $(button).attr('data-value', $(button).hasClass('active'))
-        }
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                $(button).toggleClass('active')
+                $(button).attr('data-value', $(button).hasClass('active'))
+            }
+        })
     })
+
 
     const miroSelectors = [
         'div[data-action="share-miro"]', // Default FVTT
     ]
 
-    html.find(miroSelectors.join(',')).click(evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    const htmlMiroSelectors = html.find(miroSelectors.join(','))
+    htmlMiroSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
 
-        const button = $(evt.currentTarget)[0]
-        if (button) {
-            window["foundryvtt-miro-connector"].MiroAPI.sendJournalEntryImage(button.dataset.url)
-        }
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                window["foundryvtt-miro-connector"].MiroAPI.sendJournalEntryImage(button.dataset.url)
+            }
+        })
     })
+
 }
 
 /**
