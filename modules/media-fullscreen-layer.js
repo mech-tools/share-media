@@ -31,6 +31,7 @@ class shareFullscreenLayer {
                         <i class="fas fa-window-maximize"></i>
                     </button>
                 </div>
+                <div class="title hidden"></div>
             `)
 
         const otherModules = document.querySelectorAll(".gm-screen-app, #dice-box-canvas");
@@ -46,13 +47,14 @@ class shareFullscreenLayer {
         this.container.find('button.maximize').click(e => this.toggleMinimize())
     }
 
-    handleShare(url, type = 'image', loop = false, mute = true) {
+    handleShare(url, type = 'image', title = "", loop = false, mute = true) {
         const background = this.container.find('.background')
         const img = this.container.find('img')
         const video = this.container.find('video')
         const videoContainer = video.get(0)
         const minimizeButton = this.container.find('.minimize')
         const maximizeButton = this.container.find('.maximize')
+        const titleContainer = this.container.find('.title')
 
         if (type === 'image') {
             if(url.endsWith('.jpg')) {
@@ -87,6 +89,11 @@ class shareFullscreenLayer {
             })
         }
 
+        if (title) {
+            titleContainer.html(title)
+            titleContainer.removeClass('hidden')
+        }
+
         this.container.removeClass('hidden')
         this.container.removeClass('minimized')
         minimizeButton.removeClass('hidden')
@@ -98,11 +105,15 @@ class shareFullscreenLayer {
         const img = this.container.find('img')
         const video = this.container.find('video')
         const videoContainer = video.get(0)
+        const titleContainer = this.container.find('.title')
 
         background.css('background-image', `url("${constants.modulePath}/images/transparent.png")`)
         img.attr('src', `${constants.modulePath}/images/transparent.png`)
         videoContainer.pause()
         video.attr('src', '')
+
+        titleContainer.html('')
+        titleContainer.addClass('hidden')
 
         this.container.addClass('hidden')
     }
@@ -110,8 +121,10 @@ class shareFullscreenLayer {
     toggleMinimize(evt) {
         const minimizeButton = this.container.find('.minimize')
         const maximizeButton = this.container.find('.maximize')
+        const titleContainer = this.container.find('.title')
         minimizeButton.toggleClass('hidden')
         maximizeButton.toggleClass('hidden')
+        titleContainer.toggleClass('hidden')
 
         this.container.toggleClass('minimized')
     }

@@ -12,20 +12,22 @@ window["share-media"].API.some-method()
 /**
  * Share a media in a popout to all players
  * @param {string} url url to the media
+ * @param {string} [title=""] optional title
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async sharePopoutMediaToAll(url, loop = false, mute = true)
+static async sharePopoutMediaToAll(url, title = "", loop = false, mute = true)
 ```
 
 ```javascript
 /**
  * Share a media in a popout to a selection of players
  * @param {string} url url to the media
+ * @param {string} [title=""] optional title
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async sharePopoutMediaToSome(url, loop = false, mute = true)
+static async sharePopoutMediaToSome(url, title = "", loop = false, mute = true)
 ```
 
 ## Fullscreen
@@ -33,20 +35,22 @@ static async sharePopoutMediaToSome(url, loop = false, mute = true)
 /**
  * Share a media fullscreen to all players
  * @param {string} url url to the media
+ * @param {string} [title=""] optional title
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async shareFullscreenMediaToAll(url, loop = false, mute = true)
+static async shareFullscreenMediaToAll(url, title = "", loop = false, mute = true)
 ```
 
 ```javascript
 /**
  * Share a media fullscreen to a selection of players
  * @param {string} url url to the media
+ * @param {string} [title=""] optional title
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async shareFullscreenMediaToSome(url, loop = false, mute = true)
+static async shareFullscreenMediaToSome(url, title = "", loop = false, mute = true)
 ```
 
 ## Scene

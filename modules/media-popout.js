@@ -21,8 +21,9 @@ export default class MediaPopout extends ImagePopout {
     /**
      * Create a new Media Popout and display it
      */
-    static _handleShareMedia(url, loop = false, mute = true) {
+    static _handleShareMedia(url, title = "", loop = false, mute = true) {
         const mediaPopout = new this(url, {
+            title,
             shareable: false,
             editable: false
         }).render(true)

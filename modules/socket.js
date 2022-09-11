@@ -16,29 +16,29 @@ Hooks.once('socketlib.ready', () => {
 /**
  * Show media popout event
  */
-export const socketSharePopoutMedia = async (url, players, loop = false, mute = true) => {
-    return await socket.executeForUsers('sharePopoutMedia', players, url, loop, mute)
+export const socketSharePopoutMedia = async (url, players, title = "", loop = false, mute = true) => {
+    return await socket.executeForUsers('sharePopoutMedia', players, url, title, loop, mute)
 }
 
 /**
  * Show media popout on event fired
  */
-const _socketSharePopoutMedia = (url, loop = false, mute = true) => {
-    MediaPopout._handleShareMedia(url, loop, mute)
+const _socketSharePopoutMedia = (url, title = "", loop = false, mute = true) => {
+    MediaPopout._handleShareMedia(url, title, loop, mute)
 }
 
 /**
  * Show fullscreen media event
  */
-export const socketshareFullscreenMedia = async (url, players, type = 'image', loop = false, mute = true) => {
-    return await socket.executeForUsers('shareFullscreenMedia', players, url, type, loop, mute)
+export const socketshareFullscreenMedia = async (url, players, type = 'image', title = "", loop = false, mute = true) => {
+    return await socket.executeForUsers('shareFullscreenMedia', players, url, type, title, loop, mute)
 }
 
 /**
  * Show fullscreen media on event fired
  */
-const _socketshareFullscreenMedia = (url, type = 'image', loop = false, mute = true) => {
-    fullscreenLayer.handleShare(url, type, loop, mute)
+const _socketshareFullscreenMedia = (url, type = 'image', title = "", loop = false, mute = true) => {
+    fullscreenLayer.handleShare(url, type, title, loop, mute)
 }
 
 /**

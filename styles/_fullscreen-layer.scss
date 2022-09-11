@@ -64,6 +64,22 @@
         }
     }
 
+    .title {
+        z-index: 3;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 30px;
+        color: #FFFFFF;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
     .background {
         z-index: 1;
         position: fixed;

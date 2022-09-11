@@ -9,51 +9,55 @@ export default class Api {
     /**
      * Share a media in a popout to all players
      * @param {string} url url to the media
+     * @param {string} [title=""] optional title
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async sharePopoutMediaToAll(url, loop = false, mute = true) {
+    static async sharePopoutMediaToAll(url, title = "", loop = false, mute = true) {
         this._validate(url, loop, mute)
 
-        await sharePopoutMedia(url, 'all', loop, mute)
+        await sharePopoutMedia(url, 'all', title, loop, mute)
     }
 
     /**
      * Share a media in a popout to a selection of players
      * @param {string} url url to the media
+     * @param {string} [title=""] optional title
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async sharePopoutMediaToSome(url, loop = false, mute = true) {
+    static async sharePopoutMediaToSome(url, title = "", loop = false, mute = true) {
         this._validate(url, loop, mute)
 
-        await sharePopoutMedia(url, 'some', loop, mute)
+        await sharePopoutMedia(url, 'some', title, loop, mute)
     }
 
     /**
      * Share a media fullscreen to all players
      * @param {string} url url to the media
+     * @param {string} [title=""] optional title
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async shareFullscreenMediaToAll(url, loop = false, mute = true) {
+    static async shareFullscreenMediaToAll(url, title = "", loop = false, mute = true) {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareFullscreenMedia(url, 'all', type, loop, mute)
+        await shareFullscreenMedia(url, 'all', type, title, loop, mute)
     }
 
     /**
      * Share a media fullscreen to a selection of players
      * @param {string} url url to the media
+     * @param {string} [title=""] optional title
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async shareFullscreenMediaToSome(url, loop = false, mute = true) {
+    static async shareFullscreenMediaToSome(url, title = "", loop = false, mute = true) {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareFullscreenMedia(url, 'some', type, loop, mute)
+        await shareFullscreenMedia(url, 'some', type, title, loop, mute)
     }
 
     /**

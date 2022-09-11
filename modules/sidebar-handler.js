@@ -1,4 +1,6 @@
 import { chooseShareAction } from "./helpers.js"
+import constants from "./settings/constants.js"
+import { SETTINGS } from "./settings/settings.js"
 
 export function addSidebarContextEntries(contextEntries = [], context) {
     let objectType
@@ -33,7 +35,8 @@ export function addSidebarContextEntries(contextEntries = [], context) {
         newEntry.icon = choice.icon
         newEntry.callback = li => {
           const object = game[objectType].get(li.data('documentId'));
-          choice.action(object.img)
+          const title = game.settings.get(constants.moduleName, SETTINGS.SHARE_ACTOR_TOKEN_NAME) ? object.name : ""
+          choice.action(object.img, title)
         }
 
         contextEntries.splice(viewArtIndex + 1 + index, 0, newEntry)

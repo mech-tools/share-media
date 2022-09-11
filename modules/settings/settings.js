@@ -10,6 +10,7 @@ export const SETTINGS = {
   VIDEO_MUTE_OPTION: "video-muted-option",
   ENABLE_HUD_BUTTON: "enable-hud-button",
   FULLSCREEN_IMMERSIVE_MODE: "fullscreen-immersive-mode",
+  SHARE_ACTOR_TOKEN_NAME: "popout-share-name",
   BLACKLIST_FORM: "blacklist-form",
   BLACKLIST: "blacklist"
 }
@@ -80,6 +81,20 @@ export function registerSettings() {
     ),
     hint: game.i18n.localize(
       "share-media.settings.fullscreen-immersive-mode-hint"
+    ),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => debouncedReload()
+  })
+
+  game.settings.register(constants.moduleName, SETTINGS.SHARE_ACTOR_TOKEN_NAME, {
+    name: game.i18n.localize(
+      "share-media.settings.share-actor-token-name-name"
+    ),
+    hint: game.i18n.localize(
+      "share-media.settings.share-actor-token-name-hint"
     ),
     scope: "world",
     config: true,

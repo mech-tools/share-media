@@ -6,7 +6,7 @@ import { SETTINGS } from './settings/settings.js'
 /**
  * Media popout event
  */
-export const sharePopoutMedia = async (url, mode, loop = false, mute = true) => {
+export const sharePopoutMedia = async (url, mode, title = "", loop = false, mute = true) => {
     const blacklist = game.settings.get(constants.moduleName, SETTINGS.BLACKLIST).split(";")
 
     const players = mode === 'all' ?
@@ -17,7 +17,7 @@ export const sharePopoutMedia = async (url, mode, loop = false, mute = true) => 
                 .map(u => ({ id: u.id, name: u.name, color: u.color, active: u.active, isGM: u.isGM }))
         )
 
-    await socketSharePopoutMedia(url, players, loop, mute)
+    await socketSharePopoutMedia(url, players, title, loop, mute)
     ui.notifications.info(game.i18n.localize(`${constants.moduleName}.share.popout-success-${mode}`))
 }
 

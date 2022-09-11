@@ -86,31 +86,31 @@ export const dialog = async ({
     })
 }
 
-export const chooseShareAction = async (url) => {
+export const chooseShareAction = async (url, title = "") => {
     const buttons = [
         {
             id: 'share-popout-all',
             icon: '<i class="fas fa-book-open"></i>',
             label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-popout-all`),
-            callback: html => sharePopoutMedia(url, 'all')
+            callback: html => sharePopoutMedia(url, 'all', title)
         },
         {
             id: 'share-popout-some',
             icon: '<i class="fas fa-book-open"></i>',
             label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-popout-some`),
-            callback: html => sharePopoutMedia(url, 'some')
+            callback: html => sharePopoutMedia(url, 'some', title)
         },
         {
             id: 'share-fullscreen-all',
             icon: '<i class="fas fa-expand-arrows-alt"></i>',
             label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-fullscreen-all`),
-            callback: html => shareFullscreenMedia(url, 'all')
+            callback: html => shareFullscreenMedia(url, 'all', "image", title)
         },
         {
             id: 'share-fullscreen-some',
             icon: '<i class="fas fa-expand-arrows-alt"></i>',
             label: game.i18n.localize(`${constants.moduleName}.dialogs.share-action.share-fullscreen-some`),
-            callback: html => shareFullscreenMedia(url, 'some')
+            callback: html => shareFullscreenMedia(url, 'some', "image", title)
         },
         {
             id: 'share-scene-fit',
