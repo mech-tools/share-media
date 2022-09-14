@@ -16,14 +16,16 @@
         }
     ],
     "relationships": {
-        "requires": [{
-            "id": "socketlib",
-            "type": "module",
-            "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
-            "compatibility": {
-                "verified": "1.0.10"
+        "requires": [
+            {
+                "id": "socketlib",
+                "type": "module",
+                "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
+                "compatibility": {
+                    "verified": "1.0.10"
+                }
             }
-        }]
+        ]
     },
     "conflicts": [],
     "socket": true,
@@ -50,6 +52,11 @@
             "lang": "ja",
             "name": "日本語",
             "path": "languages/ja.json"
+        },
+        {
+            "lang": "fi",
+            "name": "Suomi",
+            "path": "languages/fi.json"
         }
     ],
     "url": "",
