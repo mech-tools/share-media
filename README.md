@@ -12,6 +12,7 @@ This module is compatible with:
 - [Kanka-Foundry](https://github.com/eXaminator/kanka-foundry)
 - [GM Notes](https://github.com/syl3r86/gm-notes)
 - [AppBar](https://github.com/xaukael/taskbar/)
+- [Monk's Enhanced Journal](https://github.com/ironmonk88/monks-enhanced-journal/)
 
 This module is inspired by the excellent [Journal-To-Canvas-Slideshow](https://github.com/EvanesceExotica/Journal-To-Canvas-Slideshow) module developed by EvanesceExotica.
 
