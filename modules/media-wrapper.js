@@ -10,10 +10,10 @@ import { parseInlineStyles } from './helpers.js'
  */
 export const wrapMedias = (html) => {
     const selectors = [
-        'article.journal-entry-page.text img', // Default FVTT Text journal sheet
-        'article.journal-entry-page.text video', // Default FVTT Text journal sheet
-        'article.journal-entry-page.image img', // Default FVTT Image journal sheet
-        'article.journal-entry-page.video video', // Default FVTT Video journal sheet
+        'article.journal-entry-page.text :not(header) > img', // Default FVTT Text journal sheet
+        'article.journal-entry-page.text :not(header) > video', // Default FVTT Text journal sheet
+        'article.journal-entry-page.image :not(header) > img', // Default FVTT Image journal sheet
+        'article.journal-entry-page.video :not(header) > video', // Default FVTT Video journal sheet
         'div.editor-content img:not([data-edit])', // FVTT imgs
         'div.editor-content video:not([data-edit])', // FVTT videos
         'section.tab-container img:not([data-edit])', // Kanka imgs
