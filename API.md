@@ -75,3 +75,11 @@ static async shareSceneMediaFit(url, loop = false, mute = true, boundingTileName
  */
 static async shareSceneMediaCover(url, loop = false, mute = true, boundingTileName = '')
 ```
+
+```javascript
+/**
+ * Clear one or multiple bounding tiles on the current scene
+ * @param {string} [boundingTileName=""] bouding tile to clear
+ */
+static clearBoundingTile(boundingTileName = '')
+```

@@ -1,6 +1,6 @@
 import { shareFullscreenMedia } from "./fullscreen-handler.js"
 import { sharePopoutMedia } from "./popout-handler.js"
-import { shareSceneMedia } from "./scene-handler.js"
+import { shareSceneMedia, _clearBoundingTile } from "./scene-handler.js"
 
 /**
  * Module capabilities as API
@@ -93,5 +93,13 @@ export default class Api {
         if(!url) throw new Error('Missing url parameter')
         if(typeof loop !== 'boolean') throw new Error('Loop parameter is not a valid boolean')
         if(typeof mute !== 'boolean') throw new Error('Mute parameter is not a valid boolean')
+    }
+
+    /**
+     * Clear one or multiple bounding tiles on the current scene
+     * @param {string} [boundingTileName=""] bouding tile to clear
+     */
+    static clearBoundingTile(boundingTileName = '') {
+        _clearBoundingTile(boundingTileName)
     }
 }

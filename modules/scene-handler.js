@@ -89,17 +89,24 @@ async function _promptBoundingTileCreation(nextNumber) {
 /**
  * Clear a bounding tile
  */
-async function _clearBoundingTile() {
+export async function _clearBoundingTile(boundingTileName = '') {
     const boundingTiles = getAllBoundingTiles()
 
     if (!boundingTiles.length) {
         return ui.notifications.warn(game.i18n.localize(`${constants.moduleName}.bounding-tile.not-found`))
     }
 
-    const boundingTilesToClear = boundingTiles.length > 1 ?
-        await _promptClearBoundingTileSection(boundingTiles) :
-        boundingTiles
+    let boundingTilesToClear
 
+    if (boundingTileName) {
+        boundingTilesToClear = boundingTiles.filter((boundingTile) => boundingTile.data.flags[constants.moduleName].name === boundingTileName)
+    }
+
+    if (!boundingTilesToClear) {
+        boundingTilesToClear = boundingTiles.length > 1 ?
+            await _promptClearBoundingTileSection(boundingTiles) :
+            boundingTiles
+    }
 
     boundingTilesToClear.forEach(async (boundingTile) => {
         const mediaFlag = boundingTile.parent.flags?.[constants.moduleName]?.[boundingTile.flags[constants.moduleName].name]
