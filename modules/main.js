@@ -39,12 +39,12 @@ Hooks.on('renderJournalPageSheet', (app, html) => {
     activateMediaListeners(html.closest('.journal-entry-pages'))
 })
 
-// Monk's Enhanced Journal compatibility
+// Monk's Enhanced Journal & Kanka compatibility
 Hooks.on('renderJournalSheet', (app, html) => {
     if (app.constructor.name === "JournalSheet") return
 
-    wrapMedias(html.closest('.journal-sheet'))
-    activateMediaListeners(html.closest('.journal-sheet'))
+    wrapMedias(html)
+    activateMediaListeners(html)
 })
 
 Hooks.on('renderItemSheet', (app, html) => {
