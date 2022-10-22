@@ -90,6 +90,8 @@
             "enable-hud-button-hint": "有効にすると、キャンバス上でトークンを左クリックした後にボタンが表示されます。このボタンを左クリックすると、トークン画像がポップアウトで全プレイヤーに公開されます。このボタンを右クリックすると、代わりにアクター画像が共有されます。",
             "fullscreen-immersive-mode-name": "Enable fullscreen immersive mode?",
             "fullscreen-immersive-mode-hint": "If enabled, the medias shared in fullscreen mode will be displayed above the Foundry interface.",
+            "fullscreen-darkness-mode-name": "Enable fullscreen darkness mode?",
+            "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
             "share-actor-token-name-name": "Show actor/token names.",
             "share-actor-token-name-hint": "If enabled, this will show actor/token names when sharing in a popout or fullscreen.",
             "blacklist-label-menu": "Edit blacklist"

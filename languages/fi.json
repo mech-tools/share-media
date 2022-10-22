@@ -11,6 +11,8 @@
             "enable-hud-button-hint": "Jos käytössä, näkyviin tulee painike, kun napsautat vasemmalla hiiren napilla pelinappulaa kankaalla. Napsauttamalla tätä painiketta vasemmalla hiiren napilla jaetaan pelinappulan kuva kaikille pelaajille ponnahdusikkunassa. Napsauttamalla tätä painiketta oikealle hiiren napilla jaetaan sen sijaan hahmon kuva.",
             "fullscreen-immersive-mode-name": "Ota käyttöön koko näytön mukaansatempaava tila?",
             "fullscreen-immersive-mode-hint": "Jos käytössä, koko näytön tilassa jaetut mediat näkyvät Foundry VTT:n käyttöliittymän päällä.",
+            "fullscreen-darkness-mode-name": "Enable fullscreen darkness mode?",
+            "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
             "disable-context-options-name": "Poista kontekstivalikko käytöstä"
         },
         "share": {

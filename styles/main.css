@@ -159,8 +159,20 @@
   pointer-events: auto;
 }
 
-#fullscreen-layer .buttons {
+#fullscreen-layer .darkness {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  mix-blend-mode: multiply;
+  opacity: 0;
   z-index: 3;
+}
+
+#fullscreen-layer .buttons {
+  z-index: 4;
   position: absolute;
   top: 50px;
   left: 50%;
@@ -199,7 +211,7 @@
 }
 
 #fullscreen-layer .title {
-  z-index: 3;
+  z-index: 4;
   position: absolute;
   top: 100px;
   left: 50%;
