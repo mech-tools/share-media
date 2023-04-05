@@ -36,28 +36,30 @@ export default class Api {
      * Share a media fullscreen to all players
      * @param {string} url url to the media
      * @param {string} [title=""] optional title
+     * @param {boolean} [immersive=false] immersive mode
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async shareFullscreenMediaToAll(url, title = "", loop = false, mute = true) {
+    static async shareFullscreenMediaToAll(url, title = "", immersive = false, loop = false, mute = true) {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareFullscreenMedia(url, 'all', type, title, loop, mute)
+        await shareFullscreenMedia(url, 'all', type, title, immersive, loop, mute)
     }
 
     /**
      * Share a media fullscreen to a selection of players
      * @param {string} url url to the media
      * @param {string} [title=""] optional title
+     * @param {boolean} [immersive=false] immersive mode
      * @param {boolean} [loop=false] loop the video (only for videos)
      * @param {boolean} [mute=true] mute the video (only for videos)
      */
-    static async shareFullscreenMediaToSome(url, title = "", loop = false, mute = true) {
+    static async shareFullscreenMediaToSome(url, title = "", immersive = false, loop = false, mute = true) {
         this._validate(url, loop, mute)
 
         const type = ['.mp4', 'webm'].includes(url.slice(-4).toLowerCase()) ? 'video' : 'image'
-        await shareFullscreenMedia(url, 'some', type, title, loop, mute)
+        await shareFullscreenMedia(url, 'some', type, title, immersive, loop, mute)
     }
 
     /**

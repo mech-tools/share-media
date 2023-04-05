@@ -49,6 +49,15 @@
                     color: $loop-icon-color;
                 }
             }
+
+            .actions .immersive-action {
+                transition: background-color .25s, color .25s;
+
+                &.active {
+                    background-color: lighten($icon-color, 15%);
+                    color: $loop-icon-color;
+                }
+            }
         }
 
         .media-actions:hover .actions {

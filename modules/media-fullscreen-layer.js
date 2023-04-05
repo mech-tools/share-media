@@ -12,12 +12,10 @@ class shareFullscreenLayer {
     }
 
     _createContainer() {
-        const immersiveMode = game.settings.get(constants.moduleName, SETTINGS.FULLSCREEN_IMMERSIVE_MODE)
-
         const dismissButton = game.user.isGM ?
         `<button class="dismiss"><i class="fas fa-times"></i> ${game.i18n.localize(`${constants.moduleName}.share.fullscreen-dismiss-button`)}</button>` : ''
 
-        this.container = $(`<div id="fullscreen-layer" class="hidden ${immersiveMode ? 'immersive-mode' : ''}"></div>`)
+        this.container = $(`<div id="fullscreen-layer" class="hidden"></div>`)
             .append(`
                 <div class="background"></div>
                 <img src="${constants.modulePath}/images/transparent.png" alt="">
@@ -48,7 +46,7 @@ class shareFullscreenLayer {
         this.container.find('button.maximize').click(e => this.toggleMinimize())
     }
 
-    handleShare(url, type = 'image', title = "", loop = false, mute = true) {
+    handleShare(url, type = 'image', title = "", immersive = false, loop = false, mute = true) {
         const background = this.container.find('.background')
         const img = this.container.find('img')
         const video = this.container.find('video')
@@ -57,6 +55,8 @@ class shareFullscreenLayer {
         const maximizeButton = this.container.find('.maximize')
         const titleContainer = this.container.find('.title')
         const darknessContainer = this.container.find('.darkness')
+
+        immersive ? this.container.addClass('immersive-mode') : this.container.removeClass('immersive-mode')
 
         if (type === 'image') {
             if(url.endsWith('.jpg')) {
@@ -94,6 +94,8 @@ class shareFullscreenLayer {
         if (title) {
             titleContainer.html(title)
             titleContainer.removeClass('hidden')
+        } else {
+            titleContainer.addClass('hidden')
         }
 
         const darknessSetting = game.settings.get(constants.moduleName, SETTINGS.FULLSCREEN_DARKNESS_MODE)

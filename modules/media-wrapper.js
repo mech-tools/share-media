@@ -27,7 +27,7 @@ export const wrapMedias = (html) => {
         if (htmlMedia.parent().attr('id') === "show-media") return;
 
         const mediaType = htmlMedia.is('img') || htmlMedia.is('input[type="image"]') ? 'image' : 'video'
-        const smallMediaSize = htmlMedia.innerWidth() <= 250
+        const smallMediaSize = htmlMedia.innerWidth() <= 350
 
         const mediaUrl = mediaType === 'image' ?
             htmlMedia.attr('src') :
@@ -50,6 +50,8 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
         .after(`<div class="media-actions-container"></div>`)
 
     if(game.user.isGM) {
+        const immersiveSetting = game.settings.get(constants.moduleName, SETTINGS.FULLSCREEN_IMMERSIVE_MODE)
+
         $(media).parent().find('div.media-actions-container')
             .append(`
                 <div class="media-actions">
@@ -64,6 +66,7 @@ function _wrapImageVideoMedia(media, src, type = 'image', smallMediaSize = false
                     <div class="actions">
                         <span data-action="share-fullscreen" data-mode="all" data-url="${src}" data-type="${type}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}"><i class="fas fa-users"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-all-button`)}` : ``}</span>
                         <span data-action="share-fullscreen" data-mode="some" data-url="${src}" data-type="${type}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}"><i class="fas fa-user-friends"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-some-button`)}` : ``}</span>
+                        <span data-action="share-fullscreen-immersive" data-action="immersive-mode" class="immersive-action ${immersiveSetting ? 'active' : ''}" data-value="${immersiveSetting}" title="${game.i18n.localize(`${constants.moduleName}.share.fullscreen-immersive-button`)}"><i class="fa-thin fa-arrows-maximize"></i>${!smallMediaSize ? `&nbsp;&nbsp;${game.i18n.localize(`${constants.moduleName}.share.fullscreen-immersive-button`)}` : ``}</span>
                     </div>
                 </div>
                 <div class="media-actions">
@@ -170,17 +173,37 @@ export const activateMediaListeners = html => {
             if (button) {
                 const loopParameter = getLoopParameter(button)
                 const muteParameter = getMuteParameter(button)
+                const immersiveParameter = getImmersiveParameter(button)
                 const title = ""
-                shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, title, loopParameter, muteParameter)
+                shareFullscreenMedia(button.dataset.url, button.dataset.mode, button.dataset.type, title, immersiveParameter, loopParameter, muteParameter)
             }
         })
     })
 
 
+    const immersiveSelectors = [
+        'span[data-action="share-fullscreen-immersive"]', // Default FVTT
+    ]
+
+    const htmlImmersiveSelectors = html.find(immersiveSelectors.join(','))
+    htmlImmersiveSelectors.each((index, element) => {
+        if ($._data(element, "events")) return
+
+        $(element).click(evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+
+            const button = $(evt.currentTarget)[0]
+            if (button) {
+                $(button).toggleClass('active')
+                $(button).attr('data-value', $(button).hasClass('active'))
+            }
+        })
+    })
+
     const loopVideoSelectors = [
         'div[data-action="share-loop"]', // Default FVTT
     ]
-
 
     const htmlLoopVideoSelectors = html.find(loopVideoSelectors.join(','))
     htmlLoopVideoSelectors.each((index, element) => {
@@ -197,8 +220,6 @@ export const activateMediaListeners = html => {
             }
         })
     })
-
-
 
     const muteVideoSelectors = [
         'div[data-action="share-mute"]', // Default FVTT
@@ -240,6 +261,15 @@ export const activateMediaListeners = html => {
         })
     })
 
+}
+
+/**
+ * Get the corresponding immersive setting for the media
+ */
+function getImmersiveParameter(button) {
+    const immersiveButton = $(button).closest('div.actions').find('span.immersive-action')
+
+    return immersiveButton.length === 0 ? false : immersiveButton.attr('data-value') === 'true'
 }
 
 /**

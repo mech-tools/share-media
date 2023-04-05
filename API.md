@@ -36,10 +36,11 @@ static async sharePopoutMediaToSome(url, title = "", loop = false, mute = true)
  * Share a media fullscreen to all players
  * @param {string} url url to the media
  * @param {string} [title=""] optional title
+ * @param {boolean} [immersive=false] immersive mode
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async shareFullscreenMediaToAll(url, title = "", loop = false, mute = true)
+static async shareFullscreenMediaToAll(url, title = "", immersive = false, loop = false, mute = true)
 ```
 
 ```javascript
@@ -47,10 +48,11 @@ static async shareFullscreenMediaToAll(url, title = "", loop = false, mute = tru
  * Share a media fullscreen to a selection of players
  * @param {string} url url to the media
  * @param {string} [title=""] optional title
+ * @param {boolean} [immersive=false] immersive mode
  * @param {boolean} [loop=false] loop the video (only for videos)
  * @param {boolean} [mute=true] mute the video (only for videos)
  */
-static async shareFullscreenMediaToSome(url, title = "", loop = false, mute = true)
+static async shareFullscreenMediaToSome(url, title = "", immersive = false, loop = false, mute = true)
 ```
 
 ## Scene

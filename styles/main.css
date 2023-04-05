@@ -59,6 +59,17 @@
   color: #B79D48;
 }
 
+#show-media .media-actions-container .media-actions .actions .immersive-action {
+  -webkit-transition: background-color .25s, color .25s;
+  -o-transition: background-color .25s, color .25s;
+  transition: background-color .25s, color .25s;
+}
+
+#show-media .media-actions-container .media-actions .actions .immersive-action.active {
+  background-color: #e1e1e1;
+  color: #B79D48;
+}
+
 #show-media .media-actions-container .media-actions:hover .actions {
   width: auto;
   -webkit-transform: scaleX(1);
@@ -137,7 +148,7 @@
 }
 
 #fullscreen-layer.immersive-mode {
-  z-index: 200;
+  z-index: 100;
 }
 
 #fullscreen-layer.hidden {
@@ -151,7 +162,8 @@
 
 #fullscreen-layer.minimized > .background,
 #fullscreen-layer.minimized > img,
-#fullscreen-layer.minimized > video {
+#fullscreen-layer.minimized > video,
+#fullscreen-layer.minimized > .title {
   display: none;
 }
 
