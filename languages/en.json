@@ -96,6 +96,8 @@
             "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
             "share-actor-token-name-name": "Show actor/token names.",
             "share-actor-token-name-hint": "If enabled, this will show actor/token names when sharing in a popout or fullscreen.",
+            "enable-scene-cover-name": "Display scene medias above grid and tokens.",
+            "enable-scene-cover-hint": "If enabled, the medias shared on the scene will be displayed above grid and tokens (and possibly other scene effects).",
             "blacklist-label-menu": "Edit blacklist"
         }
     }

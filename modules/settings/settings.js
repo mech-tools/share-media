@@ -12,6 +12,7 @@ export const SETTINGS = {
   FULLSCREEN_IMMERSIVE_MODE: "fullscreen-immersive-mode",
   FULLSCREEN_DARKNESS_MODE: "fullscreen-darkness-mode",
   SHARE_ACTOR_TOKEN_NAME: "popout-share-name",
+  ENABLE_SCENE_COVER: "enable-scene-cover",
   BLACKLIST_FORM: "blacklist-form",
   BLACKLIST: "blacklist"
 }
@@ -110,6 +111,20 @@ export function registerSettings() {
     ),
     hint: game.i18n.localize(
       "share-media.settings.share-actor-token-name-hint"
+    ),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => debouncedReload()
+  })
+
+  game.settings.register(constants.moduleName, SETTINGS.ENABLE_SCENE_COVER, {
+    name: game.i18n.localize(
+      "share-media.settings.enable-scene-cover-name"
+    ),
+    hint: game.i18n.localize(
+      "share-media.settings.enable-scene-cover-hint"
     ),
     scope: "world",
     config: true,

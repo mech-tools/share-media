@@ -165,5 +165,6 @@ class ShareMediaLayer extends CanvasLayer {
  * Register the media sharing canvas layer
  */
 export default function registerCanvasLayer() {
-    CONFIG.Canvas.layers.shareMedia = { layerClass: ShareMediaLayer, group: 'primary' }
+    const group  = game.settings.get(constants.moduleName, SETTINGS.ENABLE_SCENE_COVER) ? 'interface' : 'primary'
+    CONFIG.Canvas.layers.shareMedia = { layerClass: ShareMediaLayer, group }
 }

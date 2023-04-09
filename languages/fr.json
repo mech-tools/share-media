@@ -96,6 +96,8 @@
             "fullscreen-darkness-mode-hint": "Si activé, les médias partagé en mode plein écran affichera le même niveau d'obscurité que la scène courante.",
             "share-actor-token-name-name": "Afficher les noms des acteurs/tokens.",
             "share-actor-token-name-hint": "Si activé, les noms des acteurs/tokens seront affichés dans le partage dans une fenêtre ou en plein écran.",
+            "enable-scene-cover-name": "Affiche les partages sur la scène par dessus la grille et les tokens.",
+            "enable-scene-cover-hint": "Si activé, les médias affichés sur la scène seront partagés par-dessus la grille et les tokens (et probablement d'autres effets de scène).",
             "blacklist-label-menu": "Éditer la blacklist"
         }
     }
