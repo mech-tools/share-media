@@ -9,11 +9,15 @@
             "blacklist-label-menu": "Muokkaa estolistaa",
             "enable-hud-button-name": "Ota käyttöön painike pelinappulan heijastusnäytössä?",
             "enable-hud-button-hint": "Jos käytössä, näkyviin tulee painike, kun napsautat vasemmalla hiiren napilla pelinappulaa kankaalla. Napsauttamalla tätä painiketta vasemmalla hiiren napilla jaetaan pelinappulan kuva kaikille pelaajille ponnahdusikkunassa. Napsauttamalla tätä painiketta oikealle hiiren napilla jaetaan sen sijaan hahmon kuva.",
-            "fullscreen-immersive-mode-name": "Ota käyttöön koko näytön mukaansatempaava tila?",
+            "fullscreen-immersive-mode-name": "Ota oletuksena käyttöön koko näytön immersiivinen tila?",
             "fullscreen-immersive-mode-hint": "Jos käytössä, koko näytön tilassa jaetut mediat näkyvät Foundry VTT:n käyttöliittymän päällä.",
-            "fullscreen-darkness-mode-name": "Enable fullscreen darkness mode?",
-            "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
-            "disable-context-options-name": "Poista kontekstivalikko käytöstä"
+            "fullscreen-darkness-mode-name": "Ota käyttöön koko näytön pimeystila?",
+            "fullscreen-darkness-mode-hint": "Jos käytössä, koko näytön tilassa jaetut mediat näytetään samalla pimeystasolla kuin nykyinen kohtaus.",
+            "disable-context-options-name": "Poista kontekstivalikko käytöstä",
+            "share-actor-token-name-name": "Näytä hahmojen/pelinappuloiden nimet.",
+            "share-actor-token-name-hint": "Jos käytössä, hahmojen/pelinappuloiden nimet näytetään, kun jakaminen tapahtuu ponnahdusikkunassa tai koko ruudussa.",
+            "enable-scene-cover-name": "Näytä kohtauksen mediat ruudukon ja pelinappuloiden päällä.",
+            "enable-scene-cover-hint": "Jos käytössä, kohtauksessa jaetut mediat näytetään ruudukon ja pelinappuloiden päällä (ja mahdollisesti muiden kohtauksen tehosteiden päällä)."
         },
         "share": {
             "popout-all-button": "Kaikille pelaajille",
@@ -36,7 +40,9 @@
             "popout-button": "Jaa ponnahdusikkunassa",
             "scene-success": "Media jaettu onnistuneesti kohtauksessa.",
             "fullscreen-button": "Jaa koko näytöllä",
-            "fullscreen-some-button": "Valituille"
+            "fullscreen-some-button": "Valituille",
+            "fullscreen-immersive-button": "Immersiivinen tila",
+            "scene-no-scene": "Kohtausta ei ole näkyvillä. Näytä ensin jokin kohtaus."
         },
         "bounding-tile": {
             "create-button": "Luo rajauslaatta",
@@ -90,6 +96,9 @@
                 "how-to": "Valitse pelaajat, joiden ei pitäisi koskaan saada mitään jaettua mediaa.",
                 "save": "Tallenna"
             }
+        },
+        "context-entries": {
+            "options": "Mediajaon asetukset"
         }
     }
 }
