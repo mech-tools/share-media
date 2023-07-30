@@ -67,7 +67,7 @@ class ShareMediaLayer extends CanvasLayer {
 
         this.containers = this.containers.filter(c => {
             if (c.parentName === parentName) {
-                c.destroy(true)
+                c.destroy({ children: true })
             }
 
             return c.parentName !== parentName
