@@ -30,12 +30,12 @@
     "conflicts": [],
     "socket": true,
     "esmodules": [
-        "/modules/main.js",
-        "/modules/socket.js"
+        "/build/main.js",
+        "/build/socket.js"
     ],
     "scripts": [],
     "styles": [
-        "/styles/main.css"
+        "/build/main.css"
     ],
     "languages": [
         {

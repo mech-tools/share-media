@@ -25,7 +25,6 @@
   left: 8px;
   opacity: 0;
   -webkit-transition: opacity 250ms;
-  -o-transition: opacity 250ms;
   transition: opacity 250ms;
 }
 
@@ -46,7 +45,6 @@
 
 #show-media .media-actions-container .media-actions.loop-action .drawer, #show-media .media-actions-container .media-actions.mute-action .drawer, #show-media .media-actions-container .media-actions.miro-action .drawer {
   -webkit-transition: background-color .25s, color .25s;
-  -o-transition: background-color .25s, color .25s;
   transition: background-color .25s, color .25s;
 }
 
@@ -61,7 +59,6 @@
 
 #show-media .media-actions-container .media-actions .actions .immersive-action {
   -webkit-transition: background-color .25s, color .25s;
-  -o-transition: background-color .25s, color .25s;
   transition: background-color .25s, color .25s;
 }
 
@@ -116,7 +113,6 @@
   border-top-right-radius: 4px;
   -webkit-transition: -webkit-transform 250ms;
   transition: -webkit-transform 250ms;
-  -o-transition: transform 250ms;
   transition: transform 250ms;
   transition: transform 250ms, -webkit-transform 250ms;
   cursor: pointer;
@@ -193,7 +189,6 @@
   transform: translate(-50%, 0);
   opacity: .35;
   -webkit-transition: opacity .5s;
-  -o-transition: opacity .5s;
   transition: opacity .5s;
 }
 
