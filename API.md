@@ -1,13 +1,30 @@
 # Share Media API
 
 ## Access
-The API methods are accessible through: 
+
+The API methods are accessible through:
+
 ```
 game.modules.get('share-media').API.some-method()
 window["share-media"].API.some-method()
 ```
 
+## Options
+
+```javascript
+/**
+ * Share a media with a dialog to chose option from
+ * @param {string} url url to the media
+ * @param {string} [title=""] optional title
+ * @param {boolean} [loop=false] loop the video (only for videos)
+ * @param {boolean} [mute=true] mute the video (only for videos)
+ */
+static shareDialog(url, title = "", loop = false, mute = true)
+
+```
+
 ## Popout
+
 ```javascript
 /**
  * Share a media in a popout to all players
@@ -31,6 +48,7 @@ static async sharePopoutMediaToSome(url, title = "", loop = false, mute = true)
 ```
 
 ## Fullscreen
+
 ```javascript
 /**
  * Share a media fullscreen to all players
@@ -56,6 +74,7 @@ static async shareFullscreenMediaToSome(url, title = "", immersive = false, loop
 ```
 
 ## Scene
+
 ```javascript
 /**
  * Share a media on the current scene with fit mode
