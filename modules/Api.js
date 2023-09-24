@@ -17,7 +17,7 @@ export default class Api {
   static shareDialog(url, title = "", loop = false, mute = true) {
     this._validate(url, loop, mute);
 
-    chooseShareAction(url, "all", title, loop, mute);
+    chooseShareAction(url, title, loop, mute);
   }
   /**
    * Share a media in a popout to all players
