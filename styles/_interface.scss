@@ -1,112 +1,114 @@
 #show-media {
-    &.clickable-media {
-        position: relative;
-        display: inline-block;
+  &.clickable-media {
+    position: relative;
+    display: inline-block;
+  }
+
+  &.clickable-media:hover .media-actions-container {
+    opacity: 1;
+  }
+
+  // Reset CSS Fix
+  .media-actions-container,
+  .media-actions-container * {
+    padding: 0;
+    margin: 0;
+    width: auto;
+
+    &:not(i) {
+      font-family: Signika, sans-serif;
     }
+  }
 
-    &.clickable-media:hover .media-actions-container {
-        opacity: 1;
-    }
+  .media-actions-container {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    opacity: 0;
+    transition: opacity 250ms;
 
-     // Reset CSS Fix
-     .media-actions-container,
-     .media-actions-container * {
-        padding: 0;
-        margin: 0;
-        width: auto;
+    .media-actions {
+      display: flex;
+      align-items: center;
+      height: 28px;
+      margin-top: 5px;
 
-        &:not(i) {
-            font-family: Signika, sans-serif;
-        }
-    }
-
-    .media-actions-container {
-        position: absolute;
-        top: 5px;
-        left: 8px;
-        opacity: 0;
-        transition: opacity 250ms;
-
-        .media-actions {
-            display: flex;
-            align-items: center;
-            height: 28px;
-            margin-top: 5px;
-
-            &.loop-action, &.mute-action, &.miro-action {
-                cursor: pointer;
-
-                .drawer {
-                    transition: background-color .25s, color .25s;
-
-                    &:hover {
-                        background-color: darken($icon-color, 15%);
-                    }
-                }
-
-                &.active .drawer {
-                    background-color: lighten($icon-color, 15%);
-                    color: $loop-icon-color;
-                }
-            }
-
-            .actions .immersive-action {
-                transition: background-color .25s, color .25s;
-
-                &.active {
-                    background-color: lighten($icon-color, 15%);
-                    color: $loop-icon-color;
-                }
-            }
-        }
-
-        .media-actions:hover .actions {
-            width: auto;
-            transform: scaleX(1);
-        }
+      &.loop-action,
+      &.mute-action,
+      &.miro-action {
+        cursor: pointer;
 
         .drawer {
-            z-index: 1;
-            background-color: $icon-color;
-            margin-bottom: 5px;
-            padding: 8px;
-            min-width: 30px;
-            font-size: 12px;
-            color: $inverted-icon-color;
-            box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
-            border-radius: 4px;
-            text-align: center;
+          transition: background-color 0.25s, color 0.25s;
+
+          &:hover {
+            background-color: darken($icon-color, 15%);
+          }
         }
 
-        .actions {
-            display: flex;
-            overflow: hidden;
-            width: 0;
-            transform: scaleX(0);
-            transform-origin: 0 0;
-            height: 28px;
-            margin-bottom: 5px;
-            margin-left: -2px;
-            padding-left: 2px;
-            background-color: darken($icon-color, 10%);
-            font-size: 12px;
-            color: $inverted-icon-color;
-            box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
-            border-bottom-right-radius: 4px;
-            border-top-right-radius: 4px;
-            transition: transform 250ms;
-            cursor: pointer;
-
-            span[data-action] {
-                display: flex;
-                height: 100%;
-                align-items: center;
-                padding: 0 10px;
-
-                &:hover {
-                    background-color: darken($icon-color, 15%);
-                }
-            }
+        &.active .drawer {
+          background-color: lighten($icon-color, 15%);
+          color: $loop-icon-color;
         }
+      }
+
+      .actions .immersive-action {
+        transition: background-color 0.25s, color 0.25s;
+
+        &.active {
+          background-color: lighten($icon-color, 15%);
+          color: $loop-icon-color;
+        }
+      }
     }
+
+    .media-actions:hover .actions {
+      width: auto;
+      transform: scaleX(1);
+    }
+
+    .drawer {
+      z-index: 1;
+      background-color: $icon-color;
+      margin-bottom: 5px;
+      padding: 8px;
+      min-width: 30px;
+      font-size: 12px;
+      color: $inverted-icon-color;
+      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      overflow: hidden;
+      width: 0;
+      transform: scaleX(0);
+      transform-origin: 0 0;
+      height: 28px;
+      margin-bottom: 5px;
+      margin-left: -2px;
+      padding-left: 2px;
+      background-color: darken($icon-color, 10%);
+      font-size: 12px;
+      color: $inverted-icon-color;
+      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
+      transition: transform 250ms;
+      cursor: pointer;
+
+      span[data-action] {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding: 0 10px;
+
+        &:hover {
+          background-color: darken($icon-color, 15%);
+        }
+      }
+    }
+  }
 }

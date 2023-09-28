@@ -2,8 +2,8 @@
  * Constants object
  */
 const constants = {
-    modulePath: 'modules/share-media',
-    moduleName: 'share-media'
-}
+  modulePath: "modules/share-media",
+  moduleName: "share-media"
+};
 
-export default constants
+export default constants;

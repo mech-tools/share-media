@@ -1,9 +1,9 @@
 $icon-color: #bbbbbb;
-$loop-icon-color: #B79D48;
+$loop-icon-color: #b79d48;
 $inverted-icon-color: #444444;
 $disabled-color: #c0c0c0;
 
 @mixin denim-background($repeat: no-repeat) {
-    background-image: url("../../../ui/denim075.png");
-    background-repeat: $repeat;
+  background-image: url("../../../ui/denim075.png");
+  background-repeat: $repeat;
 }

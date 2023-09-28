@@ -1,25 +1,25 @@
 {
-    "name": "share-media",
-    "version": "1.0.0",
-    "description": "A module to easily share media to players",
-    "scripts": {
-        "gulp": "gulp",
-        "build": "gulp build"
-    },
-    "browserslist": [
-        "last 3 versions"
-    ],
-    "author": "DarKDinDoN",
-    "license": "MIT",
-    "private": true,
-    "devDependencies": {
-        "gulp": "^4.0.2",
-        "gulp-autoprefixer": "^7.0.1",
-        "gulp-sass": "^5.1.0",
-        "gulp-sourcemaps": "^2.6.5",
-        "node-sass": "^7.0.1",
-        "vinyl-named": "^1.1.0",
-        "webpack": "^5.88.2",
-        "webpack-stream": "^7.0.0"
-    }
+  "name": "share-media",
+  "version": "1.0.0",
+  "description": "A module to easily share media to players",
+  "scripts": {
+    "gulp": "gulp",
+    "build": "gulp build"
+  },
+  "browserslist": [
+    "last 3 versions"
+  ],
+  "author": "DarKDinDoN",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-sass": "^7.0.1",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^5.88.2",
+    "webpack-stream": "^7.0.0"
+  }
 }

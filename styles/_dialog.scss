@@ -4,81 +4,82 @@
 #share-media-clear-bounding-tile-selection-dialog,
 #share-media-blacklist-settings,
 #share-media-choose-share-action-dialog {
-    hr {
-        margin: 15px 0;
-    }
+  hr {
+    margin: 15px 0;
+  }
 
-    .how-to {
-        display: flex;
-        width: 75%;
-        margin: 0 auto;
-        align-items: center;
-        text-align: center;
-        font-weight: 700;
+  .how-to {
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
 
-        i {
-            @include denim-background;
-            margin-right: 15px;
-            font-size: 30px;
-            color: $icon-color;
-            padding: 10px;
-            border-radius: 5px;
-        }
+    i {
+      @include denim-background;
+      margin-right: 15px;
+      font-size: 30px;
+      color: $icon-color;
+      padding: 10px;
+      border-radius: 5px;
     }
+  }
 
-    .form-group.disabled {
-        color: $disabled-color;
-    }
+  .form-group.disabled {
+    color: $disabled-color;
+  }
 
-    button {
-        cursor: pointer;
-    }
+  button {
+    cursor: pointer;
+  }
 }
 
 #share-media-player-selection-dialog,
 #share-media-share-bounding-tile-selection-dialog,
 #share-media-clear-bounding-tile-selection-dialog,
 #share-media-blacklist-settings {
-    .form-group {
-        width: 90%;
-        margin: 0 auto;
+  .form-group {
+    width: 90%;
+    margin: 0 auto;
 
-        :last-child {
-            flex: 0 0 20px;
-        }
+    :last-child {
+      flex: 0 0 20px;
     }
+  }
 }
 
 #share-media-player-selection-dialog,
 #share-media-blacklist-settings {
-    .player-color {
-        flex: 0 0 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: $disabled-color;
-        border: 1px solid $disabled-color;
-        margin-right: 10px;
-    }
+  .player-color {
+    flex: 0 0 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $disabled-color;
+    border: 1px solid $disabled-color;
+    margin-right: 10px;
+  }
 }
 
 #share-media-share-bounding-tile-selection-dialog,
 #share-media-clear-bounding-tile-selection-dialog {
-    .bounding-tile-buttons {
-        label, input {
-            cursor: pointer;
-        }
+  .bounding-tile-buttons {
+    label,
+    input {
+      cursor: pointer;
     }
+  }
 }
 
 #share-media-choose-share-action-dialog {
-    .dialog-buttons button {
-        flex: 45%;
-        margin: 0 0 10px 0;
-        line-height: 1.2;
-        padding: 6px;
+  .dialog-buttons button {
+    flex: 45%;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+    padding: 6px;
 
-        &:nth-child(odd) {
-            margin-right: 5px;
-        }
+    &:nth-child(odd) {
+      margin-right: 5px;
     }
+  }
 }

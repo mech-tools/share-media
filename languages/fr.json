@@ -1,104 +1,106 @@
 {
-    "share-media": {
-        "bounding-tile": {
-            "create-button": "Créer une tuile de délimitation",
-            "create-success": "Tuile de délimitation créée avec succès.",
-            "create-already-exists": "Cette tuile de délimitation existe déjà sur la scène.",
-            "clear-button": "Effacer une tuile de délimitation",
-            "clear-success": "Tuile(s) de délimitation effacée(s) avec succès.",
-            "not-found": "Aucune tuile de délimitation trouvée. Veuillez créer une tuile de délimitation."
-        },
-        "share": {
-            "scene-button": "Partager sur la scène",
-            "scene-fit-button": "Contraint",
-            "scene-cover-button": "Contenu",
-            "scene-success": "Média partagé avec succès sur la scène.",
-            "scene-no-scene": "Aucune scène affichée. Veuillez afficher une scène.",
-            "popout-button": "Partager dans une fenêtre",
-            "popout-all-button": "Tous les joueurs",
-            "popout-some-button": "Sélection",
-            "popout-success-all": "Média partagé à tous les joueurs avec succès.",
-            "popout-success-some": "Média partagé aux joueurs sélectionnés avec succès.",
-            "fullscreen-button": "Partager en plein écran",
-            "fullscreen-dismiss-button": "Cacher le média",
-            "fullscreen-minimize-button": "Réduire le média",
-            "fullscreen-maximize-button": "Agrandir le média",
-            "fullscreen-all-button": "Tous les joueurs",
-            "fullscreen-some-button": "Sélection",
-            "fullscreen-immersive-button": "Mode immersif",
-            "fullscreen-success-all": "Média partagé à tous les joueurs avec succès.",
-            "fullscreen-success-some": "Média partagé aux joueurs sélectionnés avec succès.",
-            "loop-button": "Boucler la vidéo",
-            "mute-button": "Mettre en sourdine",
-            "miro-button": "Déverser sur Miro",
-            "token-button": "Partager l'image du token (clic-droit pour partager l'image de l'acteur à la place)"
-        },
-        "context-entries": {
-            "options": "Options de Share media"
-        },
-        "dialogs": {
-            "bounding-tile-creation": {
-                "title": "Quel est le nom de cette tuile de délimitation ?",
-                "how-to": "Veuillez remplir le champ nom de la tuile de délimitation. Le nom de chaque tuile de délimitation d'une même scène doit être unique.",
-                "field-name": "Nom de la tuile de délimitation",
-                "cancel-button": "Annuler",
-                "create-button": "Créer",
-                "default-tile-name": "Zone"
-            },
-            "share-bounding-tile-selection": {
-                "title": "Dans quelle tuile de délimitation afficher le média ?",
-                "how-to": "Veuillez sélectionner la tuile de délimitation dans laquelle sera affiché le média.",
-                "cancel-button": "Annuler",
-                "share-button": "Partager"
-            },
-            "clear-bounding-tile-selection": {
-                "title": "Quelle tuile de délimitation effacer ?",
-                "how-to": "Veuillez sélectionner la tuile de délimitation qui sera effacée.",
-                "cancel-button": "Annuler",
-                "clear-button": "Effacer",
-                "clear-all-button": "Tout effacer"
-            },
-            "players-selection": {
-                "title": "À quels joueurs partager le média ?",
-                "how-to": "Veuillez sélectionner les joueurs avec lesquels le média sera partagé.",
-                "cancel-button": "Annuler",
-                "share-button": "Partager",
-                "not-logged-in": "non connecté"
-            },
-            "blacklist-settings": {
-                "title": "Éditer la blacklist",
-                "how-to": "Sélectionnez les joueurs qui ne doivent jamais recevoir de médias.",
-                "save": "Sauvegarder"
-            },
-            "share-action": {
-                "title": "Comment partager ce média ?",
-                "how-to": "Veuillez sélectionner la façon dont le média doit être partagé.",
-                "share-popout-all": "Partager dans une fenêtre (tous)",
-                "share-popout-some": "Partager dans une fenêtre (sélection)",
-                "share-fullscreen-all": "Partager en plein écran (tous)",
-                "share-fullscreen-some": "Partager en plein écran (sélection)",
-                "share-scene-fit": "Partager sur la scène (contraint)",
-                "share-scene-cover": "Partager sur la scène (contenu)"
-            }
-        },
-        "settings": {
-            "disable-context-options-name": "Désactiver les options contextuelles",
-            "disable-context-options-hint": "Désactive les options contextuelles au clic-droit sur les acteurs et les objets.",
-            "video-looping-option-name": "Les vidéos doivent-elle boucler par defaut ?",
-            "video-looping-option-hint": "Fait boucler les videos par défaut. Si une vidéo est paramétrée pour ne pas boucler, alors le conteneur de la vidéo est détruit lorsque celle-ci se termine.",
-            "video-mute-option-name": "Mettre les videos en sourdine par défaut ?",
-            "video-mute-option-hint": "Ne joue pas le son des vidéos par défaut. ⚠️ ⚠️ Les navigateurs ont une restriction spéciale sur les vidéos lues et qui ne sont pas en sourdine. L'utilisateur doit d'abord interagir avec l'interface (cliquer dans la scène, ouvrir une feuille de personnage, etc.) pour qu'une video sans sourdine soit lue. À cause de cette restriction, Share Media tentera de lire les vidéos avec le son (si demandé), mais si le module n'en ai pas capable, les vidéos seront lues sans le son. Cela peut être le cas pour les vidéos qui sont lues immédiatement après le rafraîchissement du navigateur ou s'il n'y pas encore eu d'interaction utilisateur.",
-            "enable-hud-button-name": "Ajouter un bouton dans le HUD des tokens ?",
-            "enable-hud-button-hint": "Si activé, un bouton sera rajouté au clic sur un token sur le canevas. Au clic-gauche de ce bouton, l'image du token sera partagée à tous les joueurs dans une fenêtre. Au clic-droit, l'image de l'acteur sera partagée à la place.",
-            "fullscreen-immersive-mode-name": "Activer le mode immersif pour le partage en plein écran par défaut ?",
-            "fullscreen-immersive-mode-hint": "Si activé, les médias partagé en mode plein écran seront affichés par-dessus l'interface de Foundry.",
-            "fullscreen-darkness-mode-name": "Activer le mode obscurité pour le partage en plein écran ?",
-            "fullscreen-darkness-mode-hint": "Si activé, les médias partagé en mode plein écran affichera le même niveau d'obscurité que la scène courante.",
-            "share-actor-token-name-name": "Afficher les noms des acteurs/tokens.",
-            "share-actor-token-name-hint": "Si activé, les noms des acteurs/tokens seront affichés dans le partage dans une fenêtre ou en plein écran.",
-            "enable-scene-cover-name": "Affiche les partages sur la scène par dessus la grille et les tokens.",
-            "enable-scene-cover-hint": "Si activé, les médias affichés sur la scène seront partagés par-dessus la grille et les tokens (et probablement d'autres effets de scène).",
-            "blacklist-label-menu": "Éditer la blacklist"
-        }
+  "share-media": {
+    "bounding-tile": {
+      "create-button": "Créer une tuile de délimitation",
+      "create-success": "Tuile de délimitation créée avec succès.",
+      "create-already-exists": "Cette tuile de délimitation existe déjà sur la scène.",
+      "clear-button": "Effacer une tuile de délimitation",
+      "clear-success": "Tuile(s) de délimitation effacée(s) avec succès.",
+      "not-found": "Aucune tuile de délimitation trouvée. Veuillez créer une tuile de délimitation."
+    },
+    "share": {
+      "scene-button": "Partager sur la scène",
+      "scene-fit-button": "Contraint",
+      "scene-cover-button": "Contenu",
+      "scene-success": "Média partagé avec succès sur la scène.",
+      "scene-no-scene": "Aucune scène affichée. Veuillez afficher une scène.",
+      "popout-button": "Partager dans une fenêtre",
+      "popout-all-button": "Tous les joueurs",
+      "popout-some-button": "Sélection",
+      "popout-success-all": "Média partagé à tous les joueurs avec succès.",
+      "popout-success-some": "Média partagé aux joueurs sélectionnés avec succès.",
+      "fullscreen-button": "Partager en plein écran",
+      "fullscreen-dismiss-button": "Cacher le média",
+      "fullscreen-minimize-button": "Réduire le média",
+      "fullscreen-maximize-button": "Agrandir le média",
+      "fullscreen-all-button": "Tous les joueurs",
+      "fullscreen-some-button": "Sélection",
+      "fullscreen-immersive-button": "Mode immersif",
+      "fullscreen-success-all": "Média partagé à tous les joueurs avec succès.",
+      "fullscreen-success-some": "Média partagé aux joueurs sélectionnés avec succès.",
+      "loop-button": "Boucler la vidéo",
+      "mute-button": "Mettre en sourdine",
+      "miro-button": "Déverser sur Miro",
+      "token-button": "Partager l'image du token (clic-droit pour partager l'image de l'acteur à la place)"
+    },
+    "context-entries": {
+      "options": "Options de Share media"
+    },
+    "dialogs": {
+      "bounding-tile-creation": {
+        "title": "Quel est le nom de cette tuile de délimitation ?",
+        "how-to": "Veuillez remplir le champ nom de la tuile de délimitation. Le nom de chaque tuile de délimitation d'une même scène doit être unique.",
+        "field-name": "Nom de la tuile de délimitation",
+        "cancel-button": "Annuler",
+        "create-button": "Créer",
+        "default-tile-name": "Zone"
+      },
+      "share-bounding-tile-selection": {
+        "title": "Dans quelle tuile de délimitation afficher le média ?",
+        "how-to": "Veuillez sélectionner la tuile de délimitation dans laquelle sera affiché le média.",
+        "cancel-button": "Annuler",
+        "share-button": "Partager"
+      },
+      "clear-bounding-tile-selection": {
+        "title": "Quelle tuile de délimitation effacer ?",
+        "how-to": "Veuillez sélectionner la tuile de délimitation qui sera effacée.",
+        "cancel-button": "Annuler",
+        "clear-button": "Effacer",
+        "clear-all-button": "Tout effacer"
+      },
+      "players-selection": {
+        "title": "À quels joueurs partager le média ?",
+        "how-to": "Veuillez sélectionner les joueurs avec lesquels le média sera partagé.",
+        "cancel-button": "Annuler",
+        "share-button": "Partager",
+        "not-logged-in": "non connecté"
+      },
+      "blacklist-settings": {
+        "title": "Éditer la blacklist",
+        "how-to": "Sélectionnez les joueurs qui ne doivent jamais recevoir de médias.",
+        "save": "Sauvegarder"
+      },
+      "share-action": {
+        "title": "Comment partager ce média ?",
+        "how-to": "Veuillez sélectionner la façon dont le média doit être partagé.",
+        "share-popout-all": "Partager dans une fenêtre (tous)",
+        "share-popout-some": "Partager dans une fenêtre (sélection)",
+        "share-fullscreen-all": "Partager en plein écran (tous)",
+        "share-fullscreen-some": "Partager en plein écran (sélection)",
+        "share-scene-fit": "Partager sur la scène (contraint)",
+        "share-scene-cover": "Partager sur la scène (contenu)"
+      }
+    },
+    "settings": {
+      "disable-context-options-name": "Désactiver les options contextuelles",
+      "disable-context-options-hint": "Désactive les options contextuelles au clic-droit sur les acteurs et les objets.",
+      "video-looping-option-name": "Les vidéos doivent-elle boucler par defaut ?",
+      "video-looping-option-hint": "Fait boucler les videos par défaut. Si une vidéo est paramétrée pour ne pas boucler, alors le conteneur de la vidéo est détruit lorsque celle-ci se termine.",
+      "video-mute-option-name": "Mettre les videos en sourdine par défaut ?",
+      "video-mute-option-hint": "Ne joue pas le son des vidéos par défaut. ⚠️ ⚠️ Les navigateurs ont une restriction spéciale sur les vidéos lues et qui ne sont pas en sourdine. L'utilisateur doit d'abord interagir avec l'interface (cliquer dans la scène, ouvrir une feuille de personnage, etc.) pour qu'une video sans sourdine soit lue. À cause de cette restriction, Share Media tentera de lire les vidéos avec le son (si demandé), mais si le module n'en ai pas capable, les vidéos seront lues sans le son. Cela peut être le cas pour les vidéos qui sont lues immédiatement après le rafraîchissement du navigateur ou s'il n'y pas encore eu d'interaction utilisateur.",
+      "enable-hud-button-name": "Ajouter un bouton dans le HUD des tokens ?",
+      "enable-hud-button-hint": "Si activé, un bouton sera rajouté au clic sur un token sur le canevas. Au clic-gauche de ce bouton, l'image du token sera partagée à tous les joueurs dans une fenêtre. Au clic-droit, l'image de l'acteur sera partagée à la place.",
+      "fullscreen-immersive-mode-name": "Activer le mode immersif pour le partage en plein écran par défaut ?",
+      "fullscreen-immersive-mode-hint": "Si activé, les médias partagé en mode plein écran seront affichés par-dessus l'interface de Foundry.",
+      "fullscreen-darkness-mode-name": "Activer le mode obscurité pour le partage en plein écran ?",
+      "fullscreen-darkness-mode-hint": "Si activé, les médias partagé en mode plein écran affichera le même niveau d'obscurité que la scène courante.",
+      "popout-darkness-mode-name": "Activer le mode obscurité pour le partage dans une fenêtre ?",
+      "popout-darkness-mode-hint": "Si activé, les médias partagé dans une fenêtre affichera le même niveau d'obscurité que la scène courante.",
+      "share-actor-token-name-name": "Afficher les noms des acteurs/tokens.",
+      "share-actor-token-name-hint": "Si activé, les noms des acteurs/tokens seront affichés dans le partage dans une fenêtre ou en plein écran.",
+      "enable-scene-cover-name": "Affiche les partages sur la scène par dessus la grille et les tokens.",
+      "enable-scene-cover-hint": "Si activé, les médias affichés sur la scène seront partagés par-dessus la grille et les tokens (et probablement d'autres effets de scène).",
+      "blacklist-label-menu": "Éditer la blacklist"
     }
+  }
 }

@@ -44,8 +44,8 @@
 }
 
 #show-media .media-actions-container .media-actions.loop-action .drawer, #show-media .media-actions-container .media-actions.mute-action .drawer, #show-media .media-actions-container .media-actions.miro-action .drawer {
-  -webkit-transition: background-color .25s, color .25s;
-  transition: background-color .25s, color .25s;
+  -webkit-transition: background-color 0.25s, color 0.25s;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 #show-media .media-actions-container .media-actions.loop-action .drawer:hover, #show-media .media-actions-container .media-actions.mute-action .drawer:hover, #show-media .media-actions-container .media-actions.miro-action .drawer:hover {
@@ -54,17 +54,17 @@
 
 #show-media .media-actions-container .media-actions.loop-action.active .drawer, #show-media .media-actions-container .media-actions.mute-action.active .drawer, #show-media .media-actions-container .media-actions.miro-action.active .drawer {
   background-color: #e1e1e1;
-  color: #B79D48;
+  color: #b79d48;
 }
 
 #show-media .media-actions-container .media-actions .actions .immersive-action {
-  -webkit-transition: background-color .25s, color .25s;
-  transition: background-color .25s, color .25s;
+  -webkit-transition: background-color 0.25s, color 0.25s;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 #show-media .media-actions-container .media-actions .actions .immersive-action.active {
   background-color: #e1e1e1;
-  color: #B79D48;
+  color: #b79d48;
 }
 
 #show-media .media-actions-container .media-actions:hover .actions {
@@ -187,9 +187,9 @@
   -webkit-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
-  opacity: .35;
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
+  opacity: 0.35;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 #fullscreen-layer .buttons:hover {
@@ -226,7 +226,7 @@
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
   font-size: 30px;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
 }
@@ -251,7 +251,8 @@
   backdrop-filter: blur(8px);
 }
 
-#fullscreen-layer img, #fullscreen-layer video {
+#fullscreen-layer img,
+#fullscreen-layer video {
   z-index: 2;
   position: fixed;
   left: 0;
@@ -262,9 +263,26 @@
   height: 100%;
 }
 
-#fullscreen-layer img.disabled, #fullscreen-layer video.disabled {
+#fullscreen-layer img.disabled,
+#fullscreen-layer video.disabled {
   display: none;
   pointer-events: none;
+}
+
+.image-popout form {
+  position: relative;
+}
+
+.image-popout form .darkness {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  z-index: 3;
 }
 
 #share-media-player-selection-dialog hr,
@@ -356,7 +374,8 @@
   margin-right: 10px;
 }
 
-#share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons label, #share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons input,
+#share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons label,
+#share-media-share-bounding-tile-selection-dialog .bounding-tile-buttons input,
 #share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons label,
 #share-media-clear-bounding-tile-selection-dialog .bounding-tile-buttons input {
   cursor: pointer;
