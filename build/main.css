@@ -1,3 +1,7 @@
+.journal-entry.journal-improvements .journal-entry-page.text .editor-edit {
+  z-index: 1;
+}
+
 #show-media.clickable-media {
   position: relative;
   display: inline-block;
