@@ -5,7 +5,8 @@ import fullscreenLayer from "./media-fullscreen-layer.js";
 import { wrapMedias, activateMediaListeners } from "./media-wrapper.js";
 import { addTileControls } from "./scene-handler.js";
 import { addSidebarContextEntries } from "./sidebar-handler.js";
-import { addHUDControls } from "./token-hud-handler.js";
+import { addTokenHUDControls } from "./token-hud-handler.js";
+import { addTileHUDControls } from "./tile-hud-handler.js";
 import Api from "./Api.js";
 import MediaPopout from "./media-popout.js";
 
@@ -29,9 +30,26 @@ Hooks.on("getSceneControlButtons", (controls) => {
 });
 
 Hooks.on("renderTokenHUD", (app, html) => {
-  const enableHUDButton = game.settings.get(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON);
-  if (game.user.isGM && enableHUDButton) {
-    addHUDControls(app, html);
+  const enableTokenHUDButton = game.settings.get(
+    constants.moduleName,
+    SETTINGS.ENABLE_TOKEN_HUD_BUTTON
+  );
+  if (game.user.isGM && enableTokenHUDButton) {
+    addTokenHUDControls(app, html);
+  }
+});
+
+Hooks.on("renderTileHUD", (app, html) => {
+  const enableTileHUDButton = game.settings.get(
+    constants.moduleName,
+    SETTINGS.ENABLE_TILE_HUD_BUTTON
+  );
+  if (
+    game.user.isGM &&
+    enableTileHUDButton &&
+    !app.object.document?.flags?.[constants.moduleName]?.isBounding
+  ) {
+    addTileHUDControls(app, html);
   }
 });
 

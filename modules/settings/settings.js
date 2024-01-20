@@ -8,7 +8,8 @@ export const SETTINGS = {
   DISABLE_CONTEXT_OPTIONS: "disable-context-options",
   VIDEO_LOOPING_OPTION: "video-looping-option",
   VIDEO_MUTE_OPTION: "video-muted-option",
-  ENABLE_HUD_BUTTON: "enable-hud-button",
+  ENABLE_TOKEN_HUD_BUTTON: "enable-token-hud-button",
+  ENABLE_TILE_HUD_BUTTON: "enable-tile-hud-button",
   FULLSCREEN_IMMERSIVE_MODE: "fullscreen-immersive-mode",
   FULLSCREEN_DARKNESS_MODE: "fullscreen-darkness-mode",
   POPOUT_DARKNESS_MODE: "popout-darkness-mode",
@@ -52,9 +53,19 @@ export function registerSettings() {
     onChange: () => debouncedReload()
   });
 
-  game.settings.register(constants.moduleName, SETTINGS.ENABLE_HUD_BUTTON, {
-    name: game.i18n.localize("share-media.settings.enable-hud-button-name"),
-    hint: game.i18n.localize("share-media.settings.enable-hud-button-hint"),
+  game.settings.register(constants.moduleName, SETTINGS.ENABLE_TOKEN_HUD_BUTTON, {
+    name: game.i18n.localize("share-media.settings.enable-token-hud-button-name"),
+    hint: game.i18n.localize("share-media.settings.enable-token-hud-button-hint"),
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: () => debouncedReload()
+  });
+
+  game.settings.register(constants.moduleName, SETTINGS.ENABLE_TILE_HUD_BUTTON, {
+    name: game.i18n.localize("share-media.settings.enable-tile-hud-button-name"),
+    hint: game.i18n.localize("share-media.settings.enable-tile-hud-button-hint"),
     scope: "world",
     config: true,
     default: true,

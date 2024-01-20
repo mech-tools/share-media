@@ -5,7 +5,7 @@ import { SETTINGS } from "./settings/settings.js";
 /**
  * Create a token HUD control button to share an actor or token image
  */
-export const addHUDControls = (app, html) => {
+export const addTokenHUDControls = (app, html) => {
   const button = $(`
         <div class="control-icon " data-action="share-actor-img" title="${game.i18n.localize(
           `${constants.moduleName}.share.token-button`

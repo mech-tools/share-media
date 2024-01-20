@@ -31,7 +31,8 @@
       "loop-button": "Boucler la vidéo",
       "mute-button": "Mettre en sourdine",
       "miro-button": "Déverser sur Miro",
-      "token-button": "Partager l'image du token (clic-droit pour partager l'image de l'acteur à la place)"
+      "token-button": "Partager l'image du token (clic-droit pour partager l'image de l'acteur à la place)",
+      "tile-button": "Partager l'image de la tuile"
     },
     "context-entries": {
       "options": "Options de Share media"
@@ -88,8 +89,10 @@
       "video-looping-option-hint": "Fait boucler les videos par défaut. Si une vidéo est paramétrée pour ne pas boucler, alors le conteneur de la vidéo est détruit lorsque celle-ci se termine.",
       "video-mute-option-name": "Mettre les videos en sourdine par défaut ?",
       "video-mute-option-hint": "Ne joue pas le son des vidéos par défaut. ⚠️ ⚠️ Les navigateurs ont une restriction spéciale sur les vidéos lues et qui ne sont pas en sourdine. L'utilisateur doit d'abord interagir avec l'interface (cliquer dans la scène, ouvrir une feuille de personnage, etc.) pour qu'une video sans sourdine soit lue. À cause de cette restriction, Share Media tentera de lire les vidéos avec le son (si demandé), mais si le module n'en ai pas capable, les vidéos seront lues sans le son. Cela peut être le cas pour les vidéos qui sont lues immédiatement après le rafraîchissement du navigateur ou s'il n'y pas encore eu d'interaction utilisateur.",
-      "enable-hud-button-name": "Ajouter un bouton dans le HUD des tokens ?",
-      "enable-hud-button-hint": "Si activé, un bouton sera rajouté au clic sur un token sur le canevas. Au clic-gauche de ce bouton, l'image du token sera partagée à tous les joueurs dans une fenêtre. Au clic-droit, l'image de l'acteur sera partagée à la place.",
+      "enable-token-hud-button-name": "Ajouter un bouton dans le HUD des tokens ?",
+      "enable-token-hud-button-hint": "Si activé, un bouton sera rajouté au clic sur un token sur le canevas. Au clic-gauche de ce bouton, l'image du token sera partagée à tous les joueurs dans une fenêtre. Au clic-droit, l'image de l'acteur sera partagée à la place.",
+      "enable-tile-hud-button-name": "Ajouter un bouton dans le HUD des tuiles ?",
+      "enable-tile-hud-button-hint": "Si activé, un bouton sera rajouté au clic sur une tuile sur le canevas. Au clic-gauche de ce bouton, l'image de la tuile sera partagée.",
       "fullscreen-immersive-mode-name": "Activer le mode immersif pour le partage en plein écran par défaut ?",
       "fullscreen-immersive-mode-hint": "Si activé, les médias partagé en mode plein écran seront affichés par-dessus l'interface de Foundry.",
       "fullscreen-darkness-mode-name": "Activer le mode obscurité pour le partage en plein écran ?",
