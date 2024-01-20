@@ -47,7 +47,8 @@ Hooks.on("renderTileHUD", (app, html) => {
   if (
     game.user.isGM &&
     enableTileHUDButton &&
-    !app.object.document?.flags?.[constants.moduleName]?.isBounding
+    !app.object.document?.flags?.[constants.moduleName]?.isBounding &&
+    app.object.document.texture?.src
   ) {
     addTileHUDControls(app, html);
   }
