@@ -18,12 +18,19 @@ class shareFullscreenLayer {
         )}</button>`
       : "";
 
+    const bottomButtons = game.settings.get(
+      constants.moduleName,
+      SETTINGS.FULLSCREEN_BUTTONS_BOTTOM
+    )
+      ? "bottom"
+      : "";
+
     this.container = $(`<div id="fullscreen-layer" class="hidden"></div>`).append(`
                 <div class="background"></div>
                 <img src="${constants.modulePath}/images/transparent.png" alt="">
                 <video playsinline src="" class="disabled"></video>
                 <div class="darkness"></div>
-                <div class="buttons">
+                <div class="buttons ${bottomButtons}">
                     ${dismissButton}
                     <button class="minimize" title="${game.i18n.localize(
                       `${constants.moduleName}.share.fullscreen-minimize-button`

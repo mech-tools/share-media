@@ -56,6 +56,11 @@
       opacity: 1;
     }
 
+    &.bottom {
+      top: auto;
+      bottom: 80px;
+    }
+
     .dismiss,
     .minimize,
     .maximize {

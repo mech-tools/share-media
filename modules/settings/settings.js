@@ -12,6 +12,7 @@ export const SETTINGS = {
   ENABLE_TILE_HUD_BUTTON: "enable-tile-hud-button",
   FULLSCREEN_IMMERSIVE_MODE: "fullscreen-immersive-mode",
   FULLSCREEN_DARKNESS_MODE: "fullscreen-darkness-mode",
+  FULLSCREEN_BUTTONS_BOTTOM: "fullscreen-buttons-bottom",
   POPOUT_DARKNESS_MODE: "popout-darkness-mode",
   SHARE_ACTOR_TOKEN_NAME: "popout-share-name",
   ENABLE_SCENE_COVER: "enable-scene-cover",
@@ -89,6 +90,16 @@ export function registerSettings() {
     scope: "world",
     config: true,
     default: true,
+    type: Boolean,
+    onChange: () => debouncedReload()
+  });
+
+  game.settings.register(constants.moduleName, SETTINGS.FULLSCREEN_BUTTONS_BOTTOM, {
+    name: game.i18n.localize("share-media.settings.fullscreen-buttons-bottom-name"),
+    hint: game.i18n.localize("share-media.settings.fullscreen-buttons-bottom-hint"),
+    scope: "world",
+    config: true,
+    default: false,
     type: Boolean,
     onChange: () => debouncedReload()
   });

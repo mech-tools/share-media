@@ -97,6 +97,8 @@
       "fullscreen-immersive-mode-hint": "Si activé, les médias partagé en mode plein écran seront affichés par-dessus l'interface de Foundry.",
       "fullscreen-darkness-mode-name": "Activer le mode obscurité pour le partage en plein écran ?",
       "fullscreen-darkness-mode-hint": "Si activé, les médias partagé en mode plein écran affichera le même niveau d'obscurité que la scène courante.",
+      "fullscreen-buttons-bottom-name": "Placer les boutons du partage plein écran en bas ?",
+      "fullscreen-buttons-bottom-hint": "Si activé, les boutons du partage plein écran seront placé au bas de l'écran.",
       "popout-darkness-mode-name": "Activer le mode obscurité pour le partage dans une fenêtre ?",
       "popout-darkness-mode-hint": "Si activé, les médias partagé dans une fenêtre affichera le même niveau d'obscurité que la scène courante.",
       "share-actor-token-name-name": "Afficher les noms des acteurs/tokens.",

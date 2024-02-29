@@ -200,6 +200,11 @@
   opacity: 1;
 }
 
+#fullscreen-layer .buttons.bottom {
+  top: auto;
+  bottom: 80px;
+}
+
 #fullscreen-layer .buttons .dismiss,
 #fullscreen-layer .buttons .minimize,
 #fullscreen-layer .buttons .maximize {
