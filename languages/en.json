@@ -97,7 +97,7 @@
       "fullscreen-immersive-mode-hint": "If enabled, the medias shared in fullscreen mode will be displayed above the Foundry interface.",
       "fullscreen-darkness-mode-name": "Enable fullscreen darkness mode?",
       "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
-      "fullscreen-buttons-bottom-name": "Place fullscreen mode buttons to the bottom?",
+      "fullscreen-buttons-bottom-name": "Place fullscreen mode buttons at the bottom?",
       "fullscreen-buttons-bottom-hint": "If enabled, fullscreen mode buttons will be place at the bottom of the screen.",
       "popout-darkness-mode-name": "Enable popout darkness mode?",
       "popout-darkness-mode-hint": "If enabled, the medias shared in popout mode will display the same darkness level as the current scene.",
