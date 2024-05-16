@@ -13,11 +13,11 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "dart-sass": "^1.25.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "node-sass": "^7.0.1",
     "vinyl-named": "^1.1.0",
     "webpack": "^5.88.2",
     "webpack-stream": "^7.0.0"

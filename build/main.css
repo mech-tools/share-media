@@ -6,23 +6,19 @@
   position: relative;
   display: inline-block;
 }
-
 #show-media.clickable-media:hover .media-actions-container {
   opacity: 1;
 }
-
 #show-media .media-actions-container,
 #show-media .media-actions-container * {
   padding: 0;
   margin: 0;
   width: auto;
 }
-
 #show-media .media-actions-container:not(i),
 #show-media .media-actions-container *:not(i) {
   font-family: Signika, sans-serif;
 }
-
 #show-media .media-actions-container {
   position: absolute;
   top: 5px;
@@ -31,7 +27,6 @@
   -webkit-transition: opacity 250ms;
   transition: opacity 250ms;
 }
-
 #show-media .media-actions-container .media-actions {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -42,42 +37,34 @@
   height: 28px;
   margin-top: 5px;
 }
-
 #show-media .media-actions-container .media-actions.loop-action, #show-media .media-actions-container .media-actions.mute-action, #show-media .media-actions-container .media-actions.miro-action {
   cursor: pointer;
 }
-
 #show-media .media-actions-container .media-actions.loop-action .drawer, #show-media .media-actions-container .media-actions.mute-action .drawer, #show-media .media-actions-container .media-actions.miro-action .drawer {
   -webkit-transition: background-color 0.25s, color 0.25s;
   transition: background-color 0.25s, color 0.25s;
 }
-
 #show-media .media-actions-container .media-actions.loop-action .drawer:hover, #show-media .media-actions-container .media-actions.mute-action .drawer:hover, #show-media .media-actions-container .media-actions.miro-action .drawer:hover {
   background-color: #959595;
 }
-
 #show-media .media-actions-container .media-actions.loop-action.active .drawer, #show-media .media-actions-container .media-actions.mute-action.active .drawer, #show-media .media-actions-container .media-actions.miro-action.active .drawer {
   background-color: #e1e1e1;
   color: #b79d48;
 }
-
 #show-media .media-actions-container .media-actions .actions .immersive-action {
   -webkit-transition: background-color 0.25s, color 0.25s;
   transition: background-color 0.25s, color 0.25s;
 }
-
 #show-media .media-actions-container .media-actions .actions .immersive-action.active {
   background-color: #e1e1e1;
   color: #b79d48;
 }
-
 #show-media .media-actions-container .media-actions:hover .actions {
   width: auto;
   -webkit-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-
 #show-media .media-actions-container .drawer {
   z-index: 1;
   background-color: #bbbbbb;
@@ -91,7 +78,6 @@
   border-radius: 4px;
   text-align: center;
 }
-
 #show-media .media-actions-container .actions {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -121,7 +107,6 @@
   transition: transform 250ms, -webkit-transform 250ms;
   cursor: pointer;
 }
-
 #show-media .media-actions-container .actions span[data-action] {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -132,7 +117,6 @@
   align-items: center;
   padding: 0 10px;
 }
-
 #show-media .media-actions-container .actions span[data-action]:hover {
   background-color: #959595;
 }
@@ -146,31 +130,25 @@
   z-index: 0;
   background-color: transparent;
 }
-
 #fullscreen-layer.immersive-mode {
   z-index: 100;
 }
-
 #fullscreen-layer.hidden {
   display: none;
   pointer-events: none;
 }
-
 #fullscreen-layer.minimized {
   pointer-events: none;
 }
-
 #fullscreen-layer.minimized > .background,
 #fullscreen-layer.minimized > img,
 #fullscreen-layer.minimized > video,
 #fullscreen-layer.minimized > .title {
   display: none;
 }
-
 #fullscreen-layer.minimized .buttons {
   pointer-events: auto;
 }
-
 #fullscreen-layer .darkness {
   position: absolute;
   top: 0;
@@ -182,7 +160,6 @@
   opacity: 0;
   z-index: 3;
 }
-
 #fullscreen-layer .buttons {
   z-index: 4;
   position: absolute;
@@ -195,37 +172,30 @@
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-
 #fullscreen-layer .buttons:hover {
   opacity: 1;
 }
-
 #fullscreen-layer .buttons.bottom {
   top: auto;
   bottom: 80px;
 }
-
 #fullscreen-layer .buttons .dismiss,
 #fullscreen-layer .buttons .minimize,
 #fullscreen-layer .buttons .maximize {
   width: auto;
   cursor: pointer;
 }
-
 #fullscreen-layer .buttons .dismiss {
   padding: 1px 15px;
 }
-
 #fullscreen-layer .buttons .minimize,
 #fullscreen-layer .buttons .maximize {
   padding: 1px 8px 1px 11px;
 }
-
 #fullscreen-layer .buttons .minimize.hidden,
 #fullscreen-layer .buttons .maximize.hidden {
   display: none;
 }
-
 #fullscreen-layer .title {
   z-index: 4;
   position: absolute;
@@ -239,11 +209,9 @@
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
 }
-
 #fullscreen-layer .title.hidden {
   display: none;
 }
-
 #fullscreen-layer .background {
   z-index: 1;
   position: fixed;
@@ -259,7 +227,6 @@
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
-
 #fullscreen-layer img,
 #fullscreen-layer video {
   z-index: 2;
@@ -271,7 +238,6 @@
   width: 100%;
   height: 100%;
 }
-
 #fullscreen-layer img.disabled,
 #fullscreen-layer video.disabled {
   display: none;
@@ -281,7 +247,6 @@
 .image-popout form {
   position: relative;
 }
-
 .image-popout form .darkness {
   position: absolute;
   top: 0;
@@ -302,7 +267,6 @@
 #share-media-choose-share-action-dialog hr {
   margin: 15px 0;
 }
-
 #share-media-player-selection-dialog .how-to,
 #share-media-bounding-tile-creation-dialog .how-to,
 #share-media-share-bounding-tile-selection-dialog .how-to,
@@ -320,7 +284,6 @@
   text-align: center;
   font-weight: 700;
 }
-
 #share-media-player-selection-dialog .how-to i,
 #share-media-bounding-tile-creation-dialog .how-to i,
 #share-media-share-bounding-tile-selection-dialog .how-to i,
@@ -335,7 +298,6 @@
   padding: 10px;
   border-radius: 5px;
 }
-
 #share-media-player-selection-dialog .form-group.disabled,
 #share-media-bounding-tile-creation-dialog .form-group.disabled,
 #share-media-share-bounding-tile-selection-dialog .form-group.disabled,
@@ -344,7 +306,6 @@
 #share-media-choose-share-action-dialog .form-group.disabled {
   color: #c0c0c0;
 }
-
 #share-media-player-selection-dialog button,
 #share-media-bounding-tile-creation-dialog button,
 #share-media-share-bounding-tile-selection-dialog button,
@@ -361,7 +322,6 @@
   width: 90%;
   margin: 0 auto;
 }
-
 #share-media-player-selection-dialog .form-group :last-child,
 #share-media-share-bounding-tile-selection-dialog .form-group :last-child,
 #share-media-clear-bounding-tile-selection-dialog .form-group :last-child,
@@ -398,7 +358,6 @@
   line-height: 1.2;
   padding: 6px;
 }
-
 #share-media-choose-share-action-dialog .dialog-buttons button:nth-child(odd) {
   margin-right: 5px;
 }

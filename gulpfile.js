@@ -4,7 +4,7 @@ const webpack = require("webpack-stream");
 const named = require("vinyl-named");
 const prefix = require("gulp-autoprefixer");
 const sourcemaps = require("gulp-sourcemaps");
-const sass = require("gulp-sass")(require("node-sass"));
+const sass = require("gulp-sass")(require("dart-sass"));
 
 /* ----------------------------------------- */
 /*  Compile Sass

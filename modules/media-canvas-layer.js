@@ -74,9 +74,7 @@ class ShareMediaLayer extends CanvasLayer {
       boundingTile.x,
       boundingTile.y,
       boundingTile.width,
-      boundingTile.height,
-      sprite.width,
-      sprite.height
+      boundingTile.height
     );
     sprite.position.set(spriteCoordinates.x, spriteCoordinates.y);
 
@@ -86,7 +84,8 @@ class ShareMediaLayer extends CanvasLayer {
         boundingTile.x,
         boundingTile.y,
         boundingTile.width,
-        boundingTile.height
+        boundingTile.height,
+        boundingTile.rotation
       );
     }
 
@@ -131,8 +130,12 @@ class ShareMediaLayer extends CanvasLayer {
   /**
    * Add a mask to the current container
    */
-  _addMask(container, x, y, width, height) {
-    const mask = new PIXI.Graphics().beginFill(0xff3300).drawRect(x, y, width, height).endFill();
+  _addMask(container, x, y, width, height, rotation) {
+    const mask = new PIXI.Graphics();
+    mask.beginFill(0xff3300);
+    mask.position.set(x + width / 2, y + height / 2);
+    mask.drawRect(-(width / 2), -(height / 2), width, height).endFill();
+    mask.rotation = Math.toRadians(rotation);
 
     container.mask = mask;
     container.addChild(mask);
@@ -165,6 +168,9 @@ class ShareMediaLayer extends CanvasLayer {
       });
     }
 
+    sprite.anchor.set(0.5);
+    sprite.rotation = Math.toRadians(boundingTile.rotation);
+
     return sprite;
   }
 
@@ -191,10 +197,10 @@ class ShareMediaLayer extends CanvasLayer {
   /**
    * Calculate the coordinates respecting the aspect ratio of rectangle withing another rectangle
    */
-  _calculateAspectRatioCoordinates(srcX, srcY, srcWidth, srcHeight, targetWidth, targetHeight) {
+  _calculateAspectRatioCoordinates(srcX, srcY, srcWidth, srcHeight) {
     return {
-      x: srcX + srcWidth / 2 - targetWidth / 2,
-      y: srcY + srcHeight / 2 - targetHeight / 2
+      x: srcX + srcWidth / 2,
+      y: srcY + srcHeight / 2
     };
   }
 }
