@@ -1,38 +1,41 @@
 {
   "share-media": {
     "bounding-tile": {
-      "create-button": "境界タイルを作成する",
+      "create-button": "境界タイル作成",
       "create-success": "境界タイルの作成に成功しました。",
       "create-already-exists": "この境界タイルは、すでにシーンに存在しています。",
-      "clear-success": "境界タイルを消すことに成功しました。",
+      "clear-button": "境界タイル消去",
+      "clear-success": "境界タイルの消去に成功しました。",
       "not-found": "境界タイルが存在しません。このシーンに境界タイルを作成してください。"
     },
     "share": {
-      "scene-button": "シーンに共有する",
+      "scene-button": "シーンに共有",
       "scene-fit-button": "フィット",
       "scene-cover-button": "カバー",
-      "scene-success": "シーンとの共有に性交しました。",
+      "scene-success": "シーンとの共有に成功しました。",
       "scene-no-scene": "シーンが表示されていません。まずはシーンを表示してください。",
-      "popout-button": "ポップアウトとして共有する",
+      "popout-button": "ポップアウトで共有",
       "popout-all-button": "全プレイヤー",
-      "popout-some-button": "選択されたプレイヤー",
+      "popout-some-button": "プレイヤーを選択",
       "popout-success-all": "全プレイヤーに共有されました。",
-      "popout-success-some": "選択されたプレイヤーに共有されました。",
-      "fullscreen-button": "全スクリーンに共有",
-      "fullscreen-dismiss-button": "共有を消す",
-      "fullscreen-minimize-button": "ミニマイズ",
+      "popout-success-some": "選択したプレイヤーに共有されました。",
+      "fullscreen-button": "フルスクリーンで共有",
+      "fullscreen-dismiss-button": "共有をやめる",
+      "fullscreen-minimize-button": "最小化",
       "fullscreen-maximize-button": "最大化",
       "fullscreen-all-button": "全プレイヤー",
-      "fullscreen-some-button": "選択されたプレイヤー",
+      "fullscreen-some-button": "プレイヤーを選択",
+      "fullscreen-immersive-button": "没入モード",
       "fullscreen-success-all": "全プレイヤーに共有されました",
-      "fullscreen-success-some": "選択されたプレイヤーに共有されました。",
+      "fullscreen-success-some": "選択したプレイヤーに共有されました。",
       "loop-button": "ビデオのループ",
       "mute-button": "ミュート",
       "miro-button": "送信先 Miro",
-      "token-button": "トークンイメージの共有（右クリックでアクターイメージを共有可能）"
+      "token-button": "トークン画像を共有（右クリックでアクター画像を共有）",
+      "tile-button": "タイル画像を共有"
     },
     "context-entries": {
-      "options": "シェアメディアオプション"
+      "options": "Share Mediaオプション"
     },
     "dialogs": {
       "bounding-tile-creation": {
@@ -50,11 +53,11 @@
         "share-button": "共有"
       },
       "clear-bounding-tile-selection": {
-        "title": "どの境界タイルをクリアしますか？",
-        "how-to": "クリアする境界タイルを選択してください。",
+        "title": "どの境界タイルを消去しますか？",
+        "how-to": "消去する境界タイルを選択してください。",
         "cancel-button": "キャンセル",
-        "clear-button": "クリア",
-        "clear-all-button": "全てをクリアする"
+        "clear-button": "消去",
+        "clear-all-button": "全て消去する"
       },
       "players-selection": {
         "title": "どのプレイヤーと画像を共有しますか？",
@@ -64,37 +67,45 @@
         "not-logged-in": "ログインしていないプレイヤー"
       },
       "blacklist-settings": {
-        "title": "Edit blacklist",
-        "how-to": "Please select the players that should never ever received any shared medias.",
-        "save": "Save"
+        "title": "ブラックリストを編集",
+        "how-to": "絶対に画像を共有しないプレイヤーを選んでください。",
+        "save": "保存"
       },
       "share-action": {
-        "title": "How should the media be shared?",
-        "how-to": "Please choose how this media should be shared.",
-        "share-popout-all": "Share in a popout (all)",
-        "share-popout-some": "Share in a popout (selected)",
-        "share-fullscreen-all": "Share fullscreen (all)",
-        "share-fullscreen-some": "Share fullscreen (selected)",
-        "share-scene-fit": "Share on the scene (fit)",
-        "share-scene-cover": "Share on the scene (cover)"
+        "title": "画像の共有方法は？",
+        "how-to": "どのように画像を共有するか選択して下さい。",
+        "share-popout-all": "ポップアウト<br>（全プレイヤー）",
+        "share-popout-some": "ポップアウト<br>（プレイヤーを選択）",
+        "share-fullscreen-all": "フルスクリーン<br>（全プレイヤー）",
+        "share-fullscreen-some": "フルスクリーン<br>（プレイヤーを選択）",
+        "share-scene-fit": "シーン（フィット）",
+        "share-scene-cover": "シーン（カバー）"
       }
     },
     "settings": {
-      "disable-context-options-name": "コンテクストオプションを無効化する。",
-      "disable-context-options-hint": "アクターとアイテムの右クリックコンテクストオプションを無効にする。",
-      "video-looping-option-name": "ビデオをループさせるのをデフォルトにしますか？",
-      "video-looping-option-hint": "デフォルトでビデオをループさせます。ループさせない設定にすると、ビデオが終了した時点でビデオコンテナが履きされます。",
-      "video-mute-option-name": "ビデオのミュートをデフォルトにしますか？",
-      "video-mute-option-hint": "ビデオのミュートをデフォルトにする。⚠️ ⚠️ ブラウザは、ミュートされていないビデオの再生に関して特別な制限を持っています。ビデオを音声付きで再生するには、ユーザーが事前にインターフェイスを操作する必要があります（キャンバスをクリックする、キャラクターシートを開くなど）。この制限のため、share mediaは、ミュートされていないビデオを音声付きで再生しようとしますが、出来ない場合は音声なしで再生します。これはブラウザを再読み込みした後すぐに再生されるビデオや、ユーザーとのインタラクションが発生しないビデオに当てはまると思われます。",
-      "enable-token-hud-button-name": "トークンHUDボタンを有効にする？",
-      "enable-token-hud-button-hint": "有効にすると、キャンバス上でトークンを左クリックした後にボタンが表示されます。このボタンを左クリックすると、トークン画像がポップアウトで全プレイヤーに公開されます。このボタンを右クリックすると、代わりにアクター画像が共有されます。",
-      "fullscreen-immersive-mode-name": "Enable fullscreen immersive mode?",
-      "fullscreen-immersive-mode-hint": "If enabled, the medias shared in fullscreen mode will be displayed above the Foundry interface.",
-      "fullscreen-darkness-mode-name": "Enable fullscreen darkness mode?",
-      "fullscreen-darkness-mode-hint": "If enabled, the medias shared in fullscreen mode will display the same darkness level as the current scene.",
-      "share-actor-token-name-name": "Show actor/token names.",
-      "share-actor-token-name-hint": "If enabled, this will show actor/token names when sharing in a popout or fullscreen.",
-      "blacklist-label-menu": "Edit blacklist"
+      "disable-context-options-name": "コンテクストオプションの無効化",
+      "disable-context-options-hint": "アクターとアイテムの右クリックコンテクストオプションを無効にします。",
+      "video-looping-option-name": "ビデオのループをデフォルトにする",
+      "video-looping-option-hint": "デフォルトでビデオをループさせます。ループさせない設定にすると、ビデオが終了した時点でビデオコンテナが破棄されます。",
+      "video-mute-option-name": "ビデオのミュートをデフォルトにする",
+      "video-mute-option-hint": "ビデオのミュートをデフォルトにします。⚠️ ⚠️ ブラウザは、ミュートされていないビデオの再生に関して特別な制限を持っています。ビデオを音声付きで再生するには、ユーザーが事前にインターフェイスを操作する必要があります（キャンバスをクリックする、キャラクターシートを開くなど）。この制限のため、share mediaは、ミュートされていないビデオを音声付きで再生しようとしますが、出来ない場合は音声なしで再生します。これはブラウザを再読み込みした後すぐに再生されるビデオや、ユーザーとのインタラクションが発生しないビデオに当てはまると思われます。",
+      "enable-token-hud-button-name": "トークンHUDボタンの有効化",
+      "enable-token-hud-button-hint": "有効にすると、キャンバス上でトークンを右クリックした後にボタンが表示されます。このボタンをクリックすると、トークン画像が共有されます。このボタンを右クリックすると、代わりにアクター画像が共有されます。",
+      "enable-tile-hud-button-name": "タイルHUDボタンの有効化",
+      "enable-tile-hud-button-hint": "有効にすると、キャンバス上でタイルを右クリックした後にボタンが表示されます。このボタンをクリックすると、タイル画像が共有されます。",
+      "fullscreen-immersive-mode-name": "没入モードの有効化",
+      "fullscreen-immersive-mode-hint": "有効にすると、フルスクリーンモードで共有される画像は、Foundryインターフェースの上に表示されます。",
+      "fullscreen-darkness-mode-name": "暗さの有効化（フルスクリーン）",
+      "fullscreen-darkness-mode-hint": "有効にすると、フルスクリーンモードで共有される画像は、現在のシーンと同じ暗さの度合いで表示されます。",
+      "fullscreen-buttons-bottom-name": "フルスクリーンモードのボタンを下部に配置",
+      "fullscreen-buttons-bottom-hint": "有効にすると、フルスクリーンモードのボタンが画面下部に配置されます。",
+      "popout-darkness-mode-name": "暗さの有効化（ポップアウト）",
+      "popout-darkness-mode-hint": "有効にすると、ポップアウトで共有される画像は、現在のシーンと同じ暗さの度合いで表示されます。",
+      "share-actor-token-name-name": "アクター／トークン名を表示",
+      "share-actor-token-name-hint": "有効にすると、ポップアウトまたはフルスクリーンで共有する際にアクター／トークン名が表示されます。",
+      "enable-scene-cover-name": "グリッドとトークンの上にシーン画像を表示",
+      "enable-scene-cover-hint": "有効にすると、シーン上で共有された画像は、グリッドとトークン（そしておそらく他のシーンエフェクト）の上に表示されます。",
+      "blacklist-label-menu": "ブラックリストを編集"
     }
   }
 }
