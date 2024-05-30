@@ -5,8 +5,8 @@
   "version": "",
   "library": "false",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.299"
+    "minimum": 12,
+    "verified": "12.324"
   },
   "authors": [
     {
@@ -27,7 +27,6 @@
       }
     ]
   },
-  "conflicts": [],
   "socket": true,
   "esmodules": ["/build/main.js"],
   "scripts": [],

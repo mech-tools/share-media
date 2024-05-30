@@ -18,7 +18,8 @@ export default class MediaPopout extends ImagePopout {
 
     const darknessSetting = game.settings.get(constants.moduleName, SETTINGS.POPOUT_DARKNESS_MODE);
 
-    data.darkness = game.scenes.current && darknessSetting ? game.scenes.current.darkness : 0;
+    data.darkness =
+      game.scenes.current && darknessSetting ? game.scenes.current.environment.darknessLevel : 0;
     data.darknessColor = CONFIG.Canvas.darknessColor.toString(16);
 
     return data;

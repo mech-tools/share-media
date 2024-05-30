@@ -50,7 +50,7 @@ class ShareMediaLayer extends CanvasLayer {
       return;
     }
 
-    const container = this._prepareContainer(boundingTileName, boundingTile.z);
+    const container = this._prepareContainer(boundingTileName, boundingTile.sort);
 
     const sprite = await this._createSprite(url, isVideo, boundingTile, loop, mute);
 

@@ -116,7 +116,7 @@ class shareFullscreenLayer {
     );
     if (darknessSetting && game.scenes.current) {
       const currentScene = game.scenes.current;
-      darknessContainer.css("opacity", currentScene.darkness);
+      darknessContainer.css("opacity", currentScene.environment.darknessLevel);
       darknessContainer.css("background-color", `#${CONFIG.Canvas.darknessColor.toString(16)}`);
     }
 

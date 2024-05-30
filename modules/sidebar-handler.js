@@ -28,7 +28,7 @@ export function addSidebarContextEntries(contextEntries = [], context) {
   ];
 
   choices.forEach((choice, index) => {
-    const newEntry = deepClone(viewArt);
+    const newEntry = foundry.utils.deepClone(viewArt);
 
     newEntry.name = choice.name;
     newEntry.icon = choice.icon;

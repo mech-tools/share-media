@@ -19,7 +19,7 @@ Hooks.once("ready", () => {
   fullscreenLayer.init();
 
   // API
-  setProperty(window, `${constants.moduleName}.API`, Api);
+  foundry.utils.setProperty(window, `${constants.moduleName}.API`, Api);
   game.modules.get(constants.moduleName).API = Api;
 });
 
@@ -136,9 +136,13 @@ Hooks.on("updateScene", (scene, data) => {
     }
   }
 
-  if (data.hasOwnProperty("darkness") && scene.id === game.scenes.active?.id) {
-    fullscreenLayer.updateDarkness(data.darkness);
-    MediaPopout.updateDarkness(data.darkness);
+  if (
+    data.hasOwnProperty("environment") &&
+    data.environment.hasOwnProperty("darknessLevel") &&
+    scene.id === game.scenes.active?.id
+  ) {
+    fullscreenLayer.updateDarkness(data.environment.darknessLevel);
+    MediaPopout.updateDarkness(data.environment.darknessLevel);
   }
 });
 
