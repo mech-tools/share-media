@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/Foundry-v12-informational)
-![Latest Release Download Count](https://img.shields.io/github/downloads/DarKDinDoN/share-media/latest/module.zip)
+![Latest Release Download Count](https://img.shields.io/github/downloads/mech-tools/share-media/latest/module.zip)
 
 # Share Media
 
@@ -24,7 +24,7 @@ This module is inspired by the excellent [Journal-To-Canvas-Slideshow](https://g
 
 ## 1. Install
 
-Search "Share Media" in the modules installer, or copy paste this link: [https://github.com/DarKDinDoN/share-media/releases/latest/download/module.json](https://github.com/DarKDinDoN/share-media/releases/latest/download/module.json)
+Search "Share Media" in the modules installer, or copy paste this link: [https://github.com/mech-tools/share-media/releases/latest/download/module.json](https://github.com/mech-tools/share-media/releases/latest/download/module.json)
 
 ## 2. Insert a media using the foundry virtual tabletop text editor
 
@@ -106,14 +106,14 @@ Hover over the first button to display two popout options:
 
 <img src="./readme-assets/helper4.jpg" height="250">
 
-Once the media is shared, a "Dismiss" button should appear. As the GM, you can click this button to dismiss the media for all players (only the GM can see this button).  
+Once the media is shared, a "Dismiss" button should appear. As the GM, you can click this button to dismiss the media for all players (only the GM can see this button).
 A "Minimize/Maximize" button will show/hide the media being shared in fullscreen mode (client only, not synced).
 
 <img src="./readme-assets/helper10.jpg" height="450">
 
 ## 6. Loop option (video only)
 
-If the media is a video another button is displayed: the loop button option.  
+If the media is a video another button is displayed: the loop button option.
 This button controls if the video is to be shared as a looping video or not.
 
 If the video is **not** set to loop, then the video container will be hidden once the video has ended.
@@ -122,7 +122,7 @@ A general setting allows the user to set the default looping option for all vide
 
 ## 7. Mute option (video only)
 
-If the media is a video another button is displayed: the mute button option.  
+If the media is a video another button is displayed: the mute button option.
 This button controls if the video is to be muted or not.
 
 ⚠️ ⚠️ Browsers have a special restriction about playing unmuted videos. The user must interact with the interface before (click on the canvas, open a character sheet, etc.), for a video to be played with sound. Because of this restriction, share media will try to play unmuted videos with sound (if needed), but if unable, will play them without sound. This could be the case for videos that are immediately played after the browser is reloaded or when no user interaction occurred.
