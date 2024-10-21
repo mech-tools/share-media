@@ -8,7 +8,7 @@
         {{#each boundingTiles}}
             <div class="form-group bounding-tile-buttons">
                 <label for="{{this.id}}">{{this.name}}</label>
-                <input type="radio" name="boundingTileId" value="{{this.id}}" id="{{this.id}}" {{#unless @index}}checked{{/unless}}>
+                <input type="checkbox" name="boundingTileId" value="{{this.id}}" id="{{this.id}}">
             </div>
         {{/each}}
     </form>
