@@ -1,0 +1,221 @@
+{
+  "share-media": {
+    "base": {
+      "validate": "確認",
+      "cancel": "キャンセル"
+    },
+
+    "ui.actions": {
+      "popoutAll": {
+        "label": "ポップアウト",
+        "description": "メディアをウィンドウで共有"
+      },
+
+      "popoutSelection": {
+        "label": "ポップアウト&rarr;特定ユーザー",
+        "description": "共有する特定のユーザーを選択してください"
+      },
+
+      "fullscreenAll": {
+        "label": "フルスクリーン",
+        "description": "メディアをフルスクリーンで共有"
+      },
+
+      "fullscreenSelection": {
+        "label": "フルスクリーン&rarr;特定ユーザー",
+        "description": "共有する特定のユーザーを選択してください"
+      },
+
+      "sceneFit": {
+        "label": "シーン",
+        "description": "現在シーンにメディアを共有 (フィット)"
+      },
+
+      "sceneFill": {
+        "label": "シーン&rarr;カバー",
+        "description": "現在シーンにメディアを共有 (カバー)"
+      }
+    },
+
+    "ui.settings": {
+      "label": "設定",
+      "description": "メディア設定の構成",
+
+      "categories": {
+        "popout": "ポップアウト",
+        "fullscreen": "フルスクリーン",
+        "video": "ビデオ"
+      },
+
+      "darkness": {
+        "label": "暗さ",
+        "description": "シーンの照明に応じて暗さを適用"
+      },
+
+      "immersive": {
+        "label": "没入",
+        "description": "UI要素を非表示"
+      },
+
+      "loop": {
+        "label": "ループ",
+        "description": "ビデオ再生をループ"
+      },
+
+      "mute": {
+        "label": "ミュート",
+        "description": "オーディオをミュート"
+      }
+    },
+
+    "ui.sidebar": {
+      "label": "メディア履歴",
+      "loading": "以前のメディアをロード中",
+
+      "header": {
+        "link": {
+          "label": "リンク共有"
+        },
+
+        "clear": {
+          "label": "履歴削除",
+          "description": "<strong>本当によろしいですか？</strong> メディア履歴ログ内のすべてのメディアが完全に削除されます。"
+        }
+      },
+
+      "gm-actions": {
+        "targetUsers.no-players": "自分だけ見る",
+        "share": "再共有"
+      }
+    },
+
+    "layers.fullscreen": {
+      "dismiss": {
+        "label": "やめる"
+      },
+
+      "minimize": {
+        "label": "最小化"
+      },
+
+      "maximize": {
+        "label": "最大化"
+      }
+    },
+
+    "canvas.layer": {
+      "tool": {
+        "label": "メディアレイヤー切り替え",
+        "zero": "現在のシーンには共有されているメディアがありません。メディアレイヤーを有効化する前に、シーン上でメディアを共有してください。"
+      },
+
+      "tile": {
+        "label": "Share Media設定",
+        "enabled.label": "Share Mediaタイル",
+        "enabled.description": "このタイルをシーンメディア共有の境界として有効にします。",
+        "name.label": "タイル名",
+        "name.description": "シーン共有時に選択中のタイルを簡単に識別するためのタイル識別子。",
+        "name.default": "Share Mediaタイル"
+      }
+    },
+
+    "shareables.selector": {
+      "entities.label": "メディア共有",
+      "entities.contextmenu": "(右クリックでシートのメディアを共有)",
+
+      "area": {
+        "label": "範囲選択",
+        "description": "リストから範囲を選択してください。マウスホバーで範囲をプレビューし、お好みの範囲を選択してください。",
+        "zero": "Share Media範囲が検出されませんでした。<br><br><strong><u>リージョン</u></strong>：少なくとも1つのシーンリージョンを作成し、その中に<strong>少なくとも1つの形状</strong>を含め、かつ少なくとも1つの<strong>有効化</strong>された効果種別：「{type}」が<strong>現在のシーン上</strong>で設定されている必要があります。<br><br><strong><u>タイル</u></strong>：<strong>少なくとも1つのタイル</strong>を作成し、「Share Mediaタイル」が<strong>現在のシーン上</strong>で有効化されている必要があります。"
+      },
+
+      "user": {
+        "label": "ユーザー選択",
+        "description": "リストから1人または複数のユーザーを選択してください。ゲームマスターは、ブラックリストに登録されていない限り、共有メディアを常に受信します。"
+      },
+
+      "share": {
+        "label": "共有選択",
+        "description": "このメディアの共有方法を選択し、その設定を構成してください。共有するには「確認」をクリックしてください。",
+
+        "link": {
+          "label": "メディアリンク",
+          "description": "有効なメディアURLを入力してください。"
+        },
+
+        "mode": {
+          "label": "共有方法"
+        },
+
+        "settings": {
+          "label": "{mode}設定"
+        }
+      }
+    },
+
+    "settings": {
+      "defaultMediaSettings": {
+        "label": "デフォルトメディア設定",
+        "name": "デフォルトメディア設定の構成",
+        "hint": "メディアをプレイヤーに共有する際に適用されるデフォルト設定を変更します。",
+        "description": "メディアを共有する際に自動的に適用されるデフォルト設定です。必要に応じて、各メディアごとにこれらの設定を上書きできます。"
+      },
+
+      "mediaSidebarSettings": {
+        "label": "メディアサイドバー設定",
+        "name": "メディアサイドバー設定の構成",
+        "hint": "メディアサイドバーの表示設定とアクセス設定を構成します。",
+        "description": "サイドバーの表示設定とアクセス権限を制御します。このサイドバーには、過去に共有されたすべてのメディアが表示されます。サイドバーの有効化設定、ゲームマスターのみへのアクセス制限、およびサイドバーに表示されるメディア共有方法の制御を行います。",
+        "options": {
+          "general": {
+            "label": "一般設定",
+            "enabled.label": "サイドバー有効化",
+            "enabled.hint": "サイドバーを有効にして共有メディア履歴を表示します。",
+            "gmOnly.label": "ゲームマスターのみ",
+            "gmOnly.hint": "ゲームマスターのみがサイドバーにアクセスできるようにします。"
+          },
+          "layers": {
+            "label": "メディア共有方法",
+            "hint": "メディア履歴に記録され、サイドバーに表示される共有方法を選択してください。",
+            "popout.label": "ポップアウト共有",
+            "popout.hint": "ポップアウトウィンドウで共有されたメディアをサイドバー内に表示します。",
+            "fullscreen.label": "フルスクリーン共有",
+            "fullscreen.hint": "フルスクリーンモードで共有されたメディアをサイドバー内に表示します。",
+            "scene.label": "シーン共有",
+            "scene.hint": "シーンに共有されたメディアをサイドバー内に表示します。"
+          }
+        }
+      },
+
+      "entitySharingSettings": {
+        "label": "エンティティ共有設定",
+        "name": "エンティティ共有設定の構成",
+        "hint": "ゲームエンティティにおける共有ボタンとコンテキストメニュー項目の表示方法を構成します。",
+        "description": "エンティティのメディア共有設定の表示と動作を制御します。共有オプションをコマ上に表示するか、シート上のコンテキストメニュー項目として表示するか、またはその両方として表示するか、およびエンティティ名をキャプションとして表示するかどうかを設定します。",
+        "options": {
+          "sheet.label": "シートコンテキストメニュー",
+          "sheet.hint": "シートのコンテキストメニューにメディア共有項目を追加します。",
+          "hud.label": "HUDボタン",
+          "hud.hint": "HUD上にメディア共有ボタンを直接表示します。",
+          "caption.label": "エンティティキャプションを表示",
+          "caption.hint": "共有メディアと一緒にエンティティ名を表示します。"
+        }
+      },
+
+      "blacklistSettings": {
+        "label": "ユーザーブラックリスト",
+        "name": "ユーザーブラックリスト設定",
+        "hint": "特定のユーザーが共有メディアを受信しないように除外します。",
+        "description": "共有メディアの受信から除外したいユーザーにチェックを入れてください。"
+      }
+    }
+  },
+
+  "TYPES": {
+    "RegionBehavior": {
+      "share-media": {
+        "ShareRegion": "Share Mediaリージョン"
+      }
+    }
+  }
+}
