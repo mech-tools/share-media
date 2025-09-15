@@ -7,6 +7,7 @@ const { isSubclass } = foundry.utils;
  * @param {string}  options.src                  Source URL of the media being displayed.
  * @param {string}  [options.caption=""]         The media caption to display.
  * @param {boolean} [options.immersive=false]    Should this application be displayed in immersive mode?
+ * @param {boolean} [options.controls=false]     Should player controls be displayed?
  * @param {...any}  [options.additionalOptions]  Others additional options (handled by mixins).
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
@@ -69,6 +70,7 @@ export default class FullscreenLayer extends HandlebarsApplicationMixin(Applicat
     // Layer specific options
     caption: "",
     immersive: false,
+    controls: false,
   };
 
   /** @override */
@@ -97,6 +99,7 @@ export default class FullscreenLayer extends HandlebarsApplicationMixin(Applicat
       case "actions":
         context.icons = CONFIG.shareMedia.CONST.ICONS;
         context.isGM = game.user.isGM;
+        context.controls = game.user.isGM || this.options.controls;
         context.folded = this.folded;
         break;
     }
@@ -114,6 +117,7 @@ export default class FullscreenLayer extends HandlebarsApplicationMixin(Applicat
     return {
       caption: this.options.caption,
       immersive: this.options.immersive,
+      controls: this.options.controls,
     };
   }
 

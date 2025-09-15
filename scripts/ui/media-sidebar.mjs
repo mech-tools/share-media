@@ -594,7 +594,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
 
     // Get the default settings
     const settings = game.modules.shareMedia.settings.get(
-      CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings,
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings,
     );
 
     // Populate default settings with media settings

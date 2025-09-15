@@ -54,7 +54,12 @@
 
       "immersive": {
         "label": "Immersif",
-        "description": "Masquer les contrôles de l'interface"
+        "description": "Masquer l'interface de FoundryVTT"
+      },
+
+      "controls": {
+        "label": "Contrôles",
+        "description": "Afficher les contrôles du plein écran aux joueurs"
       },
 
       "loop": {
@@ -154,7 +159,7 @@
     },
 
     "settings": {
-      "defaultMediaSettings": {
+      "mediaSettings": {
         "label": "Paramètres par défaut des médias",
         "name": "Paramètres par défaut des médias",
         "hint": "Configurez les paramètres par défaut qui seront appliqués lors du partage des médias avec les joueurs.",

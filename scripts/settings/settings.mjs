@@ -21,7 +21,13 @@ export const initializeSettings = () => {
 const registerSettings = () => {
   const settings = CONFIG.shareMedia.CONST.MODULE_SETTINGS;
 
-  game.settings.register("share-media", settings.defaultMediaSettings, {
+  game.settings.register("share-media", settings.dataVersion, {
+    config: false,
+    scope: CONST.SETTING_SCOPES.WORLD,
+    type: new StringField({ gmOnly: true }),
+  });
+
+  game.settings.register("share-media", settings.mediaSettings, {
     config: false,
     scope: CONST.SETTING_SCOPES.WORLD,
     type: new ObjectField({ initial: CONFIG.shareMedia.CONST.MEDIA_SETTINGS, gmOnly: true }),
@@ -60,12 +66,12 @@ const registerSettings = () => {
 const registerMenus = () => {
   const settings = CONFIG.shareMedia.CONST.MODULE_SETTINGS;
 
-  game.settings.registerMenu("share-media", settings.defaultMediaSettings, {
-    label: `share-media.settings.${settings.defaultMediaSettings}.label`,
-    name: `share-media.settings.${settings.defaultMediaSettings}.name`,
-    hint: `share-media.settings.${settings.defaultMediaSettings}.hint`,
+  game.settings.registerMenu("share-media", settings.mediaSettings, {
+    label: `share-media.settings.${settings.mediaSettings}.label`,
+    name: `share-media.settings.${settings.mediaSettings}.name`,
+    hint: `share-media.settings.${settings.mediaSettings}.hint`,
     restricted: true,
-    type: apps.DefaultMediaSettings,
+    type: apps.MediaSettings,
   });
 
   game.settings.registerMenu("share-media", settings.mediaSidebarSettings, {

@@ -4,11 +4,13 @@
         <button class="icon {{icons.dismiss}}" data-action="dismiss"
             data-tooltip="share-media.layers.fullscreen.dismiss.label" data-tooltip-direction="LEFT"></button>
     {{~/if}}
-    {{~#if folded}}
-        <button class="icon {{icons.maximize}}" data-action="toggleFolded"
-            data-tooltip="share-media.layers.fullscreen.maximize.label" data-tooltip-direction="RIGHT"></button>
-    {{~else}}
-        <button class="icon {{icons.minimize}}" data-action="toggleFolded"
-            data-tooltip="share-media.layers.fullscreen.minimize.label" data-tooltip-direction="RIGHT"></button>
+    {{~#if controls}}
+        {{~#if folded}}
+            <button class="icon {{icons.maximize}}" data-action="toggleFolded"
+                data-tooltip="share-media.layers.fullscreen.maximize.label" data-tooltip-direction="RIGHT"></button>
+        {{~else}}
+            <button class="icon {{icons.minimize}}" data-action="toggleFolded"
+                data-tooltip="share-media.layers.fullscreen.minimize.label" data-tooltip-direction="RIGHT"></button>
+        {{~/if}}
     {{~/if}}
 </div>

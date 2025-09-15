@@ -19,6 +19,7 @@ export default class Api {
    * @param {boolean} [settings.caption]      Default caption option ("popout" and "fullscreen" modes only).
    * @param {boolean} [settings.darkness]     Default darkness option ("popout" and "fullscreen" modes only).
    * @param {boolean} [settings.immersive]    Default immersive option ("fullscreen" mode only).
+   * @param {boolean} [settings.controls]     Default controls option ("fullscreen" mode only).
    * @param {boolean} [settings.loop]         Default video loop option (video only).
    * @param {boolean} [settings.mute]         Default video mute option (video only).
    * @returns {Promise<ShareSelector> | void}
@@ -157,6 +158,7 @@ export default class Api {
    * @param {string}  options.src          Source URL of the media to share.
    * @param {string}  [options.caption]    Caption to display.
    * @param {boolean} [options.immersive]  Should immersive mode be applied.
+   * @param {boolean} [options.controls]   Should player controls be displayed.
    * @param {boolean} [options.darkness]   Should darkness be applied.
    * @param {boolean} [options.loop]       Should the video be looped (video only)
    * @param {boolean} [options.mute]       should the video be muted (video only)
@@ -194,6 +196,7 @@ export default class Api {
    * @param {string}  options.src          Source URL of the media to share.
    * @param {string}  [options.caption]    Caption to display.
    * @param {boolean} [options.immersive]  Should immersive mode be applied.
+   * @param {boolean} [options.controls]   Should player controls be displayed.
    * @param {boolean} [options.darkness]   Should darkness be applied.
    * @param {boolean} [options.loop]       Should the video be looped (video only)
    * @param {boolean} [options.mute]       should the video be muted (video only)

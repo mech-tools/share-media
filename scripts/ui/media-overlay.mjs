@@ -163,10 +163,10 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
     const storedSettings = getProperty(flag, key) ?? {};
 
     // Merge with default settings
-    const defaultMediaSettings = game.modules.shareMedia.settings.get(
-      CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings,
+    const mediaSettings = game.modules.shareMedia.settings.get(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings,
     );
-    const settings = mergeObject(defaultMediaSettings, storedSettings, { inplace: false });
+    const settings = mergeObject(mediaSettings, storedSettings, { inplace: false });
 
     return { key, settings };
   }

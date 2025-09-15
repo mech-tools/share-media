@@ -7,14 +7,14 @@ const { expandObject } = foundry.utils;
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
  */
-export default class DefaultMediaSettings extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class MediaSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     id: "shm-default-media-settings",
     tag: "form",
     window: {
       get title() {
-        return `share-media.settings.${CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings}.label`;
+        return `share-media.settings.${CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings}.label`;
       },
       contentClasses: ["standard-form"],
     },
@@ -23,7 +23,7 @@ export default class DefaultMediaSettings extends HandlebarsApplicationMixin(App
       height: 600,
     },
     form: {
-      handler: DefaultMediaSettings.#onSubmit,
+      handler: MediaSettings.#onSubmit,
       closeOnSubmit: true,
     },
   };
@@ -45,9 +45,9 @@ export default class DefaultMediaSettings extends HandlebarsApplicationMixin(App
     return {
       ...(await super._prepareContext(options)),
       icons: CONFIG.shareMedia.CONST.ICONS,
-      description: `${CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings}.description`,
-      defaultMediaSettings: game.modules.shareMedia.settings.get(
-        CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings,
+      description: `${CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings}.description`,
+      mediaSettings: game.modules.shareMedia.settings.get(
+        CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings,
       ),
     };
   }
@@ -62,12 +62,12 @@ export default class DefaultMediaSettings extends HandlebarsApplicationMixin(App
    * @param {HTMLFormElement}  _form     The form element that was submitted.
    * @param {FormDataExtended} formData  Processed data for the submitted form.
    * @returns {Promise<void>}
-   * @this {DefaultMediaSettings}
+   * @this {MediaSettings}
    */
   static async #onSubmit(_event, _form, formData) {
     const mediaSettings = expandObject(formData.object);
     await game.modules.shareMedia.settings.set(
-      CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings,
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings,
       mediaSettings,
     );
     // Reload FoundryVTT

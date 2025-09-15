@@ -172,6 +172,11 @@
         color 0.25s ease,
         background-color 0.25s ease;
 
+      &:not(:last-child) {
+        border-bottom: 1px solid
+          light-dark(rgba(var(--shm-gray) / 1), rgba(var(--shm-warm-gray) / 1));
+      }
+
       /*  Variants  */
       &:not([role="button"])::after {
         content: "\f0da";

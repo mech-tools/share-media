@@ -82,6 +82,7 @@ export default class ShareablesManager {
    * @property {boolean}  [darkness]     Should darkness be applied ("popout" or "fullscreen" modes)
    * @property {boolean}  [sceneId]      Scene id bound to darkness ("popout" or "fullscreen" modes)
    * @property {boolean}  [immersive]    Should immersive mode be applied ("fullscreen" mode)
+   * @property {boolean}  [controls]     Should player controls be displayed ("fullscreen" mode)
    * @property {boolean}  [loop]         Should the video be looped (video only)
    * @property {boolean}  [mute]         should the video be muted (video only)
    */

@@ -54,7 +54,12 @@
 
       "immersive": {
         "label": "Immersive",
-        "description": "Hide UI controls"
+        "description": "Hide FoundryVTT UI controls"
+      },
+
+      "controls": {
+        "label": "Controls",
+        "description": "Show fullscreen controls to players"
       },
 
       "loop": {
@@ -154,7 +159,7 @@
     },
 
     "settings": {
-      "defaultMediaSettings": {
+      "mediaSettings": {
         "label": "Default Media Settings",
         "name": "Configure Default Media Settings",
         "hint": "Configure the default settings that will be applied when sharing media with players.",

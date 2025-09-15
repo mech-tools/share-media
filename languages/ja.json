@@ -57,6 +57,11 @@
         "description": "UI要素を非表示"
       },
 
+      "controls": {
+        "label": "Contrôles",
+        "description": "Afficher les contrôles du plein écran aux joueurs"
+      },
+
       "loop": {
         "label": "ループ",
         "description": "ビデオ再生をループ"
@@ -154,7 +159,7 @@
     },
 
     "settings": {
-      "defaultMediaSettings": {
+      "mediaSettings": {
         "label": "デフォルトメディア設定",
         "name": "デフォルトメディア設定の構成",
         "hint": "メディアをプレイヤーに共有する際に適用されるデフォルト設定を変更します。",

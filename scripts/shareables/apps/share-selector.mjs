@@ -73,7 +73,7 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
     optionName: null,
     optionValue: null,
     settings: game.modules.shareMedia.settings.get(
-      CONFIG.shareMedia.CONST.MODULE_SETTINGS.defaultMediaSettings,
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSettings,
     ),
   };
 

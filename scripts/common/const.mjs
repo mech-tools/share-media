@@ -57,8 +57,9 @@ export const MEDIA_TYPES = {
  * @satisfies {Record<string, string>}
  */
 export const MODULE_SETTINGS = {
+  dataVersion: "dataVersion",
   mediaHistory: "mediaHistory",
-  defaultMediaSettings: "defaultMediaSettings",
+  mediaSettings: "mediaSettings",
   mediaSidebarSettings: "mediaSidebarSettings",
   blacklistSettings: "blacklistSettings",
   entitySharingSettings: "entitySharingSettings",
@@ -71,9 +72,10 @@ export const MODULE_SETTINGS = {
  * [NOTE] using "Boolean(false)" so inference is satisfied with a simple boolean primitive instead of the value.
  * @satisfies {Record<string, Record<string, boolean>>}
  */
+// prettier-ignore
 export const MEDIA_SETTINGS = {
   [LAYERS_MODES.popout]: { darkness: Boolean(true) },
-  [LAYERS_MODES.fullscreen]: { immersive: Boolean(false), darkness: Boolean(true) },
+  [LAYERS_MODES.fullscreen]: { immersive: Boolean(false), controls: Boolean(true), darkness: Boolean(true) },
   [MEDIA_TYPES.video]: { loop: Boolean(false), mute: Boolean(false) },
 };
 
@@ -206,6 +208,7 @@ export const ICONS = {
   sceneFill: "far fa-frame",
   darkness: "fas fa-moon",
   immersive: "far fa-film",
+  controls: "fas fa-computer-mouse",
   loop: "far fa-repeat",
   mute: "far fa-volume-xmark",
   dismiss: "fas fa-xmark",

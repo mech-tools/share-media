@@ -76,22 +76,28 @@ Hooks.once("init", () => {
 });
 
 /* -------------------------------------------- */
-/*  Foundry VTT Setup
+/*  Foundry VTT Ready
 /* -------------------------------------------- */
 
-Hooks.once("setup", () => {
+Hooks.once("ready", async () => {
   const config = CONFIG.shareMedia;
   const module = game.modules.shareMedia;
+
+  // Migrate data
+  await settings.runMigrations();
 
   // Expose ui
   module.ui.detector = new config.ui.MediaDetector.implementation();
   module.ui.overlay = new config.ui.MediaOverlay.implementation();
+  module.ui.sidebar = window.ui["shm-media-sidebar"];
+  module.collections.media = game["shm-media-collection"];
 
   // Expose canvas
   module.canvas.mediaSprite = config.canvas.MediaSprite.implementation;
   module.canvas.regionSprite = config.canvas.RegionSprite.implementation;
   module.canvas.tileSprite = config.canvas.TileSprite.implementation;
   module.canvas.apps.hud = config.canvas.apps.MediaHUD.implementation;
+  module.canvas.layer = game.canvas["shm-media-layer"];
 
   // Expose layers
   module.layers.popout = config.layers.PopoutLayer.implementation;
@@ -102,22 +108,6 @@ Hooks.once("setup", () => {
   module.shareables.apps.userSelector = config.shareables.apps.UserSelector.implementation;
   module.shareables.apps.areaSelector = config.shareables.apps.AreaSelector.implementation;
   module.shareables.apps.shareSelector = config.shareables.apps.ShareSelector.implementation;
-
-  // Call shareMedia.setup Hook
-  Hooks.callAll("shareMedia.setup", module);
-});
-
-/* -------------------------------------------- */
-/*  Foundry VTT Ready
-/* -------------------------------------------- */
-
-Hooks.once("ready", () => {
-  const module = game.modules.shareMedia;
-
-  // Get convenient references to object initialized after or during Foundry setup
-  module.ui.sidebar = window.ui["shm-media-sidebar"];
-  module.canvas.layer = game.canvas["shm-media-layer"];
-  module.collections.media = game["shm-media-collection"];
 
   // Call shareMedia.ready Hook
   Hooks.callAll("shareMedia.ready", module);

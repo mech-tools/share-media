@@ -3,7 +3,7 @@
 
     {{!-- Settings --}}
     <div class="scrollable flexcol tab">
-        {{~#each defaultMediaSettings as |setting category|}}
+        {{~#each mediaSettings as |setting category|}}
             <fieldset>
                 <legend>{{localize (concat "share-media.ui.settings.categories." category)}}</legend>
                 {{~#each setting as |checked name|}}
