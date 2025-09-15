@@ -10,7 +10,7 @@ const { expandObject } = foundry.utils;
 export default class MediaSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    id: "shm-default-media-settings",
+    id: "shm-media-settings",
     tag: "form",
     window: {
       get title() {
@@ -31,7 +31,7 @@ export default class MediaSettings extends HandlebarsApplicationMixin(Applicatio
   /** @override */
   static PARTS = {
     form: {
-      template: "modules/share-media/templates/settings/default-media-settings.hbs",
+      template: "modules/share-media/templates/settings/media-settings.hbs",
       root: true,
     },
   };
