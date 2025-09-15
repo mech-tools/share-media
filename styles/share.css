@@ -22,8 +22,10 @@
     /* -------------------------------------------- */
 
     fieldset {
+      gap: 0;
       justify-content: space-around;
       flex-wrap: wrap;
+      padding: 1rem 0.5rem;
 
       .hint {
         flex-basis: 100%;

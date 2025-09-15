@@ -32,7 +32,7 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
       contentClasses: ["shm"],
     },
     position: {
-      width: 450,
+      width: 460,
       height: "auto",
       top: 100,
     },

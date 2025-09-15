@@ -46,7 +46,7 @@
     min-height: var(--shm-button-size);
 
     gap: 0.25rem;
-    padding: 0 2rem;
+    padding: 0 1rem;
 
     font-family: var(--font-sans);
     font-size: var(--font-size-14);
