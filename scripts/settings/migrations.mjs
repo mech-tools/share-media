@@ -18,6 +18,9 @@ const MIGRATIONS = [];
  * @returns {Promise<void>}
  */
 export const runMigrations = async () => {
+  // Only GMs can run migrations
+  if (!game.users.current.isGM) return;
+
   // Retrieve current data version
   const currentVersion = game.modules.shareMedia.settings.get(
     CONFIG.shareMedia.CONST.MODULE_SETTINGS.dataVersion,
