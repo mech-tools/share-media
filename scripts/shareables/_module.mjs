@@ -29,7 +29,10 @@ export const applyEntitySharingSettings = () => {
     // Sheets
     if (config.sheet) {
       const hookName = `get${documentName}ContextOptions`;
-      Hooks.on(hookName, (_application, menuItems) => {
+      Hooks.on(hookName, (application, menuItems) => {
+        // Only process world entities
+        if (application.collection !== game[entity]) return;
+
         // Create the entry
         const entry = {
           name: "share-media.shareables.selector.entities.label",
