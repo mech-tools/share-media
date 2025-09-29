@@ -214,17 +214,31 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Handle double click on area selector.
+   * @param {PointerEvent} event  The triggering event.
+   */
+  #onDoubleClick(event) {
+    const target = event.target;
+    const areaElement = target.closest("[data-area-uuid]");
+    if (!areaElement) return;
+    this.form.submit();
+  }
+
+  /* -------------------------------------------- */
   /*  Rendering
   /* -------------------------------------------- */
 
   /**
-   * Attach pointer events to show/hide the areas on hover.
+   * Attach pointer events to the area selectors.
    * @inheritdoc
    */
   _attachFrameListeners() {
     super._attachFrameListeners();
     this.element.addEventListener("pointerover", this.#onPointerOver.bind(this));
     this.element.addEventListener("pointerout", this.#onPointerOut.bind(this));
+    this.element.addEventListener("dblclick", this.#onDoubleClick.bind(this));
   }
 
   /* -------------------------------------------- */
