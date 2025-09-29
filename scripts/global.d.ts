@@ -13,53 +13,72 @@ import Api from "./api.mjs";
 /* -------------------------------------------- */
 
 declare global {
-  // Global "CONFIG" object
-  namespace CONFIG.shareMedia {
-    const CONST: typeof CommonModule.CONST;
-    const settings: typeof SettingsModule.SettingsCache;
-    const utils: typeof CommonModule.utils;
-    const ui: typeof UiModule;
-    const canvas: typeof CanvasModule;
-    const layers: typeof LayersModule;
-    const shareables: typeof ShareablesModule;
-    const api: Api;
-  }
+  // Config
+  const CONFIG: {
+    shareMedia: {
+      CONST: typeof CommonModule.CONST;
+      settings: typeof SettingsModule.SettingsCache;
+      utils: typeof CommonModule.utils;
+      ui: typeof UiModule;
+      canvas: typeof CanvasModule;
+      layers: typeof LayersModule;
+      shareables: typeof ShareablesModule;
+      api: Api;
+    };
+  };
 
-  // shareMedia module
-  namespace game.modules.shareMedia {
-    const settings: typeof SettingsModule.SettingsCache;
-    const utils: typeof CommonModule.utils;
-    const ui: {
-      detector: InstanceType<typeof UiModule.MediaDetector>;
-      overlay: InstanceType<typeof UiModule.MediaOverlay>;
-      sidebar: InstanceType<typeof UiModule.MediaSidebar>;
+  // Ui
+  const ui: {
+    "shm-media-sidebar": InstanceType<typeof UiModule.MediaSidebar>;
+  };
+
+  // Game
+  const game: {
+    // Collections
+    "shm-media-collection": Map<string, any>;
+
+    // Canvas
+    canvas: {
+      "shm-media-layer": InstanceType<typeof CanvasModule.MediaLayer>;
     };
-    const canvas: {
-      layer: InstanceType<typeof CanvasModule.MediaLayer>;
-      mediaSprite: typeof CanvasModule.MediaSprite;
-      regionSprite: typeof CanvasModule.RegionSprite;
-      tileSprite: typeof CanvasModule.TileSprite;
-      apps: {
-        hud: typeof CanvasModule.apps.MediaHUD;
+
+    // Modules
+    modules: {
+      shareMedia: {
+        settings: typeof SettingsModule.SettingsCache;
+        utils: typeof CommonModule.utils;
+        ui: {
+          detector: InstanceType<typeof UiModule.MediaDetector>;
+          overlay: InstanceType<typeof UiModule.MediaOverlay>;
+        };
+
+        canvas: {
+          mediaSprite: typeof CanvasModule.MediaSprite;
+          regionSprite: typeof CanvasModule.RegionSprite;
+          tileSprite: typeof CanvasModule.TileSprite;
+          apps: {
+            hud: typeof CanvasModule.apps.MediaHUD;
+          };
+        };
+
+        layers: {
+          popout: typeof LayersModule.PopoutLayer;
+          fullscreen: typeof LayersModule.FullscreenLayer;
+        };
+
+        shareables: {
+          manager: InstanceType<typeof ShareablesModule.ShareablesManager>;
+          apps: {
+            userSelector: typeof ShareablesModule.apps.UserSelector;
+            areaSelector: typeof ShareablesModule.apps.AreaSelector;
+            shareSelector: typeof ShareablesModule.apps.ShareSelector;
+          };
+        };
+
+        api: typeof Api;
       };
     };
-    const layers: {
-      popout: typeof LayersModule.PopoutLayer;
-      fullscreen: typeof LayersModule.FullscreenLayer;
-    };
-    const shareables: {
-      manager: InstanceType<typeof ShareablesModule.ShareablesManager>;
-      apps: {
-        userSelector: typeof ShareablesModule.apps.UserSelector;
-        areaSelector: typeof ShareablesModule.apps.AreaSelector;
-        shareSelector: typeof ShareablesModule.apps.ShareSelector;
-      };
-    };
-    const collections: {
-      media: Map<string, any>;
-    };
-    const api = Api;
-  }
+  };
 }
 
 export {};

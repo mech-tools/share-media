@@ -76,28 +76,22 @@ Hooks.once("init", () => {
 });
 
 /* -------------------------------------------- */
-/*  Foundry VTT Ready
+/*  Foundry VTT Setup
 /* -------------------------------------------- */
 
-Hooks.once("ready", async () => {
+Hooks.once("setup", () => {
   const config = CONFIG.shareMedia;
   const module = game.modules.shareMedia;
-
-  // Migrate data
-  await settings.runMigrations();
 
   // Expose ui
   module.ui.detector = new config.ui.MediaDetector.implementation();
   module.ui.overlay = new config.ui.MediaOverlay.implementation();
-  module.ui.sidebar = window.ui["shm-media-sidebar"];
-  module.collections.media = game["shm-media-collection"];
 
   // Expose canvas
   module.canvas.mediaSprite = config.canvas.MediaSprite.implementation;
   module.canvas.regionSprite = config.canvas.RegionSprite.implementation;
   module.canvas.tileSprite = config.canvas.TileSprite.implementation;
   module.canvas.apps.hud = config.canvas.apps.MediaHUD.implementation;
-  module.canvas.layer = game.canvas["shm-media-layer"];
 
   // Expose layers
   module.layers.popout = config.layers.PopoutLayer.implementation;
@@ -108,6 +102,17 @@ Hooks.once("ready", async () => {
   module.shareables.apps.userSelector = config.shareables.apps.UserSelector.implementation;
   module.shareables.apps.areaSelector = config.shareables.apps.AreaSelector.implementation;
   module.shareables.apps.shareSelector = config.shareables.apps.ShareSelector.implementation;
+});
+
+/* -------------------------------------------- */
+/*  Foundry VTT Ready
+/* -------------------------------------------- */
+
+Hooks.once("ready", async () => {
+  const module = game.modules.shareMedia;
+
+  // Migrate data
+  await settings.runMigrations();
 
   // Call shareMedia.ready Hook
   Hooks.callAll("shareMedia.ready", module);

@@ -159,7 +159,7 @@ export const getAvailableAreas = () => {
     .filter((tile) =>
       tile.document.getFlag(
         "share-media",
-        game.modules.shareMedia.canvas.layer.constructor.MEDIA_TILE_ENABLED,
+        game.canvas["shm-media-layer"].constructor.MEDIA_TILE_ENABLED,
       ),
     )
     .map((tile) => tile.document);

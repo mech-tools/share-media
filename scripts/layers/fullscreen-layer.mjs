@@ -134,7 +134,7 @@ export default class FullscreenLayer extends HandlebarsApplicationMixin(Applicat
   static #onDismiss(_event, _target) {
     if (!game.user.isGM) return;
 
-    // Notify active users of the flush
+    // Notify active users
     const users = game.users.reduce((acc, user) => {
       if (user.active) acc.push(user.id);
       return acc;

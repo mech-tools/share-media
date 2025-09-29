@@ -129,7 +129,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @type {Collection}
    */
   get mediaCollection() {
-    return game.modules.shareMedia.collections.media;
+    return game["shm-media-collection"];
   }
 
   /* -------------------------------------------- */

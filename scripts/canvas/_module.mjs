@@ -27,8 +27,7 @@ export const registerTileConfiguration = () => {
     if (!game.users.current.isGM) return;
 
     // Static flag names
-    const { MEDIA_TILE_ENABLED, MEDIA_TILE_NAME } =
-      game.modules.shareMedia.canvas.layer.constructor;
+    const { MEDIA_TILE_ENABLED, MEDIA_TILE_NAME } = game.canvas["shm-media-layer"].constructor;
 
     // Get current values
     const enabled = application.document.getFlag("share-media", MEDIA_TILE_ENABLED) ?? false;
@@ -91,14 +90,14 @@ export const registerMediaLayer = () => {
         toggle: true,
         visible: game.users.current.isGM,
         active: (() => {
-          if (!game.modules.shareMedia.canvas.layer) return false;
-          return game.modules.shareMedia.canvas.layer.active;
+          if (!game.canvas["shm-media-layer"]) return false;
+          return game.canvas["shm-media-layer"].active;
         })(),
         onChange: (_event, active) => {
           if (active) {
-            if (game.modules.shareMedia.canvas.layer.sprites.size < 1)
+            if (game.canvas["shm-media-layer"].sprites.size < 1)
               ui.notifications.info(game.i18n.localize("share-media.canvas.layer.tool.zero"));
-            game.modules.shareMedia.canvas.layer.activate();
+            game.canvas["shm-media-layer"].activate();
           } else game.canvas.tokens.activate();
         },
       };

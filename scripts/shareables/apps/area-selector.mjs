@@ -155,10 +155,7 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
       uuid: area.uuid,
       name:
         area.name ??
-        area.getFlag(
-          "share-media",
-          game.modules.shareMedia.canvas.layer.constructor.MEDIA_TILE_NAME,
-        ),
+        area.getFlag("share-media", game.canvas["shm-media-layer"].constructor.MEDIA_TILE_NAME),
       color: area.color ?? area.texture.tint,
       checked: area.uuid === this.options.targetArea,
     }));

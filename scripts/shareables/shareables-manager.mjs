@@ -341,7 +341,7 @@ export default class ShareablesManager {
     const { users: _users, mode: _mode, targetArea, ...data } = context;
 
     // Await for the result
-    const result = await game.modules.shareMedia.canvas.layer.createAreaMediaData(targetArea, data);
+    const result = await game.canvas["shm-media-layer"].createAreaMediaData(targetArea, data);
 
     return result ? context : null;
   }
@@ -386,7 +386,7 @@ export default class ShareablesManager {
 
     // Dispatch only if sidebar settings allow it
     if (mediaSidebarSettings.layers[settings.mode])
-      game.modules.shareMedia.ui.sidebar.storeMedia(src, targetUsers, settings);
+      ui["shm-media-sidebar"].storeMedia(src, targetUsers, settings);
     return context;
   }
 

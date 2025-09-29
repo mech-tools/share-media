@@ -143,7 +143,7 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
    */
   static async #onSortMedia(_event, target) {
     const up = target.dataset.direction === "up";
-    await game.modules.shareMedia.canvas.layer.sendToBackOrBringToFront(this.#sprite.area.uuid, up);
+    await game.canvas["shm-media-layer"].sendToBackOrBringToFront(this.#sprite.area.uuid, up);
   }
 
   /* -------------------------------------------- */
@@ -155,7 +155,7 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
    * @this {MediaHUD}
    */
   static #onClearMedia(_event, _target) {
-    game.modules.shareMedia.canvas.layer.deleteSprite(this.#sprite.area.uuid, { unsetFlag: true });
+    game.canvas["shm-media-layer"].deleteSprite(this.#sprite.area.uuid, { unsetFlag: true });
   }
 
   /* -------------------------------------------- */

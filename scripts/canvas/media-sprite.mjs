@@ -250,10 +250,8 @@ export default class MediaSprite {
     // Assign "primary" canvas sort and area sort
     this._mesh.sortLayer = MediaSprite.SORT_LAYER;
     this._mesh.sort =
-      this.area.getFlag(
-        "share-media",
-        game.modules.shareMedia.canvas.layer.constructor.SORT_FLAG_KEY,
-      ) ?? 1;
+      this.area.getFlag("share-media", game.canvas["shm-media-layer"].constructor.SORT_FLAG_KEY) ??
+      1;
   }
 
   /* -------------------------------------------- */
@@ -463,9 +461,9 @@ export default class MediaSprite {
     // Add the sprite to the "primary" canvas group
     game.canvas.primary.addChild(this._mesh);
     // Add the frame to the "media" layer
-    game.modules.shareMedia.canvas.layer.objects.addChild(this._frame);
+    game.canvas["shm-media-layer"].objects.addChild(this._frame);
     // Add the border to the "media" layer
-    game.modules.shareMedia.canvas.layer.objects.addChild(this._border);
+    game.canvas["shm-media-layer"].objects.addChild(this._border);
 
     // Manage video playback
     const video = game.video.getVideoSource(this._mesh);
@@ -477,7 +475,7 @@ export default class MediaSprite {
       // Delete media on ended if loop is "false"
       if (!this.options.loop) {
         this.#videoEndedHandler = () =>
-          game.modules.shareMedia.canvas.layer.deleteSprite(this.area.uuid, { unsetFlag: true });
+          game.canvas["shm-media-layer"].deleteSprite(this.area.uuid, { unsetFlag: true });
         video.addEventListener("ended", this.#videoEndedHandler);
       }
 
@@ -489,7 +487,7 @@ export default class MediaSprite {
     }
 
     // Reassign controls if layer is still active
-    if (game.modules.shareMedia.canvas.layer.active) {
+    if (game.canvas["shm-media-layer"].active) {
       // Control this sprite again if it was the last controlled
       if (MediaSprite.lastControlled === this.area.uuid) this.control();
       // Reopen the hud if it was open for the sprite area
