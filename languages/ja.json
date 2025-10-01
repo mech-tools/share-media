@@ -54,12 +54,12 @@
 
       "immersive": {
         "label": "没入",
-        "description": "UI要素を非表示"
+        "description": "FoundryVTTのUIを非表示"
       },
 
       "controls": {
-        "label": "Contrôles",
-        "description": "Afficher les contrôles du plein écran aux joueurs"
+        "label": "操作",
+        "description": "フルスクリーン時の操作ボタンをプレイヤーにも表示"
       },
 
       "loop": {
