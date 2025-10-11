@@ -8,7 +8,7 @@ export default function WaitableMixin(Base) {
     /**
      * Create an instance and wait for submission.
      * @param {Object} options  Option which may change the way the application is rendered.
-     * @returns {Promise<any>}
+     * @returns {Promise<unknown>}
      */
     static async wait(options) {
       return new Promise((resolve) => {

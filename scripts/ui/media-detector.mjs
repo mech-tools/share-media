@@ -44,7 +44,7 @@ export default class MediaDetector {
   /**
    * Apply event listeners to the outer element of the newly rendered application.
    * @param {(typeof CONFIG.shareMedia.CONST.MEDIA_HOOKS)[number]} hook  The hook context.
-   * @param {...any}                                               args  Hook arguments.
+   * @param {...unknown}                                           args  Hook arguments.
    */
   #activateEventListeners(hook, ...args) {
     // Parse arguments based on the Application version (V1 or V2)
@@ -139,11 +139,11 @@ export default class MediaDetector {
 
   /**
    * Parse application arguments based on V1/V2 compatibility.
-   * @param {...any} args  Hook arguments.
+   * @param {...unknown} args  Hook arguments.
    * @returns {{
    *   application: ApplicationV1 | ApplicationV2;
    *   element: HTMLElement;
-   *   options: { isFirstRender: boolean } & Record<string, any>;
+   *   options: { isFirstRender: boolean } & Record<string, unknown>;
    * }}
    */
   #parseHooksArgs(...args) {

@@ -142,10 +142,10 @@ export default class MediaLayer extends InteractionLayer {
 
   /**
    * Add a media sprite on the scene.
-   * @param {Object} options                      Options which change how a media is displayed on the scene.
-   * @param {string} options.src                  Source URL of the media to share.
-   * @param {string} options.targetArea           Area to display to.
-   * @param {...any} [options.additionalOptions]  Others additional options.
+   * @param {Object}     options                      Options which change how a media is displayed on the scene.
+   * @param {string}     options.src                  Source URL of the media to share.
+   * @param {string}     options.targetArea           Area to display to.
+   * @param {...unknown} [options.additionalOptions]  Others additional options.
    * @returns {Promise<MediaSprite | void>}
    */
   async addSprite(options) {

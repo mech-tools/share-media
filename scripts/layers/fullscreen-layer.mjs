@@ -3,12 +3,12 @@ const { isSubclass } = foundry.utils;
 
 /**
  * Application responsible for displaying media in fullscreen.
- * @param {Object}  options                      Options which configure this application.
- * @param {string}  options.src                  Source URL of the media being displayed.
- * @param {string}  [options.caption=""]         The media caption to display.
- * @param {boolean} [options.immersive=false]    Should this application be displayed in immersive mode?
- * @param {boolean} [options.controls=false]     Should player controls be displayed?
- * @param {...any}  [options.additionalOptions]  Others additional options (handled by mixins).
+ * @param {Object}     options                      Options which configure this application.
+ * @param {string}     options.src                  Source URL of the media being displayed.
+ * @param {string}     [options.caption=""]         The media caption to display.
+ * @param {boolean}    [options.immersive=false]    Should this application be displayed in immersive mode?
+ * @param {boolean}    [options.controls=false]     Should player controls be displayed?
+ * @param {...unknown} [options.additionalOptions]  Others additional options (handled by mixins).
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
  * @mixes DarknessMixin          Delayed composition {@link FullscreenLayer.implementation}

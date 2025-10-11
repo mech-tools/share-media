@@ -64,7 +64,7 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
    *   optionName: string | null;
    *   optionValue: string | null;
    *   settings: typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS;
-   *   [key: string]: any;
+   *   [key: string]: unknown;
    * }}
    */
   #shareOptions = {

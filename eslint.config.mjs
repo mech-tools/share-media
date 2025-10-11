@@ -39,9 +39,6 @@ export default [
         },
       ],
 
-      // Do not check for any as we can't type FVTT arguments/params
-      "jsdoc/reject-any-type": "off",
-
       // Do not force return description
       "jsdoc/require-returns-description": "off",
 

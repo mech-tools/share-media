@@ -3,10 +3,10 @@ const { isSubclass } = foundry.utils;
 
 /**
  * Application responsible for displaying media in an enhanced popout window.
- * @param {Object} options                      Options which configure this application.
- * @param {string} options.src                  Source URL of the media being displayed.
- * @param {string} [options.caption=""]         Caption to display underneath the media.
- * @param {...any} [options.additionalOptions]  Others additional options (handled by mixins).
+ * @param {Object}     options                      Options which configure this application.
+ * @param {string}     options.src                  Source URL of the media being displayed.
+ * @param {string}     [options.caption=""]         Caption to display underneath the media.
+ * @param {...unknown} [options.additionalOptions]  Others additional options (handled by mixins).
  * @extends ImagePopout
  * @mixes DarknessMixin  Delayed composition {@link PopoutLayer.implementation}
  * @mixes MediaMixin     Delayed composition {@link PopoutLayer.implementation}

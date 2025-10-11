@@ -11,7 +11,7 @@ export default class SettingsCache {
   /**
    * Get a setting value from cache or retrieve it if not cached.
    * @param {string} key  The setting key to retrieve.
-   * @returns {any}
+   * @returns {unknown}
    */
   static get(key) {
     if (!this.#cache.has(key)) {
@@ -24,8 +24,8 @@ export default class SettingsCache {
 
   /**
    * Update a setting value in both cache and game settings.
-   * @param {string} key    The setting key to update.
-   * @param {any}    value  The new value to set.
+   * @param {string}  key    The setting key to update.
+   * @param {unknown} value  The new value to set.
    * @returns {Promise<void>}
    */
   static async set(key, value) {
