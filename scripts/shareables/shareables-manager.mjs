@@ -52,7 +52,10 @@ export default class ShareablesManager {
   /**
    * Static mapping of pipeline step names to their corresponding handler functions.
    * Each handler is a static method that processes a specific step in the dispatch pipeline.
-   * @type {Record<ShareablesManager.PIPELINE_STEPS[number]["name"], Function>}
+   * @type {Record<
+   *   ShareablesManager.PIPELINE_STEPS[number]["name"],
+   *   (ShareablesOptions) => Promise<ShareablesOptions>
+   * >}
    */
   static PIPELINE_HANDLERS = {
     "is-gm": ShareablesManager._handleIsGm,
@@ -154,8 +157,8 @@ export default class ShareablesManager {
 
   /**
    * @typedef {Object} PipelineStep
-   * @property {string}   type     The name/type of the pipeline step.
-   * @property {Function} handler  The handler function for this step.
+   * @property {string}                                            type     The name/type of the pipeline step.
+   * @property {(ShareablesOptions) => Promise<ShareablesOptions>} handler  The handler function for this step.
    */
 
   /**
@@ -202,13 +205,13 @@ export default class ShareablesManager {
   /**
    * Get the appropriate handler function for a given step name.
    * @param {string} stepName  The name of the step to get a handler for.
-   * @returns {Function}
+   * @returns {(ShareablesOptions) => Promise<ShareablesOptions>}
    * @throws {Error} If no handler is found for the given step name.
    */
   #getHandler(stepName) {
     const handler = this.constructor.PIPELINE_HANDLERS[stepName];
     if (!handler) throw new Error(`No handler found for step: ${stepName}`);
-    return (context) => handler.call(this, context);
+    return handler.bind(this);
   }
 
   /* -------------------------------------------- */

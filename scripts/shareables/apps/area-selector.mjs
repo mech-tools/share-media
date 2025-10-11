@@ -5,7 +5,7 @@ const { isSubclass, fromUuid } = foundry.utils;
  * Application responsible for selecting a share media scene area.
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
- * @mixes WaitableMixin          Delayed composition @see {@link AreaSelector.implementation}
+ * @mixes WaitableMixin          Delayed composition {@link AreaSelector.implementation}
  */
 export default class AreaSelector extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritdoc */

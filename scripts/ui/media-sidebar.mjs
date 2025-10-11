@@ -727,7 +727,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
   /**
    * Attempt to render the first batch.
    * Only if popout mode as it is immediately visible.
-   * Deferring first batch render to "_onActivate" if sidebar mode @see {@link MediaSidebar._onActivate}.
+   * Deferring first batch render to "_onActivate" if sidebar mode {@link MediaSidebar._onActivate}.
    * @inheritdoc
    */
   async _postRender(context, options) {

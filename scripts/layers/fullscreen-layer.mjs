@@ -11,8 +11,8 @@ const { isSubclass } = foundry.utils;
  * @param {...any}  [options.additionalOptions]  Others additional options (handled by mixins).
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
- * @mixes DarknessMixin          Delayed composition @see {@link FullscreenLayer.implementation}
- * @mixes MediaMixin             Delayed composition @see {@link FullscreenLayer.implementation}
+ * @mixes DarknessMixin          Delayed composition {@link FullscreenLayer.implementation}
+ * @mixes MediaMixin             Delayed composition {@link FullscreenLayer.implementation}
  */
 export default class FullscreenLayer extends HandlebarsApplicationMixin(ApplicationV2) {
   /**

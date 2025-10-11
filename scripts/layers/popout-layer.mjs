@@ -8,8 +8,8 @@ const { isSubclass } = foundry.utils;
  * @param {string} [options.caption=""]         Caption to display underneath the media.
  * @param {...any} [options.additionalOptions]  Others additional options (handled by mixins).
  * @extends ImagePopout
- * @mixes DarknessMixin  Delayed composition @see {@link PopoutLayer.implementation}
- * @mixes MediaMixin     Delayed composition @see {@link PopoutLayer.implementation}
+ * @mixes DarknessMixin  Delayed composition {@link PopoutLayer.implementation}
+ * @mixes MediaMixin     Delayed composition {@link PopoutLayer.implementation}
  */
 export default class PopoutLayer extends ImagePopout {
   /** @inheritdoc */

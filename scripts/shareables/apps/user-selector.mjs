@@ -5,7 +5,7 @@ const { isSubclass } = foundry.utils;
  * Application responsible for selecting users.
  * @extends ApplicationV2
  * @mixes HandlebarsApplication
- * @mixes WaitableMixin          Delayed composition @see {@link UserSelector.implementation}
+ * @mixes WaitableMixin          Delayed composition {@link UserSelector.implementation}
  */
 export default class UserSelector extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritdoc */

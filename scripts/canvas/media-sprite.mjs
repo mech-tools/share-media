@@ -121,7 +121,7 @@ export default class MediaSprite {
 
   /**
    * Video ended event handler function.
-   * @type {Function | null}
+   * @type {() => void | null}
    */
   #videoEndedHandler = null;
 
