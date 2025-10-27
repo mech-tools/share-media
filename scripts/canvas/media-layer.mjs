@@ -152,9 +152,9 @@ export default class MediaLayer extends InteractionLayer {
     // Get the options
     const { src = null, targetArea = null, ...additionalOptions } = options;
 
-    // Get the area document
+    // Get the area document and make sure it is displayed on the current scene
     const area = await fromUuid(targetArea);
-    if (!area) return;
+    if (!area || area.parent.id !== game.canvas?.scene?.id) return;
 
     // Attempt to remove a previous sprite in the same area
     if (this.sprites.has(targetArea)) await this.deleteSprite(area.uuid);
@@ -169,7 +169,7 @@ export default class MediaLayer extends InteractionLayer {
     // Add it to the canvas
     sprite.addToCanvas();
 
-    // Store the sprite attached to the document area id.
+    // Store the sprite attached to the document area id
     this.sprites.set(area.uuid, sprite);
 
     // Firing hooks
