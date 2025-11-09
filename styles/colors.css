@@ -18,28 +18,19 @@
   /*  Color scheme definitions  */
   :where(.shm) {
     /* [NOTE] Can't merge the color scheme definitions as css prioprity will be messed up */
-    /* [TODO] remove "--buncss" variables when bun is fixed: https://github.com/oven-sh/bun/issues/20689 */
     body.theme-dark & {
-      --buncss-light: ;
-      --buncss-dark: initial;
       color-scheme: dark;
     }
 
     body.theme-light & {
-      --buncss-light: initial;
-      --buncss-dark: ;
       color-scheme: light;
     }
 
     body .theme-dark & {
-      --buncss-light: ;
-      --buncss-dark: initial;
       color-scheme: dark;
     }
 
     body .theme-light & {
-      --buncss-light: initial;
-      --buncss-dark: ;
       color-scheme: light;
     }
   }
