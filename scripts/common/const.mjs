@@ -130,6 +130,15 @@ export const MEDIA_HOOKS = [
   { on: "renderItemSheet", htmlContext: [".editor-content:not(.ProseMirror)"] },
   // 5e [INFO] weird item sheet using ApplicationV2 but does not extend ItemSheetV2
   { on: "renderItemSheet5e", htmlContext: [".editor-content:not(.ProseMirror)"] },
+  // Modules
+  {
+    on: "renderEnhancedJournal",
+    htmlContext: [
+      ".journal-entry-page:not(.ProseMirror)",
+      ".editor-parent:not(.editing)",
+      ".list-container .sheet-body",
+    ],
+  },
 ];
 
 /* -------------------------------------------- */
