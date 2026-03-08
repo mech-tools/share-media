@@ -1,5 +1,6 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const { isSubclass } = foundry.utils;
+const { queryMany } = User;
 
 /**
  * Application responsible for displaying media in fullscreen.
@@ -135,13 +136,8 @@ export default class FullscreenLayer extends HandlebarsApplicationMixin(Applicat
     if (!game.user.isGM) return;
 
     // Notify active users
-    const users = game.users.reduce((acc, user) => {
-      if (user.active) acc.push(user.id);
-      return acc;
-    }, []);
-    for (const userId of users) {
-      game.users.get(userId).query("share-media.closeFullscreen");
-    }
+    const usersToQuery = game.users.filter((user) => user.active);
+    queryMany(usersToQuery, "share-media.closeFullscreen");
   }
 
   /* -------------------------------------------- */

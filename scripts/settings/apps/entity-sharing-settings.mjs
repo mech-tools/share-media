@@ -1,5 +1,6 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const { reloadConfirm } = foundry.applications.settings.SettingsConfig;
+const { expandObject } = foundry.utils;
 
 /**
  * Application responsible for adjusting settings for entity sharing.

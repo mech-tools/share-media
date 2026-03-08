@@ -109,18 +109,22 @@
     },
 
     "canvas.layer": {
-      "tool": {
-        "label": "メディアレイヤー切り替え",
-        "zero": "現在のシーンには共有されているメディアがありません。メディアレイヤーを有効化する前に、シーン上でメディアを共有してください。"
+      "control.label": "Media Controls",
+      "control.type": "Media",
+
+      "tools": {
+        "select.label": "Select Media",
+        "clear.label": "Clear Media"
       },
 
       "tile": {
         "label": "Share Media設定",
         "enabled.label": "Share Mediaタイル",
-        "enabled.description": "このタイルをシーンメディア共有の境界として有効にします。",
-        "name.label": "タイル名",
-        "name.description": "シーン共有時に選択中のタイルを簡単に識別するためのタイル識別子。",
-        "name.default": "Share Mediaタイル"
+        "enabled.description": "このタイルをシーンメディア共有の境界として有効にします。"
+      },
+
+      "hud": {
+        "share": "再共有"
       }
     },
 
@@ -131,7 +135,8 @@
       "area": {
         "label": "範囲選択",
         "description": "リストから範囲を選択してください。マウスホバーで範囲をプレビューし、お好みの範囲を選択してください。",
-        "zero": "Share Media範囲が検出されませんでした。<br><br><strong><u>リージョン</u></strong>：少なくとも1つのシーンリージョンを作成し、その中に<strong>少なくとも1つの形状</strong>を含め、かつ少なくとも1つの<strong>有効化</strong>された効果種別：「{type}」が<strong>現在のシーン上</strong>で設定されている必要があります。<br><br><strong><u>タイル</u></strong>：<strong>少なくとも1つのタイル</strong>を作成し、「Share Mediaタイル」が<strong>現在のシーン上</strong>で有効化されている必要があります。"
+        "zero": "Share Media範囲が検出されませんでした。<br><br><strong><u>リージョン</u></strong>：少なくとも1つのシーンリージョンを作成し、その中に<strong>少なくとも1つの形状</strong>を含め、かつ少なくとも1つの<strong>有効化</strong>された効果種別：「{type}」が<strong>現在のシーン上</strong>で設定されている必要があります。<br><br><strong><u>タイル</u></strong>：<strong>少なくとも1つのタイル</strong>を作成し、「Share Mediaタイル」が<strong>現在のシーン上</strong>で有効化されている必要があります。",
+        "tile.no-name": "名前のないタイル"
       },
 
       "user": {

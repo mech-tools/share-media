@@ -13,7 +13,7 @@
                 {{!-- Field --}}
                 <div class="shm form-fields">
                     <input type="checkbox" name="{{user.id}}" id="{{user.id}}"
-                        {{~#if user.isGM}} readonly checked{{~/if}}>
+                        {{~#if user.isGM}} readonly {{~/if}} {{~#if user.checked}} checked {{~/if}}>
                 </div>
             </div>
         {{~/each}}

@@ -1,6 +1,6 @@
 const { PrimarySpriteMesh } = foundry.canvas.primary;
 const { MouseInteractionManager } = foundry.canvas.interaction;
-const { loadTexture } = foundry.canvas;
+const { loadTexture, borders } = foundry.canvas;
 const { isSubclass } = foundry.utils;
 
 /** @typedef {import("./apps/media-hud.mjs").default} MediaHUD */
@@ -41,6 +41,12 @@ export default class MediaSprite {
   src = null;
 
   /**
+   * The module cached source URL of this sprite.
+   * @type {string | null}
+   */
+  cachedSrc = null;
+
+  /**
    * The area document bound to this sprite.
    * @type {Document | null}
    */
@@ -48,10 +54,9 @@ export default class MediaSprite {
 
   /**
    * Options which change the way this media is rendered.
-   * @type {{ display: string; loop: boolean; mute: boolean }}
+   * @type {{ loop: boolean; mute: boolean }}
    */
   options = {
-    display: CONFIG.shareMedia.CONST.LAYERS_OPTIONS.displayFit.value,
     loop: false,
     mute: false,
   };
@@ -236,10 +241,10 @@ export default class MediaSprite {
    */
   async #createMesh() {
     // Load the texture with a module cache key
-    this.src = `${this.src}?share-media-texture`;
-    const texture = await loadTexture(this.src);
+    this.cachedSrc = `${this.src}?share-media-texture`;
+    const texture = await loadTexture(this.cachedSrc);
     if (!texture) throw new Error(`Failed to load texture from ${this.src}`);
-    MediaSprite.#incrementTextureRef(this.src);
+    MediaSprite.#incrementTextureRef(this.cachedSrc);
 
     // Create the mesh
     this._mesh = new PrimarySpriteMesh(texture);
@@ -272,20 +277,13 @@ export default class MediaSprite {
     // Create an empty mask
     this._mask = new PIXI.Graphics();
 
-    // Fill the mask (delegated to subclasses)
-    this._createMask();
+    // Fill the mask
+    this._mask.beginFill(0xffffff, 1);
+    (this.area.polygonTree ?? this.area.shape.polygonTree).drawShape(this._mask);
+    this._mask.endFill();
 
     // Add the mask to the mesh
     this._mesh.mask = this._mask;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Fill and position the mask graphics. Must be implemented by subclasses.
-   */
-  _createMask() {
-    throw new Error("_createMask must be implemented by subclass");
   }
 
   /* -------------------------------------------- */
@@ -295,8 +293,15 @@ export default class MediaSprite {
    * [INFO] This is a simple transparent copy of the mask.
    */
   #createFrame() {
-    // Simply clone the mask and make it transparent
+    // Clone the mask
     this._frame = this._mask.clone();
+
+    // Copy position, pivot and rotation
+    this._frame.position.copyFrom(this._mask.position);
+    this._frame.pivot.copyFrom(this._mask.pivot);
+    this._frame.rotation = this._mask.rotation;
+
+    // Make it transparent and hoverable
     this._frame.alpha = 0;
     this._frame.cursor = "pointer";
   }
@@ -312,17 +317,10 @@ export default class MediaSprite {
     this._border.eventMode = "none";
     this._border.visible = false;
 
-    // Fill the border (delegated to subclasses)
-    this._createBorder();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Fill and position the border shape. Must be implemented by subclasses.
-   */
-  _createBorder() {
-    throw new Error("_createBorder must be implemented by subclass");
+    // Fill the border
+    for (const polygon of this.area.polygons ?? this.area.shape.polygons) {
+      borders.drawBorder(this._border, polygon, { clear: false });
+    }
   }
 
   /* -------------------------------------------- */
@@ -380,7 +378,7 @@ export default class MediaSprite {
 
     // Show the border
     this._border.visible = true;
-    this._border.tint = CONFIG.Canvas.dispositionColors.FRIENDLY;
+    this._border.tint = CONFIG.Canvas.dispositionColors.INACTIVE;
   }
 
   /* -------------------------------------------- */
@@ -544,7 +542,7 @@ export default class MediaSprite {
     this.#mouseInteractionManager = null;
 
     // Unload texture if needed
-    MediaSprite.#decrementTextureRef(this.src);
+    MediaSprite.#decrementTextureRef(this.cachedSrc);
   }
 
   /* -------------------------------------------- */

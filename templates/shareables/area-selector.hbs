@@ -14,7 +14,8 @@
             <div class="form-group" data-area-uuid="{{area.uuid}}">
                 {{!-- Label --}}
                 <label for="{{area.uuid}}" class="flexrow">
-                    <i class="shm square padded pip" style="--pip-color: {{area.color.css}}"></i>{{area.name}}
+                    <i class="shm square padded pip" style="--pip-color: {{area.color.css}}"></i>
+                    {{~ifThen area.name area.name (localize "share-media.shareables.selector.area.tile.no-name") }}
                 </label>
 
                 {{!-- Field --}}

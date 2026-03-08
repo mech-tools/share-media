@@ -1,5 +1,6 @@
 import MediaSprite from "./media-sprite.mjs";
 const { isSubclass } = foundry.utils;
+const { cone } = foundry.data.BaseShapeData.TYPES;
 
 /**
  * A class responsible for generating a sprite in a region area.
@@ -8,67 +9,32 @@ export default class RegionSprite extends MediaSprite {
   /** @override */
   _createMesh() {
     // Get the area bounds
-    const { x, y, width, height } = this.area.bounds;
+    const {
+      bounds: { x, y, width, height },
+      shapes: [shape],
+    } = this.area;
+
+    // Rotate the mesh based on the first shape (if able)
+    // [NOTE] Setting anchor to 0.5 as geometries can be wild, could be better
+    // [INFO] Although "cone" has a rotation value, it is not used as the mesh orientation can become weird
+    this._mesh.anchor.set(0.5);
+    this._mesh.rotation =
+      shape.rotation && !(shape instanceof cone) ? Math.toRadians(shape.rotation) : 0;
 
     // Scale the mesh to appropriate dimensions
     this._mesh.resize(width, height, { fit: this.fitMode });
 
-    // Position the mesh
-    this._mesh.x = x + (width - this._mesh.width) / 2;
-    this._mesh.y = y + (height - this._mesh.height) / 2;
-  }
+    this._mesh.x = x + width / 2;
+    this._mesh.y = y + height / 2;
 
-  /* -------------------------------------------- */
-
-  /** @override */
-  _createMask() {
-    // get the polygons
-    const polygons = this.area.polygons;
-
-    // Fill the mask
-    if (polygons?.length) {
-      this._mask.beginFill(0xffffff, 1);
-
-      for (const polygon of polygons) {
-        if (polygon.isPositive) {
-          // Positive polygon = outer boundary
-          this._mask.drawPolygon(polygon);
-        } else {
-          // Negative polygon = hole
-          this._mask.beginHole();
-          this._mask.drawPolygon(polygon);
-          this._mask.endHole();
-        }
-      }
-
-      this._mask.endFill();
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _createBorder() {
-    const thickness = CONFIG.Canvas.objectBorderThickness * game.canvas.dimensions.uiScale;
-    for (const lineStyle of [
-      { width: thickness, color: 0x000000, join: PIXI.LINE_JOIN.ROUND, alignment: 0.75 },
-      { width: thickness / 2, color: 0xffffff, join: PIXI.LINE_JOIN.ROUND, alignment: 1 },
-    ]) {
-      // Assign the line style of the shape
-      this._border.lineStyle(lineStyle);
-
-      // get the polygonTree
-      const polygonsTree = this.area.polygonTree;
-
-      // Create the shape
-      for (const node of polygonsTree) {
-        if (node.isHole) continue;
-        this._border.drawShape(node.polygon);
-        this._border.beginHole();
-        for (const hole of node.children) this._border.drawShape(hole.polygon);
-        this._border.endHole();
-      }
-    }
+    // Mesh configuration
+    // [NOTE] Using one of "bottom" or "top", whatever data is finite or else bottom.
+    this._mesh.elevation = Number.isFinite(this.area.elevation.bottom)
+      ? this.area.elevation.bottom
+      : Number.isFinite(this.area.elevation.top)
+        ? this.area.elevation.top
+        : this.area.elevation.bottom;
+    this._mesh.hoverFade = false;
   }
 
   /* -------------------------------------------- */

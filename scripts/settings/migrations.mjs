@@ -9,7 +9,7 @@ const { isNewerVersion } = foundry.utils;
  * Latest migration version is the latest data version (or "1.0.0").
  * @type {{ version: string; handler: () => Promise<void> }[]}
  */
-const MIGRATIONS = [];
+const MIGRATIONS = [{ version: "2.14.0", handler: migrateTo2140 }];
 
 /* -------------------------------------------- */
 
@@ -58,4 +58,31 @@ export const runMigrations = async () => {
 /*  Migrations
 /* -------------------------------------------- */
 
-// async function migrateTo110() {}
+/**
+ * Migrate to 2.14.0.
+ * 1. Replacing tile names with existing share media flag.
+ * 2. Migrate media collection so "targetUsers" is now under "settings".
+ */
+async function migrateTo2140() {
+  // 1. Tile
+  const MEDIA_TILE_NAME = "name";
+  for (const scene of game.scenes) {
+    for (const tile of scene.tiles) {
+      const flagName = tile.getFlag("share-media", MEDIA_TILE_NAME);
+      if (flagName && !tile.name) await tile.update({ name: flagName });
+      await tile.unsetFlag("share-media", MEDIA_TILE_NAME);
+    }
+  }
+
+  // 2. Media collection
+  const collection = new Collection(ui["shm-media-sidebar"].mediaCollection.entries());
+  collection.map((media) => {
+    if (!media.settings.targetUsers) media.settings.targetUsers = media.targetUsers ?? [];
+    if (media.targetUsers) delete media.targetUsers;
+  });
+  await game.settings.set(
+    "share-media",
+    CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaHistory,
+    Object.fromEntries(collection.entries()),
+  );
+}

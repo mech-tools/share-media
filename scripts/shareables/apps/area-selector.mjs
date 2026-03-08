@@ -42,16 +42,25 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
   #activeWindow = null;
 
   /**
-   * The graphics used to draw the highlighted tile.
+   * The graphics used to draw the highlighted area.
    * @type {PIXI.Graphics}
    */
-  #tileHighlight = null;
+  #areaHighlight = null;
 
   /**
    * "canvasTearDown" ID to cleanup after closing this application.
    * @type {number | null}
    */
   #canvasTearDownHookId = null;
+
+  /* -------------------------------------------- */
+  /*  Window Management
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDetach() {
+    return false;
+  }
 
   /* -------------------------------------------- */
   /*  Area activation
@@ -67,35 +76,21 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
     const object = game.canvas[area?.collectionName].get(area?.id);
     if (!area || !object) return;
 
-    // Highlight area
-    switch (area.documentName) {
-      // Region
-      case CONFIG.Region.documentClass.documentName:
-        if (area.visibility === CONST.REGION_VISIBILITY.LAYER) object.visible = true;
-        break;
-
-      // Tile
-      case CONFIG.Tile.documentClass.documentName:
-        // Add highlight if not there
-        if (!this.#tileHighlight) {
-          this.#tileHighlight = game.canvas.tiles.addChild(new PIXI.Graphics());
-          this.#tileHighlight.eventMode = "none";
-          this.#tileHighlight.visible = false;
-        }
-
-        // Draw highlight
-        this.#tileHighlight.clear();
-        this.#tileHighlight.visible = true;
-        this.#tileHighlight.beginFill(area.texture.tint, 0.5);
-        this.#tileHighlight.drawRect(
-          object.bounds.x,
-          object.bounds.y,
-          object.bounds.width,
-          object.bounds.height,
-        );
-        this.#tileHighlight.endFill();
-        break;
+    // Add highlight if not there
+    if (!this.#areaHighlight) {
+      this.#areaHighlight = game.canvas["shm-media-layer"].addChild(new PIXI.Graphics());
+      this.#areaHighlight.eventMode = "none";
+      this.#areaHighlight.visible = false;
     }
+
+    // Prepare highlight
+    this.#areaHighlight.clear();
+    this.#areaHighlight.visible = true;
+
+    // Draw highlight
+    this.#areaHighlight.beginFill(area.color ?? area.texture.tint, 0.5);
+    (area.shape?.polygonTree ?? area.polygonTree).drawShape(this.#areaHighlight);
+    this.#areaHighlight.endFill();
   }
 
   /* -------------------------------------------- */
@@ -109,19 +104,7 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
     const area = await fromUuid(uuid);
     const object = game.canvas[area?.collectionName].get(area?.id);
     if (!area || !object) return;
-
-    // Remove highlight
-    switch (area.documentName) {
-      // Region
-      case CONFIG.Region.documentClass.documentName:
-        if (area.visibility === CONST.REGION_VISIBILITY.LAYER) object.visible = false;
-        break;
-
-      // Tile
-      case CONFIG.Tile.documentClass.documentName:
-        if (this.#tileHighlight) this.#tileHighlight.clear();
-        break;
-    }
+    if (this.#areaHighlight) this.#areaHighlight.clear();
   }
 
   /* -------------------------------------------- */
@@ -153,9 +136,7 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
   #prepareAreas() {
     const areas = game.modules.shareMedia.utils.getAvailableAreas().map((area) => ({
       uuid: area.uuid,
-      name:
-        area.name ??
-        area.getFlag("share-media", game.canvas["shm-media-layer"].constructor.MEDIA_TILE_NAME),
+      name: area.name,
       color: area.color ?? area.texture.tint,
       checked: area.uuid === this.options.targetArea,
     }));
@@ -241,12 +222,13 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
-   * Minimize active window.
+   * Minimize the active window only if it is not already minimized or is detached.
+   * [NOTE] "window.windowId" is how we detect if an app is currently detached.
    * @inheritdoc
    */
   async _preFirstRender(context, options) {
     super._preFirstRender(context, options);
-    if (ui.activeWindow && !ui.activeWindow.minimized) {
+    if (ui.activeWindow && !ui.activeWindow.minimized && !ui.activeWindow.window.windowId) {
       this.#activeWindow = ui.activeWindow;
       this.#activeWindow.minimize();
     }
@@ -273,11 +255,11 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
     super._onClose(options);
     if (this.#canvasTearDownHookId) Hooks.off("canvasTearDown", this.#canvasTearDownHookId);
     this.#canvasTearDownHookId = null;
-    if (this.#tileHighlight) {
-      this.#tileHighlight.parent.removeChild(this.#tileHighlight);
-      this.#tileHighlight.destroy();
+    if (this.#areaHighlight) {
+      this.#areaHighlight.parent.removeChild(this.#areaHighlight);
+      this.#areaHighlight.destroy();
     }
-    this.#tileHighlight = null;
+    this.#areaHighlight = null;
     if (this.#activeWindow) this.#activeWindow.maximize();
     this.#activeWindow = null;
   }

@@ -109,18 +109,22 @@
     },
 
     "canvas.layer": {
-      "tool": {
-        "label": "Activer/désactiver la couche média",
-        "zero": "Aucun média partagé sur la scène, partagez un média sur la scène avant d'activer la couche média."
+      "control.label": "Outils de Média",
+      "control.type": "Media",
+
+      "tools": {
+        "select.label": "Sélection de média",
+        "clear.label": "Supprimer tous les médias"
       },
 
       "tile": {
         "label": "Configuration Share Media ",
         "enabled.label": "Tuile Share Media",
-        "enabled.description": "Activer cette tuile comme zone d'affichage pour le partage de médias sur la scène.",
-        "name.label": "Nom de la tuile",
-        "name.description": "Identifiant de la tuile pour identifier facilement quelle tuile vous sélectionnez pour le partage sur la scène.",
-        "name.default": "Tuile Share Media"
+        "enabled.description": "Activer cette tuile comme zone d'affichage pour le partage de médias sur la scène."
+      },
+
+      "hud": {
+        "share": "Partager à nouveau"
       }
     },
 
@@ -131,7 +135,8 @@
       "area": {
         "label": "Sélecteur de zone",
         "description": "Choisissez une région dans la liste. Survolez pour prévisualiser la zone, puis sélectionnez votre région préférée.",
-        "zero": "Aucune zone Share Media détectée.<br><br><strong><u>Région</u></strong> : vous devez créer au moins une région avec <strong>au moins une forme</strong> et avec <strong>au moins un comportement activé</strong> de type : \"{type}\" <strong>sur la scène actuelle</strong>.<br><br><strong><u>Tuile</u></strong> : vous devez créer <strong>au moins une tuile</strong> avec Share Media activé <strong>sur la scène actuelle</strong>."
+        "zero": "Aucune zone Share Media détectée.<br><br><strong><u>Région</u></strong> : vous devez créer au moins une région avec <strong>au moins une forme</strong> et avec <strong>au moins un comportement activé</strong> de type : \"{type}\" <strong>sur la scène actuelle</strong>.<br><br><strong><u>Tuile</u></strong> : vous devez créer <strong>au moins une tuile</strong> avec Share Media activé <strong>sur la scène actuelle</strong>.",
+        "tile.no-name": "Tuile sans nom"
       },
 
       "user": {

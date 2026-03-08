@@ -2,6 +2,7 @@ const { HandlebarsApplicationMixin, DialogV2 } = foundry.applications.api;
 const { AbstractSidebarTab } = foundry.applications.sidebar;
 const { isSubclass, Semaphore, timeSince, Collection } = foundry.utils;
 const { renderTemplate } = foundry.applications.handlebars;
+const { queryMany } = User;
 
 /**
  * Application responsible for displaying and interacting with media history.
@@ -138,45 +139,44 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
 
   /**
    * @typedef {Object} HistoryMedia
-   * @property {string}                                        id           ID of the media.
-   * @property {number}                                        timestamp    Timestamp at which the media was stored.
-   * @property {string}                                        src          Source URL of the media.
-   * @property {string[]}                                      targetUsers  Users shared with.
-   * @property {typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS} [settings]   Default media settings.
+   * @property {string}                                        id          ID of the media.
+   * @property {number}                                        timestamp   Timestamp at which the media was stored.
+   * @property {string}                                        src         Source URL of the media.
+   * @property {typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS} [settings]  Default media settings.
    */
 
   /**
    * Store a media in the global history store (setting).
    * Avoid duplication and push modifications as the most recent.
    * This method then send queries to connected clients to sync their local collection.
-   * @param {HistoryMedia["src"]}         src          Media src URL.
-   * @param {HistoryMedia["targetUsers"]} targetUsers  List of target users to share with.
-   * @param {HistoryMedia["settings"]}    [settings]   Default media settings.
+   * @param {HistoryMedia["src"]}      src         Media src URL.
+   * @param {HistoryMedia["settings"]} [settings]  Default media settings.
    * @returns {Promise<void>}
    */
-  async storeMedia(src, targetUsers = [], settings = {}) {
+  async storeMedia(src, settings = {}) {
     if (!game.users.current.isGM) return;
 
     // Prepare data, including a new collection
     const collection = new Collection(this.mediaCollection.entries());
     const key = game.modules.shareMedia.utils.escapeSource(src);
-    const players = targetUsers.filter((userId) => !game.users.get(userId).isGM);
+    const players = (settings.targetUsers ?? []).filter((userId) => !game.users.get(userId).isGM);
     let media;
 
     // Build a new media object from scrath or from an existing media in the collection
     if (collection.has(key)) {
       media = { ...collection.get(key) };
       media.timestamp = Date.now();
-      media.targetUsers = [...new Set([...media.targetUsers, ...players])];
-      media.settings = settings;
+      media.settings = {
+        ...settings,
+        targetUsers: [...new Set([...media.settings.targetUsers, ...players])],
+      };
       collection.delete(key);
     } else {
       media = {
         id: key,
         timestamp: Date.now(),
         src,
-        targetUsers: players,
-        settings,
+        settings: { ...settings, targetUsers: players },
       };
     }
 
@@ -188,14 +188,10 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     Hooks.callAll("shareMedia.storeMedia", media, collection);
 
     // Notify active players (and all active gamemasters) of a new media
-    const users = game.users.reduce((acc, user) => {
-      if (!user.active) return acc;
-      if (user.isGM || media.targetUsers.includes(user.id)) acc.push(user.id);
-      return acc;
-    }, []);
-    for (const userId of users) {
-      game.users.get(userId).query("share-media.addMedia", media);
-    }
+    const usersToQuery = game.users.filter(
+      (user) => user.active && (user.isGM || media.settings.targetUsers.includes(user.id)),
+    );
+    queryMany(usersToQuery, "share-media.addMedia", media);
   }
 
   /* -------------------------------------------- */
@@ -214,7 +210,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const collection = new Collection(this.mediaCollection.entries());
 
     // Copy the target users before deletion
-    const targetUsers = [...this.mediaCollection.get(id).targetUsers];
+    const targetUsers = [...this.mediaCollection.get(id).settings.targetUsers];
 
     // Delete the media from the collection and save it as the new media history
     collection.delete(id);
@@ -224,14 +220,10 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     Hooks.callAll("shareMedia.deleteMedia", id, collection);
 
     // Notify active players (and all active gamemasters) of the deletion
-    const users = game.users.reduce((acc, user) => {
-      if (!user.active) return acc;
-      if (user.isGM || targetUsers.includes(user.id)) acc.push(user.id);
-      return acc;
-    }, []);
-    for (const userId of users) {
-      game.users.get(userId).query("share-media.removeMedia", { id, options: { animate: true } });
-    }
+    const usersToQuery = game.users.filter(
+      (user) => user.active && (user.isGM || targetUsers.includes(user.id)),
+    );
+    queryMany(usersToQuery, "share-media.removeMedia", { id, options: { animate: true } });
   }
 
   /* -------------------------------------------- */
@@ -251,13 +243,8 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     Hooks.callAll("shareMedia.deleteHistory");
 
     // Notify active users of the flush
-    const users = game.users.reduce((acc, user) => {
-      if (user.active) acc.push(user.id);
-      return acc;
-    }, []);
-    for (const userId of users) {
-      game.users.get(userId).query("share-media.flushMedia");
-    }
+    const usersToQuery = game.users.filter((user) => user.active);
+    queryMany(usersToQuery, "share-media.flushMedia");
   }
 
   /* -------------------------------------------- */
@@ -323,7 +310,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
   async #doAddMedia(media) {
     if (!this.rendered) return;
 
-    // Internal flags: if no media, then this media become the first
+    // Internal flag: if no media, then this media become the first
     if (!this.#lastId) this.#lastId = media.id;
 
     // Process and render the media
@@ -470,7 +457,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const mediaList = game.users.current.isGM
       ? this.mediaCollection.contents
       : this.mediaCollection.contents.filter((media) =>
-          media.targetUsers.includes(game.users.current.id),
+          media.settings.targetUsers.includes(game.users.current.id),
         );
 
     // Get the index of the last rendered media
@@ -550,7 +537,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
         title: "share-media.ui.sidebar.label",
         icon: CONFIG.shareMedia.CONST.ICONS.clear,
       },
-      content: `<p>${game.i18n.localize("share-media.ui.sidebar.header.clear.description")}</p>`,
+      content: `<p>${_loc("share-media.ui.sidebar.header.clear.description")}</p>`,
     });
 
     // Proceed only if confirmed
@@ -805,11 +792,12 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
       ...media,
       isVideo: game.modules.shareMedia.utils.isVideo(media.src),
       targetUsers: game.users.current.isGM
-        ? media.targetUsers.map((userId) => {
+        ? media.settings.targetUsers?.reduce((acc, userId) => {
             const user = game.users.get(userId);
-            return { color: user.color, name: user.name };
-          })
-        : media.targetUsers,
+            if (user) acc.push({ color: user.color, name: user.name });
+            return acc;
+          }, []) || []
+        : media.settings.targetUsers,
     }));
 
     // Render the template as a string

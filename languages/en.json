@@ -109,18 +109,22 @@
     },
 
     "canvas.layer": {
-      "tool": {
-        "label": "Toggle Media Layer",
-        "zero": "No media shared on the current scene, share media on the scene before activating the media layer."
+      "control.label": "Media Controls",
+      "control.type": "Media",
+
+      "tools": {
+        "select.label": "Select Media",
+        "clear.label": "Clear Media"
       },
 
       "tile": {
         "label": "Share Media Configuration",
         "enabled.label": "Share Media Tile",
-        "enabled.description": "Enable this tile as a boundary for scene media sharing.",
-        "name.label": "Tile Name",
-        "name.description": "Tile identifier to easily identify which tile you are selecting for scene sharing.",
-        "name.default": "Share Media Tile"
+        "enabled.description": "Enable this tile as a boundary for scene media sharing."
+      },
+
+      "hud": {
+        "share": "Share this again"
       }
     },
 
@@ -131,7 +135,8 @@
       "area": {
         "label": "Area Selector",
         "description": "Choose an area from the list. Hover to preview the area, then select your preferred area.",
-        "zero": "No Share Media areas detected.<br><br><strong><u>Region</u></strong>: you must create at least one Scene Region with <strong>at least one shape</strong> and with at least one <strong>enabled</strong> behavior type: \"{type}\" <strong>on the current scene</strong>.<br><br><strong><u>Tile</u></strong>: you must create <strong>at least one tile</strong> with Share Media enabled <strong>on the current scene</strong>."
+        "zero": "No Share Media areas detected.<br><br><strong><u>Region</u></strong>: you must create at least one Scene Region with <strong>at least one shape</strong> and with at least one <strong>enabled</strong> behavior type: \"{type}\" <strong>on the current scene</strong>.<br><br><strong><u>Tile</u></strong>: you must create <strong>at least one tile</strong> with Share Media enabled <strong>on the current scene</strong>.",
+        "tile.no-name": "Untitled tile"
       },
 
       "user": {

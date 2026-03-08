@@ -21,6 +21,7 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     actions: {
       sortMedia: MediaHUD.#onSortMedia,
       clearMedia: MediaHUD.#onClearMedia,
+      shareMedia: MediaHUD.#onShareMedia,
     },
     position: {},
   };
@@ -65,7 +66,6 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     return {
       ...(await super._prepareContext(options)),
       icons: CONFIG.shareMedia.CONST.ICONS,
-      controlIcons: CONFIG.controlIcons,
     };
   }
 
@@ -77,7 +77,7 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
    */
   _updatePosition(position) {
     const s = game.canvas.dimensions.uiScale;
-    const { x: left, y: top, width, height } = this.#sprite._frame.getLocalBounds();
+    const { x: left, y: top, width, height } = this.#sprite.area.object.bounds;
     Object.assign(position, { left, top, width: width / s, height: height / s });
     position.scale = s;
     return position;
@@ -136,14 +136,18 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
 
   /**
    * Handle click actions to sort the object backwards or forwards within its layer.
-   * @param {PointerEvent}      _event  The triggering event.
-   * @param {HTMLButtonElement} target  The targeted DOM element.
+   * @param {PointerEvent}      _event   The triggering event.
+   * @param {HTMLButtonElement} _target  The targeted DOM element.
    * @returns {Promise<void>}
    * @this {MediaHUD}
    */
-  static async #onSortMedia(_event, target) {
-    const up = target.dataset.direction === "up";
-    await game.canvas["shm-media-layer"].sendToBackOrBringToFront(this.#sprite.area.uuid, up);
+  static async #onSortMedia(_event, _target) {
+    const sentToFront = await game.canvas["shm-media-layer"].sendToBackOrBringToFront(
+      this.#sprite.area.uuid,
+      true,
+    );
+    if (!sentToFront)
+      await game.canvas["shm-media-layer"].sendToBackOrBringToFront(this.#sprite.area.uuid, false);
   }
 
   /* -------------------------------------------- */
@@ -156,6 +160,25 @@ export default class MediaHUD extends HandlebarsApplicationMixin(ApplicationV2) 
    */
   static #onClearMedia(_event, _target) {
     game.canvas["shm-media-layer"].deleteSprite(this.#sprite.area.uuid, { unsetFlag: true });
+  }
+
+  /* -------------------------------------------- */
+  /**
+   * Handle sharing again a media.
+   * @param {PointerEvent}      _event   The triggering event.
+   * @param {HTMLButtonElement} _target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaHUD}
+   */
+  static async #onShareMedia(_event, _target) {
+    await new game.modules.shareMedia.shareables.apps.shareSelector({
+      src: this.#sprite.src,
+      settings: {
+        mode: CONFIG.shareMedia.CONST.LAYERS_MODES.scene,
+        targetArea: this.#sprite.area.uuid,
+        ...this.#sprite.options,
+      },
+    }).render({ force: true });
   }
 
   /* -------------------------------------------- */

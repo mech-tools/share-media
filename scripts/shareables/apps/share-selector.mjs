@@ -16,6 +16,16 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
       throw new Error(
         'You may note create a ShareSelector application without or with a malformated "options.src" option.',
       );
+
+    // Apply default settings to link option
+    if (options.link) {
+      options.settings = {
+        mode: CONFIG.shareMedia.CONST.LAYERS_MODES.popout,
+        optionName: CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name,
+        optionValue: CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.value,
+      };
+    }
+
     super(options);
   }
 
@@ -58,7 +68,7 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
   };
 
   /**
-   * Object that holds sharing options configured by this aplication.
+   * Object that holds sharing options configured by this application.
    * @type {{
    *   mode: keyof typeof CONFIG.shareMedia.CONST.LAYERS_MODES | null;
    *   optionName: string | null;
@@ -88,6 +98,15 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
    * @type {() => void | null}
    */
   #linkListener = null;
+
+  /* -------------------------------------------- */
+  /*  Window Management
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDetach() {
+    return false;
+  }
 
   /* -------------------------------------------- */
   /*  Context

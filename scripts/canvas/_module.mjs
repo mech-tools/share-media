@@ -27,31 +27,21 @@ export const registerTileConfiguration = () => {
     if (!game.users.current.isGM) return;
 
     // Static flag names
-    const { MEDIA_TILE_ENABLED, MEDIA_TILE_NAME } = game.canvas["shm-media-layer"].constructor;
+    const { MEDIA_TILE_ENABLED } = game.canvas["shm-media-layer"].constructor;
 
-    // Get current values
+    // Get current value
     const enabled = application.document.getFlag("share-media", MEDIA_TILE_ENABLED) ?? false;
-    const name =
-      application.document.getFlag("share-media", MEDIA_TILE_NAME) ||
-      game.i18n.localize("share-media.canvas.layer.tile.name.default");
 
     // HTML to insert
     const html = `
       <fieldset>
-        <legend>${game.i18n.localize("share-media.canvas.layer.tile.label")}</legend>
+        <legend>${_loc("share-media.canvas.layer.tile.label")}</legend>
         <div class="form-group">
-          <label for="flags.share-media.${MEDIA_TILE_ENABLED}">${game.i18n.localize("share-media.canvas.layer.tile.enabled.label")}</label>
+          <label for="flags.share-media.${MEDIA_TILE_ENABLED}">${_loc("share-media.canvas.layer.tile.enabled.label")}</label>
           <div class="shm form-fields">
             <input type="checkbox" name="flags.share-media.${MEDIA_TILE_ENABLED}" id="flags.share-media.${MEDIA_TILE_ENABLED}" ${enabled ? "checked" : ""}>
           </div>
-          <p class="hint">${game.i18n.localize("share-media.canvas.layer.tile.enabled.description")}</p>
-        </div>
-        <div class="form-group">
-          <label for="flags.share-media.${MEDIA_TILE_NAME}">${game.i18n.localize("share-media.canvas.layer.tile.name.label")}</label>
-          <div class="form-fields">
-            <input type="text" name="flags.share-media.${MEDIA_TILE_NAME}" id="flags.share-media.${MEDIA_TILE_NAME}" value="${name}">
-          </div>
-          <p class="hint">${game.i18n.localize("share-media.canvas.layer.tile.name.description")}</p>
+          <p class="hint">${_loc("share-media.canvas.layer.tile.enabled.description")}</p>
         </div>
       </fieldset>
     `;
@@ -79,28 +69,5 @@ export const registerMediaLayer = () => {
       group: "interface",
       layerClass: CONFIG.shareMedia.canvas.MediaLayer.implementation,
     };
-
-    // Add a button to the tokens tools
-    // [INFO] This button activates/deactivates the media layer
-    Hooks.on("getSceneControlButtons", (controls) => {
-      controls.tokens.tools["toggle-shm-media-layer"] = {
-        name: "toggle-shm-media-layer",
-        title: "share-media.canvas.layer.tool.label",
-        icon: CONFIG.shareMedia.CONST.ICONS.mediaLayer,
-        toggle: true,
-        visible: game.users.current.isGM,
-        active: (() => {
-          if (!game.canvas["shm-media-layer"]) return false;
-          return game.canvas["shm-media-layer"].active;
-        })(),
-        onChange: (_event, active) => {
-          if (active) {
-            if (game.canvas["shm-media-layer"].sprites.size < 1)
-              ui.notifications.info(game.i18n.localize("share-media.canvas.layer.tool.zero"));
-            game.canvas["shm-media-layer"].activate();
-          } else game.canvas.tokens.activate();
-        },
-      };
-    });
   }
 };

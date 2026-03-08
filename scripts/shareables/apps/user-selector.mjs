@@ -34,6 +34,15 @@ export default class UserSelector extends HandlebarsApplicationMixin(Application
   };
 
   /* -------------------------------------------- */
+  /*  Window Management
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDetach() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
   /*  Context
   /* -------------------------------------------- */
 
@@ -50,6 +59,7 @@ export default class UserSelector extends HandlebarsApplicationMixin(Application
 
   /**
    * Prepare users, selecting only users that are active.
+   * If "this.options.targetUsers" is available, check by default all available users within this array.
    * @returns {Array<{
    *   id: string;
    *   name: string;
@@ -65,6 +75,8 @@ export default class UserSelector extends HandlebarsApplicationMixin(Application
         name: user.name,
         color: user.color,
         isGM: user.isGM,
+        checked:
+          user.isGM || (this.options.targetUsers && this.options.targetUsers.includes(user.id)),
       }));
   }
 

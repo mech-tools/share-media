@@ -1,4 +1,5 @@
 const { isSubclass } = foundry.utils;
+const { queryMany } = User;
 
 /**
  * Class responsible for handling and dispatching media actions.
@@ -16,38 +17,37 @@ export default class ShareablesManager {
 
   /**
    * Ordered steps of a pipeline that goes through the dispatcher options and execute appropriate actions.
-   * @type {Array<{
-   *   name: string;
-   *   condition: (options: ShareablesOptions, ctx: ShareablesManager) => boolean;
-   * }>}
+   * @type {Array<{ name: string; condition: (options: ShareablesOptions) => boolean }>}
    */
-  // prettier-ignore
-  static PIPELINE_STEPS = [
-    { name: "is-gm", condition: (_options) => true },
-    { name: "all-users", condition: (options) =>
-      (options.optionName === CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name
-        && options.optionValue === CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.value)
-      || options.mode === CONFIG.shareMedia.CONST.LAYERS_MODES.scene
-    },
-    { name: "user-selection", condition: (options) =>
-      options.optionName === CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name
-      && options.optionValue === CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.value },
-    { name: "blacklist-filter", condition: (options) =>
-        options.mode !== CONFIG.shareMedia.CONST.LAYERS_MODES.scene
-     },
-    { name: "area-selection", condition: (options) =>
-      options.mode === CONFIG.shareMedia.CONST.LAYERS_MODES.scene
-    },
-    { name: "has-darkness", condition: (options) =>
-      options.darkness
-      && options.mode !== CONFIG.shareMedia.CONST.LAYERS_MODES.scene
-    },
-    { name: "create-area-flag", condition: (options) =>
-      options.mode === CONFIG.shareMedia.CONST.LAYERS_MODES.scene },
-    { name: "create-layer", condition: (options) =>
-      options.mode !== CONFIG.shareMedia.CONST.LAYERS_MODES.scene },
-    { name: "store-media", condition: (_options) => true},
-  ];
+  static get PIPELINE_STEPS() {
+    const { LAYERS_MODES: modes, LAYERS_OPTIONS: opts } = CONFIG.shareMedia.CONST;
+
+    return [
+      { name: "is-gm", condition: (_options) => true },
+      {
+        name: "all-users",
+        condition: (options) =>
+          (options.optionName === opts.usersAll.name &&
+            options.optionValue === opts.usersAll.value) ||
+          options.mode === modes.scene,
+      },
+      {
+        name: "user-selection",
+        condition: (options) =>
+          options.optionName === opts.usersSelection.name &&
+          options.optionValue === opts.usersSelection.value,
+      },
+      { name: "blacklist-filter", condition: (options) => options.mode !== modes.scene },
+      { name: "area-selection", condition: (options) => options.mode === modes.scene },
+      {
+        name: "has-darkness",
+        condition: (options) => options.darkness && options.mode !== modes.scene,
+      },
+      { name: "create-area-flag", condition: (options) => options.mode === modes.scene },
+      { name: "create-layer", condition: (options) => options.mode !== modes.scene },
+      { name: "store-media", condition: (_options) => true },
+    ];
+  }
 
   /**
    * Static mapping of pipeline step names to their corresponding handler functions.
@@ -256,7 +256,9 @@ export default class ShareablesManager {
    * @this {ShareablesManager}
    */
   static async _handleUserSelection(context) {
-    const targetUsers = await game.modules.shareMedia.shareables.apps.userSelector.wait();
+    const options = {};
+    if (context.targetUsers) options.targetUsers = context.targetUsers;
+    const targetUsers = await game.modules.shareMedia.shareables.apps.userSelector.wait(options);
     if (!targetUsers) return null;
     return { ...context, targetUsers };
   }
@@ -341,7 +343,7 @@ export default class ShareablesManager {
    * @this {ShareablesManager}
    */
   static async _handleCreateAreaFlag(context) {
-    const { users: _users, mode: _mode, targetArea, ...data } = context;
+    const { mode: _mode, targetArea, ...data } = context;
 
     // Await for the result
     const result = await game.canvas["shm-media-layer"].createAreaMediaData(targetArea, data);
@@ -360,13 +362,12 @@ export default class ShareablesManager {
    */
   static async _handleCreatelayer(context) {
     // Extract relevant query data
-    const { users: _users, targetUsers, ...data } = context;
+    const { targetUsers, ...data } = context;
     if (!targetUsers || !targetUsers.length) return null;
 
-    // Send query to all users
-    for (const userId of targetUsers) {
-      game.users.get(userId).query("share-media.renderLayer", data);
-    }
+    // Send query to target users
+    const usersToQuery = targetUsers.map((id) => game.users.get(id));
+    queryMany(usersToQuery, "share-media.renderLayer", data);
 
     return context;
   }
@@ -381,7 +382,7 @@ export default class ShareablesManager {
    * @this {ShareablesManager}
    */
   static async _handleStoreMedia(context) {
-    const { src, targetUsers, ...settings } = context;
+    const { src, ...settings } = context;
 
     const mediaSidebarSettings = game.modules.shareMedia.settings.get(
       CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaSidebarSettings,
@@ -389,7 +390,7 @@ export default class ShareablesManager {
 
     // Dispatch only if sidebar settings allow it
     if (mediaSidebarSettings.layers[settings.mode])
-      ui["shm-media-sidebar"].storeMedia(src, targetUsers, settings);
+      ui["shm-media-sidebar"].storeMedia(src, settings);
     return context;
   }
 

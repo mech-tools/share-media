@@ -72,12 +72,10 @@ export const applyEntitySharingSettings = () => {
         button.className = "control-icon";
         // Assign the tooltip
         button.dataset.tooltipClass = "shm";
-        button.dataset.tooltipHtml = game.i18n.localize(
-          "share-media.shareables.selector.entities.label",
-        );
+        button.dataset.tooltipHtml = _loc("share-media.shareables.selector.entities.label");
         if (application.object[baseName]) {
           button.dataset.tooltipHtml +=
-            "<br>" + game.i18n.localize("share-media.shareables.selector.entities.contextmenu");
+            "<br>" + _loc("share-media.shareables.selector.entities.contextmenu");
         }
         button.innerHTML = `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}" inert></i>`;
 

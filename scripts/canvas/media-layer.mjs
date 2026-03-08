@@ -1,4 +1,5 @@
 const { InteractionLayer } = foundry.canvas.layers;
+const { DialogV2 } = foundry.applications.api;
 const { isSubclass, fromUuid, mergeObject } = foundry.utils;
 
 /** @typedef {import("./media-sprite.mjs").default} MediaSprite */
@@ -23,6 +24,12 @@ export default class MediaLayer extends InteractionLayer {
    */
   sprites = new Map();
 
+  /**
+   * [INFO] Needed so the placeables tab doesn't error.
+   * @type {Array}
+   */
+  placeables = [];
+
   /** @inheritdoc */
   static get layerOptions() {
     return mergeObject(super.layerOptions, {
@@ -32,16 +39,16 @@ export default class MediaLayer extends InteractionLayer {
   }
 
   /**
+   * [INFO] Needed so the placeable tab doesn't error.
+   * @override
+   */
+  static documentName = "Token";
+
+  /**
    * The flag key to register the tile activation.
    * @type {string}
    */
   static MEDIA_TILE_ENABLED = "enabled";
-
-  /**
-   * The flag key to register the tile name.
-   * @type {string}
-   */
-  static MEDIA_TILE_NAME = "name";
 
   /**
    * The flag key to register the area sort order.
@@ -73,12 +80,45 @@ export default class MediaLayer extends InteractionLayer {
     // Render scene sprites
     for (const region of game.canvas.regions.placeables) {
       const flag = region.document.getFlag("share-media", this.constructor.MEDIA_FLAG_KEY);
-      if (flag) this.addSprite({ targetArea: region.document.uuid, ...flag });
+      if (flag) await this.addSprite({ targetArea: region.document.uuid, ...flag });
     }
     for (const tile of game.canvas.tiles.placeables) {
       const flag = tile.document.getFlag("share-media", this.constructor.MEDIA_FLAG_KEY);
-      if (flag) this.addSprite({ targetArea: tile.document.uuid, ...flag });
+      if (flag) await this.addSprite({ targetArea: tile.document.uuid, ...flag });
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static prepareSceneControls() {
+    return {
+      name: "shm-media-layer",
+      title: "share-media.canvas.layer.control.label",
+      layer: "shm-media-layer",
+      icon: CONFIG.shareMedia.CONST.ICONS.mediaLayer,
+      visible: game.user.isGM,
+      onChange: (_event, active) => {
+        if (active) game.canvas["shm-media-layer"].activate();
+      },
+      tools: {
+        select: {
+          name: "select",
+          order: 1,
+          title: "share-media.canvas.layer.tools.select.label",
+          icon: CONFIG.shareMedia.CONST.ICONS.select,
+        },
+        clear: {
+          name: "clear",
+          order: 2,
+          title: "share-media.canvas.layer.tools.clear.label",
+          icon: CONFIG.shareMedia.CONST.ICONS.clear,
+          onChange: () => game.canvas["shm-media-layer"].deleteAllSprites(),
+          button: true,
+        },
+      },
+      activeTool: "select",
+    };
   }
 
   /* -------------------------------------------- */
@@ -111,11 +151,6 @@ export default class MediaLayer extends InteractionLayer {
     // Release any controlled sprite
     if (game.modules.shareMedia.canvas.mediaSprite.controlled)
       game.modules.shareMedia.canvas.mediaSprite.controlled.release();
-
-    // Deactivate the associated control tool.
-    // [INFO] Needed because there is no dedicated controls associated to this layer (only a tool).
-    // Because of this, Foundry will not magically deactivate the associated tool when this layer is deactivated.
-    ui.controls.controls.tokens.tools["toggle-shm-media-layer"].active = false;
   }
 
   /* -------------------------------------------- */
@@ -158,6 +193,10 @@ export default class MediaLayer extends InteractionLayer {
 
     // Attempt to remove a previous sprite in the same area
     if (this.sprites.has(targetArea)) await this.deleteSprite(area.uuid);
+
+    // Verify that this area exist on the current scene level
+    // [NOTE] Only if at least one level is defined for the area
+    if (area.levels.size && !area.levels.has(game.canvas.level.id)) return;
 
     // Create the sprite
     const spriteClass = this._getSpriteClass(area);
@@ -240,6 +279,44 @@ export default class MediaLayer extends InteractionLayer {
   /* -------------------------------------------- */
 
   /**
+   * Delete all sprites on the scene.
+   * [NOTE] Will only delete sprites rendered on the current level.
+   * @returns {Promise<void>}
+   */
+  async deleteAllSprites() {
+    return DialogV2.confirm({
+      window: { title: "CONTROLS.ClearAll" },
+      content: `<p>${_loc("CONTROLS.ClearAllHint", { type: _loc("share-media.canvas.layer.control.type") })}</p>`,
+      yes: {
+        callback: async () => {
+          let deleted = 0;
+
+          for (const region of game.canvas.regions.placeables) {
+            const flag = region.document.getFlag("share-media", this.constructor.MEDIA_FLAG_KEY);
+            if (flag) {
+              await this.deleteSprite(region.document.uuid, { unsetFlag: true });
+              deleted++;
+            }
+          }
+          for (const tile of game.canvas.tiles.placeables) {
+            const flag = tile.document.getFlag("share-media", this.constructor.MEDIA_FLAG_KEY);
+            if (flag) {
+              await this.deleteSprite(tile.document.uuid, { unsetFlag: true });
+              deleted++;
+            }
+          }
+
+          ui.notifications.info("CONTROLS.DeletedObjects", {
+            format: { count: deleted, type: _loc("share-media.canvas.layer.control.type") },
+          });
+        },
+      },
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Update an area with media data.
    * Also assign a sort order if the area does not already have one.
    * @param {string} targetArea  Area ID to update.
@@ -290,11 +367,16 @@ export default class MediaLayer extends InteractionLayer {
     }
 
     // If no new sort, return
-    if (!Number.isFinite(target)) return;
+    if (!Number.isFinite(target)) return false;
+
+    // Already in the correct position
+    const currentSort = area.getFlag("share-media", this.constructor.SORT_FLAG_KEY);
+    if (front ? currentSort > target : currentSort < target) return false;
 
     // Send to top or bottom and update flag
     target += front ? 1 : -1;
     await area.setFlag("share-media", this.constructor.SORT_FLAG_KEY, target);
+    return true;
   }
 
   /* -------------------------------------------- */
