@@ -108,9 +108,20 @@ export default class MediaLayer extends InteractionLayer {
           title: "share-media.canvas.layer.tools.select.label",
           icon: CONFIG.shareMedia.CONST.ICONS.select,
         },
+        link: {
+          name: "link",
+          order: 2,
+          title: "share-media.canvas.layer.tools.link.label",
+          icon: CONFIG.shareMedia.CONST.ICONS.shareLink,
+          onChange: () =>
+            new game.modules.shareMedia.shareables.apps.shareSelector({ link: true }).render({
+              force: true,
+            }),
+          button: true,
+        },
         clear: {
           name: "clear",
-          order: 2,
+          order: 3,
           title: "share-media.canvas.layer.tools.clear.label",
           icon: CONFIG.shareMedia.CONST.ICONS.clear,
           onChange: () => game.canvas["shm-media-layer"].deleteAllSprites(),

@@ -114,6 +114,7 @@
 
       "tools": {
         "select.label": "Sélection de média",
+        "link.label": "Lien média",
         "clear.label": "Supprimer tous les médias"
       },
 
