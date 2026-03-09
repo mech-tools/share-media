@@ -72,11 +72,19 @@ export const MODULE_SETTINGS = {
  * [NOTE] using "Boolean(false)" so inference is satisfied with a simple boolean primitive instead of the value.
  * @satisfies {Record<string, Record<string, boolean>>}
  */
-// prettier-ignore
 export const MEDIA_SETTINGS = {
-  [LAYERS_MODES.popout]: { darkness: Boolean(true) },
-  [LAYERS_MODES.fullscreen]: { immersive: Boolean(false), controls: Boolean(true), darkness: Boolean(true) },
-  [MEDIA_TYPES.video]: { loop: Boolean(false), mute: Boolean(false) },
+  [LAYERS_MODES.popout]: {
+    darkness: Boolean(true),
+  },
+  [LAYERS_MODES.fullscreen]: {
+    immersive: Boolean(false),
+    controls: Boolean(true),
+    darkness: Boolean(true),
+  },
+  [MEDIA_TYPES.video]: {
+    loop: Boolean(false),
+    mute: Boolean(false),
+  },
 };
 
 /* -------------------------------------------- */
@@ -169,19 +177,48 @@ export const MEDIA_VALIDATORS = {
  *   }>
  * >}
  */
-// prettier-ignore
 export const MEDIA_ACTIONS = {
   [LAYERS_MODES.popout]: [
-    { mode: LAYERS_MODES.popout, optionName: LAYERS_OPTIONS.usersAll.name, optionValue: LAYERS_OPTIONS.usersAll.value, i18nKey: "popoutAll" },
-    { mode: LAYERS_MODES.popout, optionName: LAYERS_OPTIONS.usersSelection.name, optionValue: LAYERS_OPTIONS.usersSelection.value, i18nKey: "popoutSelection" },
+    {
+      mode: LAYERS_MODES.popout,
+      optionName: LAYERS_OPTIONS.usersAll.name,
+      optionValue: LAYERS_OPTIONS.usersAll.value,
+      i18nKey: "popoutAll",
+    },
+    {
+      mode: LAYERS_MODES.popout,
+      optionName: LAYERS_OPTIONS.usersSelection.name,
+      optionValue: LAYERS_OPTIONS.usersSelection.value,
+      i18nKey: "popoutSelection",
+    },
   ],
   [LAYERS_MODES.fullscreen]: [
-    { mode: LAYERS_MODES.fullscreen, optionName: LAYERS_OPTIONS.usersAll.name, optionValue: LAYERS_OPTIONS.usersAll.value, i18nKey: "fullscreenAll" },
-    { mode: LAYERS_MODES.fullscreen, optionName: LAYERS_OPTIONS.usersSelection.name, optionValue: LAYERS_OPTIONS.usersSelection.value, i18nKey: "fullscreenSelection" },
+    {
+      mode: LAYERS_MODES.fullscreen,
+      optionName: LAYERS_OPTIONS.usersAll.name,
+      optionValue: LAYERS_OPTIONS.usersAll.value,
+      i18nKey: "fullscreenAll",
+    },
+    {
+      mode: LAYERS_MODES.fullscreen,
+      optionName: LAYERS_OPTIONS.usersSelection.name,
+      optionValue: LAYERS_OPTIONS.usersSelection.value,
+      i18nKey: "fullscreenSelection",
+    },
   ],
-   [LAYERS_MODES.scene]: [
-    { mode: LAYERS_MODES.scene, optionName: LAYERS_OPTIONS.displayFit.name, optionValue: LAYERS_OPTIONS.displayFit.value, i18nKey: "sceneFit" },
-    { mode: LAYERS_MODES.scene, optionName: LAYERS_OPTIONS.displayFill.name, optionValue: LAYERS_OPTIONS.displayFill.value, i18nKey: "sceneFill" },
+  [LAYERS_MODES.scene]: [
+    {
+      mode: LAYERS_MODES.scene,
+      optionName: LAYERS_OPTIONS.displayFit.name,
+      optionValue: LAYERS_OPTIONS.displayFit.value,
+      i18nKey: "sceneFit",
+    },
+    {
+      mode: LAYERS_MODES.scene,
+      optionName: LAYERS_OPTIONS.displayFill.name,
+      optionValue: LAYERS_OPTIONS.displayFill.value,
+      i18nKey: "sceneFill",
+    },
   ],
 };
 

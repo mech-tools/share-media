@@ -96,6 +96,7 @@ Hooks.once("setup", () => {
   // Expose layers
   module.layers.popout = config.layers.PopoutLayer.implementation;
   module.layers.fullscreen = config.layers.FullscreenLayer.implementation;
+  module.layers.scene = config.layers.SceneLayer.implementation;
 
   // Expose shareables
   module.shareables.manager = new config.shareables.ShareablesManager.implementation();

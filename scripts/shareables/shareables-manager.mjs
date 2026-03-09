@@ -43,8 +43,8 @@ export default class ShareablesManager {
         name: "has-darkness",
         condition: (options) => options.darkness && options.mode !== modes.scene,
       },
-      { name: "create-area-flag", condition: (options) => options.mode === modes.scene },
-      { name: "create-layer", condition: (options) => options.mode !== modes.scene },
+      { name: "create-local-layer", condition: (options) => options.mode === modes.scene },
+      { name: "create-remote-layer", condition: (options) => options.mode !== modes.scene },
       { name: "store-media", condition: (_options) => true },
     ];
   }
@@ -64,8 +64,8 @@ export default class ShareablesManager {
     "blacklist-filter": ShareablesManager._handleBlackListFilter,
     "area-selection": ShareablesManager._handleAreaSelection,
     "has-darkness": ShareablesManager._handleHasDarkness,
-    "create-area-flag": ShareablesManager._handleCreateAreaFlag,
-    "create-layer": ShareablesManager._handleCreatelayer,
+    "create-local-layer": ShareablesManager._handleCreateLocallayer,
+    "create-remote-layer": ShareablesManager._handleCreateRemotelayer,
     "store-media": ShareablesManager._handleStoreMedia,
   };
 
@@ -337,16 +337,14 @@ export default class ShareablesManager {
   /* -------------------------------------------- */
 
   /**
-   * Handle storing a flag on the selected area.
+   * Handle local layer instantiation.
    * @param {ShareablesOptions} context  Current pipeline context.
    * @returns {Promise<ShareablesOptions | null>}
    * @this {ShareablesManager}
    */
-  static async _handleCreateAreaFlag(context) {
-    const { mode: _mode, targetArea, ...data } = context;
-
+  static async _handleCreateLocallayer(context) {
     // Await for the result
-    const result = await game.canvas["shm-media-layer"].createAreaMediaData(targetArea, data);
+    const result = await this._renderLayer(context);
 
     return result ? context : null;
   }
@@ -354,22 +352,22 @@ export default class ShareablesManager {
   /* -------------------------------------------- */
 
   /**
-   * Handle query emission for layer instantiation.
+   * Handle query emission for remote layer instantiation.
    * Sends layer data to target users via queries.
    * @param {ShareablesOptions} context  Current pipeline context with targetUsers and layer data.
    * @returns {Promise<ShareablesOptions | null>}
    * @this {ShareablesManager}
    */
-  static async _handleCreatelayer(context) {
+  static async _handleCreateRemotelayer(context) {
     // Extract relevant query data
     const { targetUsers, ...data } = context;
     if (!targetUsers || !targetUsers.length) return null;
 
     // Send query to target users
     const usersToQuery = targetUsers.map((id) => game.users.get(id));
-    queryMany(usersToQuery, "share-media.renderLayer", data);
+    const result = await queryMany(usersToQuery, "share-media.renderLayer", data);
 
-    return context;
+    return result ? context : null;
   }
 
   /* -------------------------------------------- */
@@ -408,23 +406,24 @@ export default class ShareablesManager {
   /* -------------------------------------------- */
 
   /**
-   * Handle incoming query message for layer rendering.
+   * Handle incoming requests for layer rendering.
    * Instantiates the appropriate layer class based on the mode and renders it.
    * @param {Object}                    data          Query data containing mode and layer options.
    * @param {string}                    data.mode     The layer mode.
    * @param {parial<ShareablesOptions>} data.options  Additional options passed to the layer constructor.
+   * @returns {Promise<Object | undefined>}
    * @throws {Error} If the layer mode is unknown or not supported.
    */
-  _renderLayer(data) {
+  async _renderLayer(data) {
     const { mode, ...options } = data;
 
     // Get the appropriate layer
     const LayerClass = game.modules.shareMedia.layers[mode];
-    if (!LayerClass) throw new Error(`Unknown layer mode received via query: ${mode}`);
+    if (!LayerClass) throw new Error(`Unknown layer mode: ${mode}`);
 
     // Instantiate and render the layer
     const layer = new LayerClass(options);
-    layer.render({ force: true });
+    return layer.render({ force: true });
   }
 
   /* -------------------------------------------- */

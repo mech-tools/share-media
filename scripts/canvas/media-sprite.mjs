@@ -14,7 +14,7 @@ const { isSubclass } = foundry.utils;
  * @param {string}                        [options.optionValue="fit"]     The optional display mode value.
  * @param {string}                        [options.loop=false]            Optional loop argument for videos.
  * @param {string}                        [options.mute=false]            Optional mute argument for videos.
- * @throws {Error} If the two basic arguments are passed to this constructor.
+ * @throws {Error} If basic arguments are not met.
  */
 export default class MediaSprite {
   constructor(src, area, options) {

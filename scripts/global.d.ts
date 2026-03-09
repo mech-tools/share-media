@@ -64,6 +64,7 @@ declare global {
         layers: {
           popout: typeof LayersModule.PopoutLayer;
           fullscreen: typeof LayersModule.FullscreenLayer;
+          scene: typeof LayersModule.SceneLayer;
         };
 
         shareables: {
