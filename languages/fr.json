@@ -222,8 +222,10 @@
         "hint": "Configurez comment les boutons de partage et les entrées de menu contextuel apparaissent pour les entités du jeu.",
         "description": "Contrôlez l'affichage et le comportement des paramètres de partage des médias pour les entités. Configurez si les options de partage apparaissent sur les tokens, comme entrées de menu contextuel sur les fiches, ou les deux, et si les noms d'entités sont affichés.",
         "options": {
-          "sheet.label": "Menu contextuel de fiche",
-          "sheet.hint": "Ajouter des entrées de partage des médias au menu contextuel de la fiche.",
+          "sheetHeader.label": "Bouton de la fiche",
+          "sheetHeader.hint": "Ajouter un bouton de partage dans l'en-tête de la fiche.",
+          "sheetMenu.label": "Menu contextuel de la fiche",
+          "sheetMenu.hint": "Ajouter des entrées de partage des médias au menu contextuel de la fiche.",
           "hud.label": "Bouton HUD",
           "hud.hint": "Afficher les boutons de partage des médias directement sur le HUD.",
           "caption.label": "Afficher le nom de l'entité",

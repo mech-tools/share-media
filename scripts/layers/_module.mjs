@@ -35,12 +35,16 @@ export const registerChatMessageActions = () => {
   });
 
   // Show the media on click
+  // [NOTE] This also adds the top level class "shm" to the chat message
   Hooks.on("renderChatMessageHTML", async (message, html, _context) => {
     const { MEDIA_FLAG_KEY } = game.modules.shareMedia.layers.chat;
 
     // Make sure this message is from share media
     const flags = message.getFlag("share-media", MEDIA_FLAG_KEY);
     if (!flags) return;
+
+    // Add the top level share media css class
+    html.classList.add("shm");
 
     // Get the media container
     const media = html.querySelector(".media");

@@ -57,7 +57,7 @@ export default class ChatLayer {
       mode: CONFIG.shareMedia.CONST.LAYERS_MODES.chat,
     };
     return ChatMessage.create({
-      content: `<div class="shm">${template}</div>`,
+      content: template,
       whisper: this.#getRecipients(),
       speaker: { alias: game.user.name },
       flags: { "share-media": { [this.constructor.MEDIA_FLAG_KEY]: { src, settings } } },

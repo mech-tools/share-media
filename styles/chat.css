@@ -1,5 +1,5 @@
 @layer shm.layouts {
-  .chat-log .chat-message .shm {
+  .chat-log .shm.chat-message {
     /* -------------------------------------------- */
     /*  Containers
     /* -------------------------------------------- */

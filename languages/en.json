@@ -221,8 +221,10 @@
         "hint": "Configure how sharing buttons and context menu entries appear for game entities.",
         "description": "Control the display and behavior of media sharing settings for entities. Configure whether sharing options appear on tokens, as context menu entries on sheets, or both, and whether entity names are displayed as captions.",
         "options": {
-          "sheet.label": "Sheet Context Menu",
-          "sheet.hint": "Add media sharing entries to the sheet context menu.",
+          "sheetHeader.label": "Sheet Header Button",
+          "sheetHeader.hint": "Add media sharing button to the sheet header.",
+          "sheetMenu.label": "Sheet Context Menu",
+          "sheetMenu.hint": "Add media sharing entries to the sheet context menu.",
           "hud.label": "HUD Button",
           "hud.hint": "Display media sharing buttons directly on the HUD.",
           "caption.label": "Show Entity Caption",

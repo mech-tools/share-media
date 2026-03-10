@@ -63,14 +63,20 @@ export const runMigrations = async () => {
  * 1. Replacing tile names with existing share media flag.
  * 2. Migrate media collection so "targetUsers" is now under "settings".
  * 3. Add the new chat setting to the media sidebar settings.
+ * 4. Rename sheet to sheetMenu in the entity sharing settings.
+ * 5. Add sheetHeader to the entity sharing settings.
  */
 async function migrateTo2140() {
   // Migration snapshot
   const MEDIA_TILE_NAME = "name";
   const CHAT_MODE_KEY = "chat";
+  const OLD_SHEET_MENU_KEY = "sheet";
+  const NEW_SHEET_MENU_KEY = "sheetMenu";
+  const SHEET_HEADER_KEY = "sheetHeader";
   const MODULE_SETTINGS = {
     mediaHistory: "mediaHistory",
     mediaSidebarSettings: "mediaSidebarSettings",
+    entitySharingSettings: "entitySharingSettings",
   };
 
   // 1. Tile
@@ -97,12 +103,14 @@ async function migrateTo2140() {
   }
 
   // 3. Chat setting
-  const mediaSidebarSettings = game.settings.get(
-    "share-media",
-    MODULE_SETTINGS.mediaSidebarSettings,
-  );
+  let mediaSidebarSettings;
+  try {
+    mediaSidebarSettings = game.settings.get("share-media", MODULE_SETTINGS.mediaSidebarSettings);
+  } catch {
+    mediaSidebarSettings = null;
+  }
   if (mediaSidebarSettings) {
-    if (!Object.hasOwn(mediaSidebarSettings.layers, CHAT_MODE_KEY)) {
+    if (!Object.hasOwn(mediaSidebarSettings?.layers, CHAT_MODE_KEY)) {
       const entries = Object.entries(mediaSidebarSettings.layers);
       mediaSidebarSettings.layers = Object.fromEntries([
         ...entries.slice(0, -1),
@@ -115,5 +123,47 @@ async function migrateTo2140() {
         mediaSidebarSettings,
       );
     }
+  }
+
+  // 4. Renaming sheet to sheetMenu
+  let entitySharingSettings;
+  try {
+    entitySharingSettings = game.settings.get("share-media", MODULE_SETTINGS.entitySharingSettings);
+  } catch {
+    entitySharingSettings = null;
+  }
+  if (entitySharingSettings) {
+    for (const category of ["actors", "items"]) {
+      if (Object.hasOwn(entitySharingSettings?.[category], OLD_SHEET_MENU_KEY)) {
+        const value = entitySharingSettings[category][OLD_SHEET_MENU_KEY];
+        delete entitySharingSettings[category][OLD_SHEET_MENU_KEY];
+        entitySharingSettings[category] = Object.fromEntries([
+          [NEW_SHEET_MENU_KEY, value],
+          ...Object.entries(entitySharingSettings[category]),
+        ]);
+      }
+    }
+    await game.settings.set(
+      "share-media",
+      MODULE_SETTINGS.entitySharingSettings,
+      entitySharingSettings,
+    );
+  }
+
+  // 5. Add sheetHeader
+  if (entitySharingSettings) {
+    for (const category of ["actors", "items"]) {
+      if (!Object.hasOwn(entitySharingSettings?.[category], SHEET_HEADER_KEY)) {
+        entitySharingSettings[category] = Object.fromEntries([
+          [SHEET_HEADER_KEY, true],
+          ...Object.entries(entitySharingSettings[category]),
+        ]);
+      }
+    }
+    await game.settings.set(
+      "share-media",
+      MODULE_SETTINGS.entitySharingSettings,
+      entitySharingSettings,
+    );
   }
 }

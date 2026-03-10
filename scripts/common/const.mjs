@@ -116,8 +116,13 @@ export const MEDIA_HISTORY_SETTINGS = {
  * @satisfies {Record<string, Record<string, boolean>>}
  */
 export const ENTITY_SETTINGS = {
-  actors: { sheet: Boolean(true), hud: Boolean(true), caption: Boolean(true) },
-  items: { sheet: Boolean(true), caption: Boolean(true) },
+  actors: {
+    sheetHeader: Boolean(true),
+    sheetMenu: Boolean(true),
+    hud: Boolean(true),
+    caption: Boolean(true),
+  },
+  items: { sheetHeader: Boolean(true), sheetmenu: Boolean(true), caption: Boolean(true) },
   tiles: { hud: Boolean(true) },
 };
 

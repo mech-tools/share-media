@@ -222,8 +222,10 @@
         "hint": "ゲームエンティティにおける共有ボタンとコンテキストメニュー項目の表示方法を構成します。",
         "description": "エンティティのメディア共有設定の表示と動作を制御します。共有オプションをコマ上に表示するか、シート上のコンテキストメニュー項目として表示するか、またはその両方として表示するか、およびエンティティ名をキャプションとして表示するかどうかを設定します。",
         "options": {
-          "sheet.label": "シートコンテキストメニュー",
-          "sheet.hint": "シートのコンテキストメニューにメディア共有項目を追加します。",
+          "sheetHeader.label": "Sheet Header Button",
+          "sheetHeader.hint": "Add media sharing button to the sheet header.",
+          "sheetMenu.label": "シートコンテキストメニュー",
+          "sheetMenu.hint": "シートのコンテキストメニューにメディア共有項目を追加します。",
           "hud.label": "HUDボタン",
           "hud.hint": "HUD上にメディア共有ボタンを直接表示します。",
           "caption.label": "エンティティキャプションを表示",
