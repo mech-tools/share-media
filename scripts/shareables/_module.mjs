@@ -5,7 +5,7 @@ export * as mixins from "./mixins/_module.mjs";
 /**
  * Apply the needed modifications to show token buttons and entity context entries.
  */
-export const applyEntitySharingActions = () => {
+export const registerEntitySharingActions = () => {
   // Entity settings
   const entitySharingSettings = game.modules.shareMedia.settings.get(
     CONFIG.shareMedia.CONST.MODULE_SETTINGS.entitySharingSettings,
@@ -38,7 +38,7 @@ export const applyEntitySharingActions = () => {
           label: "share-media.shareables.selector.entities.label",
           icon: `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
           visible: (target) => {
-            if (!game.users.current.isGM) return false;
+            if (!game.user.isGM) return false;
             const document = game[entity].get(target.dataset.entryId);
             const { img } = document.constructor.getDefaultArtwork(document._source);
             return document.img !== img;
@@ -63,7 +63,7 @@ export const applyEntitySharingActions = () => {
       const entityName = entity === "actors" ? "Token" : documentName;
       const hookName = `render${entityName}HUD`;
       Hooks.on(hookName, (application, element, _context, _options) => {
-        if (!game.users.current.isGM) return;
+        if (!game.user.isGM) return;
         if (!application.object.document.texture.src) return;
 
         // Create a button

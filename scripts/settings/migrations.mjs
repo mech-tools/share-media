@@ -19,7 +19,7 @@ const MIGRATIONS = [{ version: "2.14.0", handler: migrateTo2140 }];
  */
 export const runMigrations = async () => {
   // Only GMs can run migrations
-  if (!game.users.current.isGM) return;
+  if (!game.user.isGM) return;
 
   // Retrieve current data version
   const currentVersion = game.modules.shareMedia.settings.get(

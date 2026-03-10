@@ -154,7 +154,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @returns {Promise<void>}
    */
   async storeMedia(src, settings = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     // Prepare data, including a new collection
     const collection = new Collection(this.mediaCollection.entries());
@@ -203,7 +203,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @returns {Promise<void>}
    */
   async deleteMedia(id) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
     if (!this.mediaCollection.has(id)) return;
 
     // Prepare data, including a new collection
@@ -234,7 +234,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @returns {Promise<void>}
    */
   async deleteHistory() {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     // Clear the media history collection by replacing it with an empty collection
     await this.#setRemoteStorage(new Collection([]));
@@ -255,7 +255,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @returns {Promise<Map<string, HistoryMedia>>}
    */
   async #setRemoteStorage(value) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     return game.settings.set(
       "share-media",
@@ -292,7 +292,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
 
     // Do not got further is the user can't access the sidebar
     if (!this.#sidebarSettings.enabled) return;
-    if (this.#sidebarSettings.gmOnly && !game.users.current.isGM) return;
+    if (this.#sidebarSettings.gmOnly && !game.user.isGM) return;
     return this.#renderingQueue.add(async () => {
       // Removing any existing media element first
       await this.#doRemoveMedia(media.id);
@@ -342,7 +342,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
 
     // Do not got further is the user can't access the sidebar
     if (!this.#sidebarSettings.enabled) return;
-    if (this.#sidebarSettings.gmOnly && !game.users.current.isGM) return;
+    if (this.#sidebarSettings.gmOnly && !game.user.isGM) return;
     return this.#renderingQueue.add(this.#doRemoveMedia.bind(this), id, options);
   }
 
@@ -403,7 +403,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
 
     // Do not got further is the user can't access the sidebar
     if (!this.#sidebarSettings.enabled) return;
-    if (this.#sidebarSettings.gmOnly && !game.users.current.isGM) return;
+    if (this.#sidebarSettings.gmOnly && !game.user.isGM) return;
     return this.#renderingQueue.add(this.#doFlushMedia.bind(this));
   }
 
@@ -435,7 +435,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
   async _renderBatch(size) {
     if (this.#renderingBatch) return;
     if (!this.#sidebarSettings.enabled) return;
-    if (this.#sidebarSettings.gmOnly && !game.users.current.isGM) return;
+    if (this.#sidebarSettings.gmOnly && !game.user.isGM) return;
     this.#renderingBatch = true;
     return this.#renderingQueue.add(this.#doRenderBatch.bind(this), size);
   }
@@ -454,10 +454,10 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     }
 
     // Media store filtered for the current user (gamemasters can see all media)
-    const mediaList = game.users.current.isGM
+    const mediaList = game.user.isGM
       ? this.mediaCollection.contents
       : this.mediaCollection.contents.filter((media) =>
-          media.settings.targetUsers.includes(game.users.current.id),
+          media.settings.targetUsers.includes(game.user.id),
         );
 
     // Get the index of the last rendered media
@@ -530,7 +530,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @this {MediaSidebar}
    */
   static async #onClearHistory(_event, _target) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     const confirm = await DialogV2.confirm({
       window: {
@@ -555,7 +555,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @this {MediaSidebar}
    */
   static #onClearMedia(_event, target) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     const { mediaId } = target.closest("[data-media-id]")?.dataset ?? {};
     const media = this.mediaCollection.get(mediaId);
@@ -612,7 +612,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
    * @this {MediaSidebar}
    */
   static async #onShareMedia(_event, target) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     const li = target.closest(".media-item[data-media-id]");
     const media = this.mediaCollection.get(li?.dataset?.mediaId);
@@ -791,7 +791,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const enrichedMediaList = mediaList.map((media) => ({
       ...media,
       isVideo: game.modules.shareMedia.utils.isVideo(media.src),
-      targetUsers: game.users.current.isGM
+      targetUsers: game.user.isGM
         ? media.settings.targetUsers?.reduce((acc, userId) => {
             const user = game.users.get(userId);
             if (user) acc.push({ color: user.color, name: user.name });
@@ -804,7 +804,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const template = await renderTemplate(
       "modules/share-media/templates/ui/media-sidebar-list.hbs",
       {
-        isGM: game.users.current.isGM,
+        isGM: game.user.isGM,
         icons: CONFIG.shareMedia.CONST.ICONS,
         mediaList: enrichedMediaList,
       },

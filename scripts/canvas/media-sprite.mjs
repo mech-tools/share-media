@@ -331,10 +331,10 @@ export default class MediaSprite {
   #createInteractionManager() {
     // Handle permissions to perform various actions
     const permissions = {
-      hoverIn: () => game.users.current.isGM,
-      hoverOut: () => game.users.current.isGM,
-      clickLeft: () => game.users.current.isGM,
-      clickRight: () => game.users.current.isGM,
+      hoverIn: () => game.user.isGM,
+      hoverOut: () => game.user.isGM,
+      clickLeft: () => game.user.isGM,
+      clickRight: () => game.user.isGM,
       dragStart: () => false,
       dragLeftStart: () => false,
       dragRightStart: () => false,

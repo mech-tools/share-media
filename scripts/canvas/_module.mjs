@@ -24,7 +24,7 @@ export const registerRegionBehaviors = () => {
  */
 export const registerTileConfiguration = () => {
   Hooks.on("renderTileConfig", (application, element, _context, _option) => {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     // Static flag names
     const { MEDIA_TILE_ENABLED } = game.canvas["shm-media-layer"].constructor;

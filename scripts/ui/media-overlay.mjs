@@ -10,7 +10,7 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
   /** @inheritdoc */
   constructor(options = {}) {
     // Only Gamemasters are allowed to show the media overlay
-    if (!game.users.current.isGM) return {};
+    if (!game.user.isGM) return {};
 
     if (game.modules.shareMedia.ui.overlay)
       throw new Error("You may not re-construct the singleton MediaOverlay.");

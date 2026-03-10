@@ -7,7 +7,7 @@ export * as mixins from "./mixins/_module.mjs";
 /**
  * Apply the needed modifications to implement actions on share media chat messages.
  */
-export const applyChatMessageActions = () => {
+export const registerChatMessageActions = () => {
   // Add share again to the message context options
   Hooks.on("getChatMessageContextOptions", (_application, menuItems) => {
     const { MEDIA_FLAG_KEY } = game.modules.shareMedia.layers.chat;

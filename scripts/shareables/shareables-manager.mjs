@@ -231,7 +231,7 @@ export default class ShareablesManager {
    * @this {ShareablesManager}
    */
   static async _handleIsGm(context) {
-    if (!game.users.current.isGM) {
+    if (!game.user.isGM) {
       ui.notifications.warn("Only Gamemasters are able to share media!");
       return null;
     }

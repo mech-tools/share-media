@@ -73,7 +73,7 @@ export default class Api {
    *
    */
   static share(src, settings = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     const shareSelector = new game.modules.shareMedia.shareables.apps.shareSelector({
       src,
@@ -112,7 +112,7 @@ export default class Api {
    *
    */
   static popoutToAllUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.popout;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name;
@@ -148,7 +148,7 @@ export default class Api {
    *
    */
   static popoutToSomeUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.popout;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name;
@@ -188,7 +188,7 @@ export default class Api {
    *
    */
   static fullscreenToAllUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.fullscreen;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name;
@@ -227,7 +227,7 @@ export default class Api {
    *
    */
   static fullscreenToSomeUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.fullscreen;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name;
@@ -254,7 +254,7 @@ export default class Api {
    *
    */
   static chatToAllUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.chat;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name;
@@ -279,7 +279,7 @@ export default class Api {
    *
    */
   static chatToSomeUsers(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.chat;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name;
@@ -315,7 +315,7 @@ export default class Api {
    *
    */
   static sceneFit(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.scene;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.displayFit.name;
@@ -348,7 +348,7 @@ export default class Api {
    *
    */
   static sceneFill(options = {}) {
-    if (!game.users.current.isGM) return;
+    if (!game.user.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.scene;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.displayFill.name;

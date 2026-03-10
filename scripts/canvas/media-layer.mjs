@@ -277,7 +277,7 @@ export default class MediaLayer extends InteractionLayer {
     this.sprites.delete(targetArea);
 
     // Remove the media flag associated with the area document
-    if (unsetFlag && game.users.current.isGM) {
+    if (unsetFlag && game.user.isGM) {
       const area = await fromUuid(targetArea);
       if (!area) return;
       await area.unsetFlag("share-media", this.constructor.MEDIA_FLAG_KEY);

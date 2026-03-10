@@ -68,11 +68,11 @@ Hooks.once("init", () => {
   // Register media sidebar
   CONFIG.shareMedia.ui.registerMediaSidebar();
 
-  // Apply entity settings
-  CONFIG.shareMedia.shareables.applyEntitySharingActions();
+  // Registger entity actions
+  CONFIG.shareMedia.shareables.registerEntitySharingActions();
 
-  // Apply chat message actions
-  CONFIG.shareMedia.layers.applyChatMessageActions();
+  // Register chat message actions
+  CONFIG.shareMedia.layers.registerChatMessageActions();
 
   // Register handlebars partials
   CONFIG.shareMedia.utils.registerHandlebarsPartials();

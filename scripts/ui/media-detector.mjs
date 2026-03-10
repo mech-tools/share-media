@@ -7,7 +7,7 @@ const { isSubclass } = foundry.utils;
 export default class MediaDetector {
   constructor() {
     // Only Gamemasters are allowed to detect media
-    if (!game.users.current.isGM) return {};
+    if (!game.user.isGM) return {};
 
     if (game.modules.shareMedia.ui.detector)
       throw new Error("You may not re-construct the singleton MediaDetector.");
