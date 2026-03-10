@@ -18,7 +18,7 @@ export default class SettingsCache {
       this.#cache.set(key, game.settings.get("share-media", key));
     }
 
-    // Return a copie of the setting to prevent from mutations
+    // Return a copy of the setting to prevent from mutations
     return structuredClone(this.#cache.get(key));
   }
 

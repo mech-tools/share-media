@@ -43,8 +43,14 @@ export default class ShareablesManager {
         name: "has-darkness",
         condition: (options) => options.darkness && options.mode !== modes.scene,
       },
-      { name: "create-local-layer", condition: (options) => options.mode === modes.scene },
-      { name: "create-remote-layer", condition: (options) => options.mode !== modes.scene },
+      {
+        name: "create-local-layer",
+        condition: (options) => options.mode === modes.chat || options.mode === modes.scene,
+      },
+      {
+        name: "create-remote-layer",
+        condition: (options) => options.mode === modes.popout || options.mode === modes.fullscreen,
+      },
       { name: "store-media", condition: (_options) => true },
     ];
   }
@@ -393,7 +399,7 @@ export default class ShareablesManager {
   }
 
   /* -------------------------------------------- */
-  /*  Query Handlers
+  /*  Query & Layer Rendering
   /* -------------------------------------------- */
 
   /**

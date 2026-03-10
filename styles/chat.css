@@ -1,11 +1,16 @@
 @layer shm.layouts {
-  [id^="shm-share-selector"] {
+  .chat-log .chat-message .shm {
     /* -------------------------------------------- */
     /*  Containers
     /* -------------------------------------------- */
 
-    .window-content {
-      gap: 1rem;
+    figure {
+      /*  Reset CSS  */
+      margin: 0;
+
+      .media {
+        cursor: pointer;
+      }
     }
 
     /* -------------------------------------------- */
@@ -14,26 +19,23 @@
 
     img,
     video {
-      max-height: 200px;
+      pointer-events: none;
+
+      border-radius: 3px;
+      transition: filter 0.25s;
+
+      /*  States  */
+      .media:hover & {
+        filter: brightness(1.1);
+      }
     }
 
     /* -------------------------------------------- */
-    /*  Form
+    /*  Caption
     /* -------------------------------------------- */
 
-    fieldset {
-      gap: 0;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 1rem 0.5rem;
-
-      .separator {
-        margin: 0 0.5rem;
-      }
-
-      .hint {
-        flex-basis: 100%;
-      }
+    figcaption {
+      margin-top: 0.5rem;
     }
   }
 }

@@ -26,6 +26,16 @@
         "description": "共有する特定のユーザーを選択してください"
       },
 
+      "chatAll": {
+        "label": "Chat",
+        "description": "Share media in the chat"
+      },
+
+      "chatSelection": {
+        "label": "Chat &rarr; specific users",
+        "description": "Select specific users to share with"
+      },
+
       "sceneFit": {
         "label": "シーン",
         "description": "現在シーンにメディアを共有 (フィット)"
@@ -94,17 +104,23 @@
       }
     },
 
-    "layers.fullscreen": {
-      "dismiss": {
-        "label": "やめる"
+    "layers": {
+      "fullscreen": {
+        "dismiss": {
+          "label": "やめる"
+        },
+
+        "minimize": {
+          "label": "最小化"
+        },
+
+        "maximize": {
+          "label": "最大化"
+        }
       },
 
-      "minimize": {
-        "label": "最小化"
-      },
-
-      "maximize": {
-        "label": "最大化"
+      "chat": {
+        "share": "再共有"
       }
     },
 
@@ -192,6 +208,8 @@
             "popout.hint": "ポップアウトウィンドウで共有されたメディアをサイドバー内に表示します。",
             "fullscreen.label": "フルスクリーン共有",
             "fullscreen.hint": "フルスクリーンモードで共有されたメディアをサイドバー内に表示します。",
+            "chat.label": "Chat Sharing",
+            "chat.hint": "Display media shared in the chat in the sidebar",
             "scene.label": "シーン共有",
             "scene.hint": "シーンに共有されたメディアをサイドバー内に表示します。"
           }

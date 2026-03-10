@@ -69,7 +69,10 @@ Hooks.once("init", () => {
   CONFIG.shareMedia.ui.registerMediaSidebar();
 
   // Apply entity settings
-  CONFIG.shareMedia.shareables.applyEntitySharingSettings();
+  CONFIG.shareMedia.shareables.applyEntitySharingActions();
+
+  // Apply chat message actions
+  CONFIG.shareMedia.layers.applyChatMessageActions();
 
   // Register handlebars partials
   CONFIG.shareMedia.utils.registerHandlebarsPartials();
@@ -96,6 +99,7 @@ Hooks.once("setup", () => {
   // Expose layers
   module.layers.popout = config.layers.PopoutLayer.implementation;
   module.layers.fullscreen = config.layers.FullscreenLayer.implementation;
+  module.layers.chat = config.layers.ChatLayer.implementation;
   module.layers.scene = config.layers.SceneLayer.implementation;
 
   // Expose shareables

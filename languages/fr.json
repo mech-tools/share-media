@@ -26,6 +26,16 @@
         "description": "Sélectionner des utilisateurs spécifiques avec qui partager"
       },
 
+      "chatAll": {
+        "label": "Chat",
+        "description": "Partager le média dans le chat"
+      },
+
+      "chatSelection": {
+        "label": "Chat &rarr; utilisateurs spécifiques",
+        "description": "Sélectionner des utilisateurs spécifiques avec qui partager"
+      },
+
       "sceneFit": {
         "label": "Scène",
         "description": "Partager le média sur la scène actuelle (ajusté)"
@@ -94,17 +104,23 @@
       }
     },
 
-    "layers.fullscreen": {
-      "dismiss": {
-        "label": "Fermer"
+    "layers": {
+      "fullscreen": {
+        "dismiss": {
+          "label": "Fermer"
+        },
+
+        "minimize": {
+          "label": "Réduire"
+        },
+
+        "maximize": {
+          "label": "Agrandir"
+        }
       },
 
-      "minimize": {
-        "label": "Réduire"
-      },
-
-      "maximize": {
-        "label": "Agrandir"
+      "chat": {
+        "share": "Partager à nouveau"
       }
     },
 
@@ -192,6 +208,8 @@
             "popout.hint": "Afficher les médias partagés en fenêtre dans la barre latérale.",
             "fullscreen.label": "Partage en plein écran",
             "fullscreen.hint": "Afficher les médias partagés en plein écran dans la barre latérale.",
+            "chat.label": "Partage dans le chat",
+            "chat.hint": "Afficher les médias partagés dans le chat dans la barre latérale.",
             "scene.label": "Partage sur la scène",
             "scene.hint": "Afficher les médias partagés sur la scène dans la barre latérale."
           }

@@ -43,7 +43,7 @@
       display: flex !important;
       flex-direction: column !important;
       flex-wrap: nowrap !important;
-      gap: 0.5rem !important;
+      gap: 0.25rem !important;
     }
 
     /*  "aside" starts hidden and is displayed when hovering ".drawer"  */

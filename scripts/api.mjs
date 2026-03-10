@@ -12,7 +12,7 @@ export default class Api {
    * Spawn a media sharing window allowing the user to share a media with the selected configuration.
    * @param {string}  src                     Source URL of the media to share.
    * @param {Object}  [settings]              Default settings to apply to the application form.
-   * @param {string}  [settings.mode]         Default sharing mode (options are: "popout", "fullscreen", "scene").
+   * @param {string}  [settings.mode]         Default sharing mode (options are: "popout", "fullscreen", "chat", "scene").
    * @param {string}  [settings.optionName]   Default option name associated to the default mode.
    * @param {string}  [settings.optionValue]  Default option value associated to the default mode.
    * @param {string}  [settings.targetArea]   Default region or tile uuid to display to ("scene" mode only).
@@ -36,6 +36,14 @@ export default class Api {
    *   });
    *
    * @example
+   *   // Share with chat mode to all users
+   *   await game.modules.shareMedia.api.share("https://foundry.vtt/video.mp4", {
+   *     mode: "chat",
+   *     optionName: "users",
+   *     optionValue: "all",
+   *   });
+   *
+   * @example
    *   // Share in fullscreen mode with darkness and immersive settings to selected users
    *   await game.modules.shareMedia.api.share("https://foundry.vtt/image.jpg", {
    *     mode: "fullscreen",
@@ -54,7 +62,7 @@ export default class Api {
    *   });
    *
    * @example
-   *   // Share a video  in fullscreen mode with loop and mute settings
+   *   // Share a video in fullscreen mode with loop and mute settings
    *   await game.modules.shareMedia.api.share("https://foundry.vtt/video.mp4", {
    *     mode: "fullscreen",
    *     optionName: "users",
@@ -222,6 +230,58 @@ export default class Api {
     if (!game.users.current.isGM) return;
 
     options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.fullscreen;
+    options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name;
+    options.optionValue = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.value;
+    return game.modules.shareMedia.shareables.manager.dispatch(options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Chat
+  /* -------------------------------------------- */
+
+  /**
+   * Share a media to all active users in the chat.
+   * @param {Object}  options         Options which may changed how the media is shared.
+   * @param {string}  options.src     Source URL of the media to share.
+   * @param {boolean} [options.loop]  Should the video be looped (video only)
+   * @param {boolean} [options.mute]  should the video be muted (video only)
+   * @returns {Promise<boolean> | void}
+   * @example
+   *   // Share an image with chat mode to all users
+   *   await game.modules.shareMedia.api.chatToAllUsers({
+   *     src: "https://foundry.vtt/image.jpg",
+   *   });
+   *
+   */
+  static chatToAllUsers(options = {}) {
+    if (!game.users.current.isGM) return;
+
+    options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.chat;
+    options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.name;
+    options.optionValue = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersAll.value;
+    return game.modules.shareMedia.shareables.manager.dispatch(options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Share a media to a selection of active users in the chat.
+   * @param {Object}  options         Options which may changed how the media is shared.
+   * @param {string}  options.src     Source URL of the media to share.
+   * @param {boolean} [options.loop]  Should the video be looped (video only)
+   * @param {boolean} [options.mute]  should the video be muted (video only)
+   * @returns {Promise<boolean> | void}
+   * @example
+   *   // Share an image with chat mode to selected users
+   *   await game.modules.shareMedia.api.chatToSomeUsers({
+   *     src: "https://foundry.vtt/image.jpg",
+   *   });
+   *
+   */
+  static chatToSomeUsers(options = {}) {
+    if (!game.users.current.isGM) return;
+
+    options.mode = CONFIG.shareMedia.CONST.LAYERS_MODES.chat;
     options.optionName = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.name;
     options.optionValue = CONFIG.shareMedia.CONST.LAYERS_OPTIONS.usersSelection.value;
     return game.modules.shareMedia.shareables.manager.dispatch(options);

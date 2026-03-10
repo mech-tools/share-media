@@ -62,27 +62,58 @@ export const runMigrations = async () => {
  * Migrate to 2.14.0.
  * 1. Replacing tile names with existing share media flag.
  * 2. Migrate media collection so "targetUsers" is now under "settings".
+ * 3. Add the new chat setting to the media sidebar settings.
  */
 async function migrateTo2140() {
-  // 1. Tile
+  // Migration snapshot
   const MEDIA_TILE_NAME = "name";
+  const CHAT_MODE_KEY = "chat";
+  const MODULE_SETTINGS = {
+    mediaHistory: "mediaHistory",
+    mediaSidebarSettings: "mediaSidebarSettings",
+  };
+
+  // 1. Tile
   for (const scene of game.scenes) {
     for (const tile of scene.tiles) {
       const flagName = tile.getFlag("share-media", MEDIA_TILE_NAME);
       if (flagName && !tile.name) await tile.update({ name: flagName });
-      await tile.unsetFlag("share-media", MEDIA_TILE_NAME);
+      if (flagName) await tile.unsetFlag("share-media", MEDIA_TILE_NAME);
     }
   }
 
   // 2. Media collection
-  const collection = new Collection(ui["shm-media-sidebar"].mediaCollection.entries());
-  collection.map((media) => {
-    if (!media.settings.targetUsers) media.settings.targetUsers = media.targetUsers ?? [];
-    if (media.targetUsers) delete media.targetUsers;
-  });
-  await game.settings.set(
+  if (ui["shm-media-sidebar"].mediaCollection) {
+    const collection = new Collection(ui["shm-media-sidebar"].mediaCollection.entries());
+    collection.map((media) => {
+      if (!media.settings.targetUsers) media.settings.targetUsers = media.targetUsers ?? [];
+      if (media.targetUsers) delete media.targetUsers;
+    });
+    await game.settings.set(
+      "share-media",
+      MODULE_SETTINGS.mediaHistory,
+      Object.fromEntries(collection.entries()),
+    );
+  }
+
+  // 3. Chat setting
+  const mediaSidebarSettings = game.settings.get(
     "share-media",
-    CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaHistory,
-    Object.fromEntries(collection.entries()),
+    MODULE_SETTINGS.mediaSidebarSettings,
   );
+  if (mediaSidebarSettings) {
+    if (!Object.hasOwn(mediaSidebarSettings.layers, CHAT_MODE_KEY)) {
+      const entries = Object.entries(mediaSidebarSettings.layers);
+      mediaSidebarSettings.layers = Object.fromEntries([
+        ...entries.slice(0, -1),
+        [CHAT_MODE_KEY, true],
+        ...entries.slice(-1),
+      ]);
+      await game.settings.set(
+        "share-media",
+        MODULE_SETTINGS.mediaSidebarSettings,
+        mediaSidebarSettings,
+      );
+    }
+  }
 }

@@ -57,6 +57,8 @@ export default function MediaMixin(Base) {
         ...(await super._prepareContext(options)),
         isVideo: this.isVideo,
         media: this.options.src,
+        passthrough: true,
+        autoplay: true,
       };
     }
 

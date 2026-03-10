@@ -9,6 +9,7 @@
 export const LAYERS_MODES = {
   popout: "popout",
   fullscreen: "fullscreen",
+  chat: "chat",
   scene: "scene",
 };
 
@@ -103,6 +104,7 @@ export const MEDIA_HISTORY_SETTINGS = {
   layers: {
     [LAYERS_MODES.popout]: Boolean(true),
     [LAYERS_MODES.fullscreen]: Boolean(true),
+    [LAYERS_MODES.chat]: Boolean(true),
     [LAYERS_MODES.scene]: Boolean(true),
   },
 };
@@ -206,6 +208,20 @@ export const MEDIA_ACTIONS = {
       i18nKey: "fullscreenSelection",
     },
   ],
+  [LAYERS_MODES.chat]: [
+    {
+      mode: LAYERS_MODES.chat,
+      optionName: LAYERS_OPTIONS.usersAll.name,
+      optionValue: LAYERS_OPTIONS.usersAll.value,
+      i18nKey: "chatAll",
+    },
+    {
+      mode: LAYERS_MODES.chat,
+      optionName: LAYERS_OPTIONS.usersSelection.name,
+      optionValue: LAYERS_OPTIONS.usersSelection.value,
+      i18nKey: "chatSelection",
+    },
+  ],
   [LAYERS_MODES.scene]: [
     {
       mode: LAYERS_MODES.scene,
@@ -250,6 +266,8 @@ export const ICONS = {
   popoutSelection: "far fa-screen-users",
   fullscreenAll: "far fa-display",
   fullscreenSelection: "far fa-screen-users",
+  chatAll: "far fa-message",
+  chatSelection: "far fa-screen-users",
   sceneFit: "far fa-game-board",
   sceneFill: "far fa-frame",
   darkness: "fas fa-moon",

@@ -25,6 +25,15 @@
         "label": "Fullscreen &rarr; specific users",
         "description": "Select specific users to share with"
       },
+      "chatAll": {
+        "label": "Chat",
+        "description": "Share media in the chat"
+      },
+
+      "chatSelection": {
+        "label": "Chat &rarr; specific users",
+        "description": "Select specific users to share with"
+      },
 
       "sceneFit": {
         "label": "Scene",
@@ -94,17 +103,23 @@
       }
     },
 
-    "layers.fullscreen": {
-      "dismiss": {
-        "label": "Dismiss"
+    "layers": {
+      "fullscreen": {
+        "dismiss": {
+          "label": "Dismiss"
+        },
+
+        "minimize": {
+          "label": "Minimize"
+        },
+
+        "maximize": {
+          "label": "Maximize"
+        }
       },
 
-      "minimize": {
-        "label": "Minimize"
-      },
-
-      "maximize": {
-        "label": "Maximize"
+      "chat": {
+        "share": "Share this again"
       }
     },
 
@@ -192,6 +207,8 @@
             "popout.hint": "Display media shared in popout windows in the sidebar.",
             "fullscreen.label": "Fullscreen Sharing",
             "fullscreen.hint": "Display media shared in fullscreen mode in the sidebar.",
+            "chat.label": "Chat Sharing",
+            "chat.hint": "Display media shared in the chat in the sidebar",
             "scene.label": "Scene Sharing",
             "scene.hint": "Display media shared to scenes in the sidebar."
           }

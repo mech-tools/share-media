@@ -576,8 +576,8 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const media = this.mediaCollection.get(mediaId);
     if (!media) return;
 
-    // first available layer to render this media
-    const mode = Object.keys(CONFIG.shareMedia.CONST.LAYERS_MODES).at(0);
+    // Display it in a popout
+    const mode = CONFIG.shareMedia.CONST.LAYERS_MODES.popout;
 
     // Get the default settings
     const settings = game.modules.shareMedia.settings.get(

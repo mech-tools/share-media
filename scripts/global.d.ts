@@ -64,6 +64,7 @@ declare global {
         layers: {
           popout: typeof LayersModule.PopoutLayer;
           fullscreen: typeof LayersModule.FullscreenLayer;
+          chat: typeof LayersModule.ChatLayer;
           scene: typeof LayersModule.SceneLayer;
         };
 
