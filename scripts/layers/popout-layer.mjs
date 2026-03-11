@@ -17,6 +17,7 @@ export default class PopoutLayer extends ImagePopout {
     id: "shm-popout-{id}",
     window: {
       contentClasses: ["shm"],
+      icon: undefined,
     },
   };
 

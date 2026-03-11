@@ -40,6 +40,9 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
         return "share-media.shareables.selector.share.label";
       },
       contentClasses: ["shm"],
+      get icon() {
+        return CONFIG.shareMedia.CONST.ICONS.shareAgain;
+      },
     },
     position: {
       width: 520,

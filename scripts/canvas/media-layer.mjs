@@ -205,7 +205,7 @@ export default class MediaLayer extends InteractionLayer {
     // Attempt to remove a previous sprite in the same area
     if (this.sprites.has(targetArea)) await this.deleteSprite(area.uuid);
 
-    // Verify that this area exist on the current scene level
+    // Verify that this area exists on the current scene level
     // [NOTE] Only if at least one level is defined for the area
     if (area.levels.size && !area.levels.has(game.canvas.level.id)) return;
 

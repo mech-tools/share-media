@@ -15,6 +15,9 @@ export default class AreaSelector extends HandlebarsApplicationMixin(Application
     window: {
       title: "share-media.shareables.selector.area.label",
       contentClasses: ["standard-form"],
+      get icon() {
+        return CONFIG.shareMedia.CONST.ICONS.sceneFit;
+      },
     },
     position: {
       width: 400,
