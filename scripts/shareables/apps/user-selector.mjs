@@ -18,7 +18,7 @@ export default class UserSelector extends HandlebarsApplicationMixin(Application
       },
       contentClasses: ["standard-form"],
       get icon() {
-        return CONFIG.shareMedia.CONST.ICONS.popoutSelection;
+        return `far ${CONFIG.shareMedia.CONST.ICONS.popoutSelection}`;
       },
     },
     position: {

@@ -1,0 +1,16 @@
+<section class="body">
+    {{~#if files.length}}
+        <div class="shm media-list filtering">
+            {{!--  List of media  --}}
+            {{~#each files}}
+                <div class="media-item" data-action="showMedia" data-url="{{url}}" data-name="{{name}}">
+                    {{> "share-media.media" src=url metadata=metadata lazyLoad=true clickable=true isVideo=isVideo videoIcon=@root.icons.play}}
+                    {{~#if @root.displayNames}}<span class="name">{{name}}</span>{{~/if}}
+                </div>
+            {{~/each}}
+        </div>
+    {{~else}}
+        {{!--  No media found  --}}
+        <div class="flexrow empty-list">{{ localize "share-media.ui.browser.empty" }}</div>
+    {{~/if}}
+</section>

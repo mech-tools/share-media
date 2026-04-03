@@ -103,6 +103,13 @@
       }
     },
 
+    "ui.browser": {
+      "label": "Media Browser",
+      "empty": "No media available. Please navigate to another folder.",
+      "fileNames.label": "Toggle file names",
+      "layout.label": "Number of media columns to display"
+    },
+
     "layers": {
       "fullscreen": {
         "dismiss": {

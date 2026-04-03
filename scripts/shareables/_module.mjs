@@ -40,7 +40,7 @@ export const registerEntitySharingActions = () => {
         const document = application.document;
         const entry = {
           label: "share-media.shareables.selector.entities.label",
-          icon: `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
+          icon: `<i class="fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
           visible: (_target) => {
             const { img } = document.constructor.getDefaultArtwork(document?._source);
             return document.img !== img;
@@ -70,7 +70,7 @@ export const registerEntitySharingActions = () => {
         const document = application.document;
         const entry = {
           label: "share-media.shareables.selector.entities.label",
-          icon: `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
+          icon: `<i class="fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
           onClick: () => {
             options.src = document.img;
             if (config.caption) options.settings.caption = document.name;
@@ -97,7 +97,7 @@ export const registerEntitySharingActions = () => {
         // Create the entry
         const entry = {
           label: "share-media.shareables.selector.entities.label",
-          icon: `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
+          icon: `<i class="fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
           visible: (target) => {
             const document = game[entity].get(target.dataset.entryId);
             const { img } = document.constructor.getDefaultArtwork(document._source);
@@ -139,7 +139,7 @@ export const registerEntitySharingActions = () => {
           button.dataset.tooltipHtml +=
             "<br>" + _loc("share-media.shareables.selector.entities.contextmenu");
         }
-        button.innerHTML = `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}" inert></i>`;
+        button.innerHTML = `<i class="fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}" inert></i>`;
 
         // Add the click handler to the button
         button.addEventListener("click", () => {

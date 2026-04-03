@@ -44,7 +44,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     window: {
       title: "share-media.ui.sidebar.label",
       get icon() {
-        return CONFIG.shareMedia.CONST.ICONS.sidebar;
+        return `fa ${CONFIG.shareMedia.CONST.ICONS.sidebar}`;
       },
     },
     actions: {
@@ -535,7 +535,7 @@ export default class MediaSidebar extends HandlebarsApplicationMixin(AbstractSid
     const confirm = await DialogV2.confirm({
       window: {
         title: "share-media.ui.sidebar.label",
-        icon: CONFIG.shareMedia.CONST.ICONS.clear,
+        icon: `fa ${CONFIG.shareMedia.CONST.ICONS.clear}`,
       },
       content: `<p>${_loc("share-media.ui.sidebar.header.clear.description")}</p>`,
     });

@@ -2,7 +2,7 @@
     <section>
         {{!-- Settings --}}
         <div class="{{~ifThen rightToLeft 'right' 'left'}} drawer">
-            <button class="small plain icon {{icons.settings}}" data-tooltip="share-media.ui.settings.label"
+            <button class="tiny plain icon far {{icons.settings}}" data-tooltip="share-media.ui.settings.label"
                 data-tooltip-direction="{{~ifThen rightToLeft 'RIGHT' 'LEFT'}}" keep-hover></button>
             <aside>
                 <menu class="{{~ifThen rightToLeft 'right' 'left'}}">
@@ -19,7 +19,7 @@
                                             data-setting="{{option.name}}"
                                             data-tooltip="{{localize (concat "share-media.ui.settings." option.description)}}"
                                             data-tooltip-direction="{{~ifThen @root.rightToLeft 'LEFT' 'RIGHT'}}">
-                                            <i class="{{lookup @root.icons option.name}}"></i>
+                                            <i class="fa {{lookup @root.icons option.name}}"></i>
                                             {{localize (concat "share-media.ui.settings." option.label)}}
                                         </li>
                                     {{~/each}}
@@ -31,13 +31,12 @@
             </aside>
         </div>
 
-
         {{!-- Actions --}}
         {{~#each mediaActions as |mode|}}
             <div class="{{~ifThen @root.rightToLeft 'right' 'left'}} drawer">
                 {{!-- Generate actions based on available media actions --}}
                 {{~#each mode as |action|}}
-                    <button class="small icon {{lookup @root.icons action.icon}}"
+                    <button class="tiny icon far {{lookup @root.icons action.icon}}"
                         data-action="share" data-mode="{{action.mode}}"
                         data-option-name="{{action.optionName}}" data-option-value="{{action.optionValue}}"
                         data-tooltip="{{localize (concat "share-media.ui.actions." action.label)}}"

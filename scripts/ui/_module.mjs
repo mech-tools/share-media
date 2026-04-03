@@ -1,6 +1,7 @@
 export { default as MediaDetector } from "./media-detector.mjs";
 export { default as MediaOverlay } from "./media-overlay.mjs";
 export { default as MediaSidebar } from "./media-sidebar.mjs";
+export { default as MediaBrowser } from "./media-browser.mjs";
 
 /**
  * Register the media sidebar.
@@ -31,7 +32,7 @@ export const registerMediaSidebar = async () => {
       (acc, [tabName, obj]) => {
         if (tabName === "settings") {
           acc["shm-media-sidebar"] = {
-            icon: CONFIG.shareMedia.CONST.ICONS.sidebar,
+            icon: `fa ${CONFIG.shareMedia.CONST.ICONS.sidebar}`,
             tooltip: "share-media.ui.sidebar.label",
             gmOnly: mediaSidebarSettings.gmOnly,
           };

@@ -50,6 +50,7 @@ declare global {
         ui: {
           detector: InstanceType<typeof UiModule.MediaDetector>;
           overlay: InstanceType<typeof UiModule.MediaOverlay>;
+          browser: typeof UiModule.MediaBrowser;
         };
 
         canvas: {

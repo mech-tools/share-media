@@ -1,0 +1,27 @@
+{{!--  Folder template  --}}
+{{#*inline "folderNode"}}
+    <li class="{{~#if (eq path  @root.target)}}active{{~/if}} {{~#if expanded}} expanded{{~/if}}"
+        style="--depth: {{depth}}">
+        <span class="shm" data-action="toggleDir" data-path="{{path}}">
+            <i class="fa {{ifThen expanded @root.icons.folderOpen @root.icons.folderClosed }}"></i>
+            {{name}}
+        </span>
+        {{~#if (and expanded children.length)}}
+            <ul>
+                {{#each children}}
+                    {{> folderNode}}
+                {{/each}}
+            </ul>
+        {{~/if}}
+    </li>
+{{/inline}}
+
+{{!--  Actual Template  --}}
+<section class="sidebar">
+    {{!--  Folder tree  --}}
+    <ul class="folder-tree">
+        {{~#each roots}}
+            {{> folderNode }}
+        {{~/each}}
+    </ul>
+</section>

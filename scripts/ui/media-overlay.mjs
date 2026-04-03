@@ -1,5 +1,5 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
-const { isSubclass, getProperty, mergeObject } = foundry.utils;
+const { isSubclass, getProperty, setProperty, mergeObject } = foundry.utils;
 
 /**
  * Application responsible for interacting with shareable media.
@@ -48,7 +48,7 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
    * The minimum space for the overlay to be displayed.
    * @type {number}
    */
-  static MINIMUM_AVAILABLE_SPACE = 250;
+  static MINIMUM_AVAILABLE_SPACE = 220;
 
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
@@ -150,7 +150,7 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
-   * Get the settings for the "this.targetElement", retrieved from the "this.targetApplication" flags.
+   * Get the settings for the "this.targetElement", retrieved from the "this.targetApplication".
    * @type {{
    *   key: string;
    *   settings: Partial<typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS>;
@@ -158,7 +158,15 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
    */
   get targetElementSettings() {
     if (!this.targetElement || !this.targetApplication) return { key: "", settings: {} };
-    const flag = this.targetApplication.document.getFlag("share-media", this.#settingsKey) ?? {};
+
+    // Determine settings source
+    const { browser } = game.modules.shareMedia.ui;
+    const flag =
+      this.targetApplication instanceof browser
+        ? this.settingsFromMediaBrowser
+        : this.settingsFromDocument;
+
+    // Build key and get media settings
     const key = this.targetElementEscapedSource;
     const storedSettings = getProperty(flag, key) ?? {};
 
@@ -169,6 +177,30 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
     const settings = mergeObject(mediaSettings, storedSettings, { inplace: false });
 
     return { key, settings };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the media settings from a document.
+   * @returns {Partial<typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS>}
+   */
+  get settingsFromDocument() {
+    return this.targetApplication.document.getFlag("share-media", this.#settingsKey) ?? {};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the media settings from the media browser.
+   * @returns {Partial<typeof CONFIG.shareMedia.CONST.MEDIA_SETTINGS>}
+   */
+  get settingsFromMediaBrowser() {
+    return (
+      game.modules.shareMedia.settings.get(
+        CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserConfig,
+      ) ?? {}
+    );
   }
 
   /* -------------------------------------------- */
@@ -411,24 +443,66 @@ export default class MediaOverlay extends HandlebarsApplicationMixin(Application
 
   /**
    * Handle the settings of the media.
-   * These are stored at the application document level (flags).
    * @param {PointerEvent} _event  The triggering event.
-   * @param {HTMLElement}  target  The targeted DOM element.clau.
+   * @param {HTMLElement}  target  The targeted DOM element.
    * @returns {Promise<void>}
    * @this {MediaOverlay}
    */
   static async #onConfigureSetting(_event, target) {
     if (!this.targetElement || !this.targetApplication) return;
     const dataset = target.dataset;
-    const { key, settings } = this.targetElementSettings;
-    const setting = getProperty(settings, `${dataset.category}.${dataset.setting}`) ?? false;
 
-    // [NOTE] Not using "setFlag" as it will force a "render" of "this.targetApplication"
-    const updateKey = `flags.share-media.${this.#settingsKey}.${key}.${dataset.category}.${dataset.setting}`;
-    await this.targetApplication.document.update({ [updateKey]: !setting }, { render: false });
+    // Determine settings source
+    const { browser } = game.modules.shareMedia.ui;
+    const setting =
+      this.targetApplication instanceof browser
+        ? await this.#configureMediaBrowserSetting(dataset.category, dataset.setting)
+        : await this.#configureDocumentSetting(dataset.category, dataset.setting);
 
     // Manually modifying the DOM
-    target.classList.toggle("active", !setting);
+    target.classList.toggle("active", setting);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update or create a new setting for a media on the document.
+   * @param {string} categoryKey  The media setting category to create/update.
+   * @param {string} settingKey   The media setting key to create/update.
+   * @returns {Promise<boolean>}
+   */
+  async #configureDocumentSetting(categoryKey, settingKey) {
+    const { key, settings } = this.targetElementSettings;
+    const setting = getProperty(settings, `${categoryKey}.${settingKey}`) ?? false;
+
+    // [NOTE] Not using "setFlag" as it will force a "render" of "this.targetApplication"
+    const updateKey = `flags.share-media.${this.#settingsKey}.${key}.${categoryKey}.${settingKey}`;
+    await this.targetApplication.document.update({ [updateKey]: !setting }, { render: false });
+    return !setting;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update or create a new setting for a media in the browser store.
+   * @param {string} categoryKey  The media setting category to create/update.
+   * @param {string} settingKey   The media setting key to create/update.
+   * @returns {Promise<boolean>}
+   */
+  async #configureMediaBrowserSetting(categoryKey, settingKey) {
+    const { key, settings } = this.targetElementSettings;
+    const setting = getProperty(settings, `${categoryKey}.${settingKey}`) ?? false;
+
+    // Update the browser settings object then save it
+    const updateKey = `${key}.${categoryKey}.${settingKey}`;
+    const store = this.settingsFromMediaBrowser;
+    setProperty(store, updateKey, !setting);
+    await game.modules.shareMedia.settings.set(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserConfig,
+      store,
+    );
+
+    return !setting;
   }
 
   /* -------------------------------------------- */

@@ -43,9 +43,11 @@ export default class ChatLayer {
     const template = await renderTemplate(
       "modules/share-media/templates/layers/[layer]-media.hbs",
       {
+        icons: CONFIG.shareMedia.CONST.ICONS,
         media: this.options.src,
+        clickable: true,
         isVideo,
-        ...(isVideo && { metadata: true, videoIcon: CONFIG.shareMedia.CONST.ICONS.play }),
+        ...(isVideo && { metadata: true }),
         ...(this.options.caption && { caption: this.options.caption }),
       },
     );

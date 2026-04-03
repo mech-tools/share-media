@@ -58,12 +58,15 @@ export const MEDIA_TYPES = {
  * @satisfies {Record<string, string>}
  */
 export const MODULE_SETTINGS = {
+  // Stores
   dataVersion: "dataVersion",
   mediaHistory: "mediaHistory",
+  mediaBrowserConfig: "mediaBrowserConfig",
+  // Foundry settings
   mediaSettings: "mediaSettings",
   mediaSidebarSettings: "mediaSidebarSettings",
-  blacklistSettings: "blacklistSettings",
   entitySharingSettings: "entitySharingSettings",
+  blacklistSettings: "blacklistSettings",
 };
 
 /* -------------------------------------------- */
@@ -122,7 +125,7 @@ export const ENTITY_SETTINGS = {
     hud: Boolean(true),
     caption: Boolean(true),
   },
-  items: { sheetHeader: Boolean(true), sheetmenu: Boolean(true), caption: Boolean(true) },
+  items: { sheetHeader: Boolean(true), sheetMenu: Boolean(true), caption: Boolean(true) },
   tiles: { hud: Boolean(true) },
 };
 
@@ -135,6 +138,8 @@ export const ENTITY_SETTINGS = {
  * @satisfies {Array<{ on: string; htmlContext: string[] }>}
  */
 export const MEDIA_HOOKS = [
+  // Internal
+  { on: "renderMediaBrowser", htmlContext: [".media-list"] },
   // V2
   { on: "renderJournalEntrySheet", htmlContext: [".journal-entry-page:not(form)"] },
   { on: "renderActorSheetV2", htmlContext: [".editor-content:not(.ProseMirror)"] },
@@ -264,35 +269,42 @@ export const MEDIA_SETTINGS_VALIDATORS = {
  * @satisfies {Record<string, string>}
  */
 export const ICONS = {
-  validate: "fas fa-check",
-  cancel: "fas fa-ban",
-  settings: "far fa-ellipsis",
-  popoutAll: "far fa-window-flip",
-  popoutSelection: "far fa-screen-users",
-  fullscreenAll: "far fa-display",
-  fullscreenSelection: "far fa-screen-users",
-  chatAll: "far fa-message",
-  chatSelection: "far fa-screen-users",
-  sceneFit: "far fa-game-board",
-  sceneFill: "far fa-frame",
-  darkness: "fas fa-moon",
-  immersive: "far fa-film",
-  controls: "fas fa-computer-mouse",
-  loop: "far fa-repeat",
-  mute: "far fa-volume-xmark",
-  dismiss: "fas fa-xmark",
-  minimize: "fas fa-window-minimize",
-  maximize: "fas fa-window-maximize",
-  sidebar: "fas fa-rectangle-history",
-  select: "fas fa-expand",
-  clear: "fas fa-trash",
-  sort: "fas fa-arrow-down-arrow-up",
-  play: "fas fa-circle-play",
-  loading: "fas fa-circle-notch fa-spin",
-  jumpToBottom: "fas fa-arrow-down",
-  usersInfo: "fas fa-user",
-  noUsers: "fas fa-user-slash",
-  shareAgain: "fas fa-share",
-  shareLink: "fas fa-link",
-  mediaLayer: "fas fa-images",
+  validate: "fa-check",
+  cancel: "fa-ban",
+  settings: "fa-ellipsis",
+  popoutAll: "fa-window-flip",
+  popoutSelection: "fa-screen-users",
+  fullscreenAll: "fa-display",
+  fullscreenSelection: "fa-screen-users",
+  chatAll: "fa-message",
+  chatSelection: "fa-screen-users",
+  sceneFit: "fa-game-board",
+  sceneFill: "fa-frame",
+  darkness: "fa-moon",
+  immersive: "fa-film",
+  controls: "fa-computer-mouse",
+  loop: "fa-repeat",
+  mute: "fa-volume-xmark",
+  dismiss: "fa-xmark",
+  minimize: "fa-window-minimize",
+  maximize: "fa-window-maximize",
+  sidebar: "fa-rectangle-history",
+  select: "fa-expand",
+  clear: "fa-trash",
+  sort: "fa-arrow-down-arrow-up",
+  play: "fa-circle-play",
+  loading: "fa-circle-notch fa-spin",
+  jumpToBottom: "fa-arrow-down",
+  usersInfo: "fa-user",
+  noUsers: "fa-user-slash",
+  shareAgain: "fa-share",
+  shareLink: "fa-link",
+  mediaLayer: "fa-images",
+  mediaBrowser: "fa-sidebar",
+  folderClosed: "fa-folder",
+  folderOpen: "fa-folder-open",
+  collapseOn: "fa-caret-right",
+  collapseOff: "fa-caret-left",
+  title: "fa-input-text",
+  layout: "fa-table-layout",
 };

@@ -1,15 +1,15 @@
 {{!--  Fullscren Actions  --}}
 <div class="flexrow actions">
     {{~#if isGM}}
-        <button class="icon {{icons.dismiss}}" data-action="dismiss"
+        <button class="icon fa {{icons.dismiss}}" data-action="dismiss"
             data-tooltip="share-media.layers.fullscreen.dismiss.label" data-tooltip-direction="LEFT"></button>
     {{~/if}}
     {{~#if controls}}
         {{~#if folded}}
-            <button class="icon {{icons.maximize}}" data-action="toggleFolded"
+            <button class="icon fa {{icons.maximize}}" data-action="toggleFolded"
                 data-tooltip="share-media.layers.fullscreen.maximize.label" data-tooltip-direction="RIGHT"></button>
         {{~else}}
-            <button class="icon {{icons.minimize}}" data-action="toggleFolded"
+            <button class="icon fa {{icons.minimize}}" data-action="toggleFolded"
                 data-tooltip="share-media.layers.fullscreen.minimize.label" data-tooltip-direction="RIGHT"></button>
         {{~/if}}
     {{~/if}}

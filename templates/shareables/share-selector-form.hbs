@@ -7,7 +7,7 @@
             {{!-- Generate actions based on available media actions --}}
             {{~#each mode as |action|}}
                 <span role="button"
-                    class="button icon {{lookup @root.icons action.icon}} {{~#if action.active}} active{{~/if}}"
+                    class="button icon far {{lookup @root.icons action.icon}} {{~#if action.active}} active{{~/if}}"
                     data-action="configureMode" data-mode="{{action.mode}}"
                     data-option-name="{{action.optionName}}" data-option-value="{{action.optionValue}}"
                     data-tooltip="{{localize (concat "share-media.ui.actions." action.label)}}"
@@ -32,7 +32,7 @@
                         data-setting="{{option.name}}"
                         data-tooltip="{{localize (concat "share-media.ui.settings." option.description)}}"
                         data-tooltip-direction="UP">
-                        <i class="{{lookup @root.icons option.name}}"></i>
+                        <i class="fa {{lookup @root.icons option.name}}"></i>
                         {{localize (concat "share-media.ui.settings." option.label)}}
                     </span>
                 {{~/each}}
@@ -43,7 +43,7 @@
     {{!-- Footer --}}
     <footer class="form-footer">
         <button type="submit">
-            <i class="{{icons.validate}}"></i>
+            <i class="fa {{icons.validate}}"></i>
             {{localize "share-media.base.validate"}}
         </button>
     </footer>

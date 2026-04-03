@@ -19,17 +19,17 @@
             {{!--  Gamemaster Actions  --}}
             {{~#if @root.isGM}}
                 <div class="flexrow gm-actions">
-                    <button class="tiny secondary icon {{@root.icons.shareAgain}}" data-action="shareMedia"
+                    <button class="tiny secondary icon fa {{@root.icons.shareAgain}}" data-action="shareMedia"
                         data-tooltip="share-media.ui.sidebar.gm-actions.share"
                         data-tooltip-direction="UP"></button></button>
-                    <button class="tiny secondary icon {{@root.icons.clear}}" data-action="clearMedia"
+                    <button class="tiny secondary icon fa {{@root.icons.clear}}" data-action="clearMedia"
                         data-tooltip="Delete" data-tooltip-direction="UP"></button>
                 </div>
             {{~/if}}
 
             {{!--  Users Information  --}}
             {{~#if @root.isGM}}
-                <i class="badge {{ifThen media.targetUsers.length @root.icons.usersInfo @root.icons.noUsers}}"
+                <i class="badge fa {{ifThen media.targetUsers.length @root.icons.usersInfo @root.icons.noUsers}}"
                     data-tooltip-direction="UP"
                     data-tooltip-html='{{> "targetUsersTooltip" users=media.targetUsers}}'></i>
             {{~/if}}
@@ -39,6 +39,6 @@
         </span>
 
         {{!--  Media  --}}
-        {{> "share-media.media" passthrough=true src=media.src lazyLoad=true metadata=true isVideo=media.isVideo videoIcon=@root.icons.play}}
+        {{> "share-media.media" passthrough=true src=media.src eagerLoad=true clickable=true metadata=true isVideo=media.isVideo videoIcon=@root.icons.play}}
     </li>
 {{/each}}

@@ -6,14 +6,14 @@
 
                 {{!--  Share Media Link Button  --}}
                 <button type="button" data-action="shareLink">
-                    <i class="{{icons.shareLink}}"></i>
+                    <i class="fa {{icons.shareLink}}"></i>
                     <span>{{localize "share-media.ui.sidebar.header.link.label"}}</span>
                 </button>
 
 
                 {{!--  Clear History Button  --}}
                 <button type="button" data-action="clearHistory">
-                    <i class="{{icons.clear}}"></i>
+                    <i class="fa {{icons.clear}}"></i>
                     <span>{{localize "share-media.ui.sidebar.header.clear.label"}}</span>
                 </button>
             </div>
@@ -27,11 +27,11 @@
 
         {{!--  Loading  --}}
         <span class="flexrow shm loading" hidden>
-            <i class="{{icons.loading}}"></i> {{localize "share-media.ui.sidebar.loading"}}
+            <i class="fa {{icons.loading}}"></i> {{localize "share-media.ui.sidebar.loading"}}
         </span>
 
         {{!--  Jump to Bottom  --}}
-        <button type="button" class="jump-to-bottom ui-control icon {{icons.jumpToBottom}}"
+        <button type="button" class="jump-to-bottom ui-control icon fa {{icons.jumpToBottom}}"
             data-action="jumpToBottom"
             data-tooltip="{{localize "CHAT.JumpToBottom"}}" data-tooltip-direction="UP" hidden></button>
     </div>

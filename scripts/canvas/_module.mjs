@@ -16,7 +16,8 @@ export const registerRegionBehaviors = () => {
   CONFIG.RegionBehavior.dataModels[shareRegionBehaviorType.type] =
     shareRegionBehaviorType.implementation;
   // Register the behavior icon
-  CONFIG.RegionBehavior.typeIcons[shareRegionBehaviorType.type] = config.CONST.ICONS.sceneFit;
+  CONFIG.RegionBehavior.typeIcons[shareRegionBehaviorType.type] =
+    `far ${config.CONST.ICONS.sceneFit}`;
 };
 
 /**

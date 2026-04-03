@@ -1,15 +1,15 @@
 {{!--  Media  --}}
-<div class="media {{~#if passthrough}} passthrough {{~/if}}">
+<div class="media {{~#if passthrough}} passthrough {{~/if}} {{~#if clickable}} clickable {{~/if}}">
     {{#if isVideo}}
         <video
             {{~#if metadata}} preload="metadata" {{~/if}}
-            {{~#if lazyLoad}} data-src{{~else}} src{{~/if}}="{{src}}"
+            {{~#if eagerLoad}} data-src{{~else}} src{{~/if}}="{{src}}"
             {{~#if autoplay}} autoplay {{~/if}}>
         </video>
         {{#if videoIcon}}
-            <i class="video-icon {{videoIcon}}"></i>
+            <i class="video-icon fa {{videoIcon}}"></i>
         {{/if}}
     {{else}}
-        <img {{~#if lazyLoad}} data-src{{~else}} src{{~/if}}="{{src}}" />
+        <img {{~#if lazyLoad}} loading="lazy" {{~/if}}{{~#if eagerLoad}} data-src{{~else}} src{{~/if}}="{{src}}" />
     {{/if}}
 </div>

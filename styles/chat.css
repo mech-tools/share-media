@@ -7,10 +7,6 @@
     figure {
       /*  Reset CSS  */
       margin: 0;
-
-      .media {
-        cursor: pointer;
-      }
     }
 
     /* -------------------------------------------- */
@@ -19,15 +15,7 @@
 
     img,
     video {
-      pointer-events: none;
-
       border-radius: 3px;
-      transition: filter 0.25s;
-
-      /*  States  */
-      .media:hover & {
-        filter: brightness(1.1);
-      }
     }
 
     /* -------------------------------------------- */

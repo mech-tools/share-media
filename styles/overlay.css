@@ -43,7 +43,7 @@
       display: flex !important;
       flex-direction: column !important;
       flex-wrap: nowrap !important;
-      gap: 0.25rem !important;
+      gap: 0.2rem !important;
     }
 
     /*  "aside" starts hidden and is displayed when hovering ".drawer"  */
@@ -73,7 +73,7 @@
       /*  Actual properties  */
       position: absolute !important;
       top: 0 !important;
-      left: calc(100% + 0.5rem) !important;
+      left: calc(100% + 0.2rem) !important;
 
       visibility: hidden !important;
       pointer-events: none !important;
@@ -90,8 +90,8 @@
         content: "" !important;
         position: absolute !important;
         top: 0 !important;
-        left: -0.5rem !important;
-        width: 0.5rem !important;
+        left: -0.2rem !important;
+        width: 0.2rem !important;
         height: 100% !important;
       }
     }
@@ -99,11 +99,11 @@
     /*  Right to left variant  */
     .right.drawer > aside {
       left: auto !important;
-      right: calc(100% + 0.5rem) !important;
+      right: calc(100% + 0.2rem) !important;
 
       &::before {
         left: auto !important;
-        right: -0.5rem !important;
+        right: -0.2rem !important;
       }
     }
   }

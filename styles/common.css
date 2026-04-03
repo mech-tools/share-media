@@ -13,6 +13,21 @@
       display: contents;
     }
 
+    &.clickable {
+      cursor: pointer;
+
+      img,
+      video {
+        border-radius: 3px;
+        transition: filter 0.25s;
+
+        /*  States  */
+        .media:hover & {
+          filter: brightness(1.1);
+        }
+      }
+    }
+
     /*  Media element  */
     img,
     video {
@@ -33,6 +48,7 @@
 
     /*  Special icon for video as it can't have pseudo elements  */
     video + .video-icon {
+      pointer-events: none;
       position: absolute;
       top: 50%;
       left: 50%;

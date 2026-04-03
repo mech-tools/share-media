@@ -1,0 +1,30 @@
+<section class="header flexrow">
+    {{!--  Sidebar toggle  --}}
+    <button type="button" class="inline-control collapse-toggle icon fa {{@root.icons.collapseOn}}"
+        data-action="toggleSidebar"
+        data-tooltip="Collapse"
+        data-tooltip-direction="UP">
+    </button>
+
+
+    {{!--  Search field  --}}
+    <input type="search" name="filter" placeholder="{{localize "FILES.Search"}}">
+
+
+    {{!--  File name toggle  --}}
+    <button type="button"
+        type="button"
+        class="inline-control toggle-names icon fa-light {{@root.icons.title}} {{~#if displayNames}} active {{~/if}}"
+        data-action="toggleNames"
+        data-tooltip="share-media.ui.browser.fileNames.label"
+        data-tooltip-direction="UP">
+    </button>
+
+    {{!--  Layout selector  --}}
+    <div class="layout-wrapper">
+        <i class="fa {{icons.layout}}"></i>
+        <select name="layout" data-tooltip="share-media.ui.browser.layout.label" data-tooltip-direction="UP">
+            {{selectOptions layouts selected=layout}}
+        </select>
+    </div>
+</section>

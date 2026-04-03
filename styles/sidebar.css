@@ -23,8 +23,6 @@
     /* -------------------------------------------- */
 
     .media-item {
-      cursor: pointer;
-
       position: relative;
       min-height: 150px;
 
@@ -47,17 +45,8 @@
 
     img,
     video {
-      pointer-events: none;
-
       object-fit: cover;
-
       border-radius: 3px;
-      transition: filter 0.25s;
-
-      /*  States  */
-      .media-item:hover & {
-        filter: brightness(1.1);
-      }
     }
 
     /* -------------------------------------------- */

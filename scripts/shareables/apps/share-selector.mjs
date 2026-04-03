@@ -41,7 +41,7 @@ export default class ShareSelector extends HandlebarsApplicationMixin(Applicatio
       },
       contentClasses: ["shm"],
       get icon() {
-        return CONFIG.shareMedia.CONST.ICONS.shareAgain;
+        return `fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}`;
       },
     },
     position: {

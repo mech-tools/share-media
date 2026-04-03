@@ -96,7 +96,7 @@ export default class MediaLayer extends InteractionLayer {
       name: "shm-media-layer",
       title: "share-media.canvas.layer.control.label",
       layer: "shm-media-layer",
-      icon: CONFIG.shareMedia.CONST.ICONS.mediaLayer,
+      icon: `fa ${CONFIG.shareMedia.CONST.ICONS.mediaLayer}`,
       visible: game.user.isGM,
       onChange: (_event, active) => {
         if (active) game.canvas["shm-media-layer"].activate();
@@ -106,24 +106,35 @@ export default class MediaLayer extends InteractionLayer {
           name: "select",
           order: 1,
           title: "share-media.canvas.layer.tools.select.label",
-          icon: CONFIG.shareMedia.CONST.ICONS.select,
+          icon: `fa ${CONFIG.shareMedia.CONST.ICONS.select}`,
         },
         link: {
           name: "link",
           order: 2,
           title: "share-media.canvas.layer.tools.link.label",
-          icon: CONFIG.shareMedia.CONST.ICONS.shareLink,
+          icon: `fa ${CONFIG.shareMedia.CONST.ICONS.shareLink}`,
           onChange: () =>
             new game.modules.shareMedia.shareables.apps.shareSelector({ link: true }).render({
               force: true,
             }),
           button: true,
         },
+        browser: {
+          name: "browser",
+          title: "share-media.ui.browser.label",
+          icon: `fa ${CONFIG.shareMedia.CONST.ICONS.mediaBrowser}`,
+          toggle: true,
+          active: game.modules.shareMedia.ui.browser._instance?.rendered ?? false,
+          onChange: (_event, toggled) => {
+            if (toggled) new game.modules.shareMedia.ui.browser().render({ force: true });
+            else game.modules.shareMedia.ui.browser._instance?.close({ animate: false });
+          },
+        },
         clear: {
           name: "clear",
-          order: 3,
+          order: 4,
           title: "share-media.canvas.layer.tools.clear.label",
-          icon: CONFIG.shareMedia.CONST.ICONS.clear,
+          icon: `fa ${CONFIG.shareMedia.CONST.ICONS.clear}`,
           onChange: () => game.canvas["shm-media-layer"].deleteAllSprites(),
           button: true,
         },

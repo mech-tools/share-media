@@ -104,6 +104,13 @@
       }
     },
 
+    "ui.browser": {
+      "label": "Explorateur de médias",
+      "empty": "Aucun média. Naviguez vers un autre dossier.",
+      "fileNames.label": "Basculer l'affichage des noms de fichier",
+      "layout.label": "Nombre de colonnes à afficher"
+    },
+
     "layers": {
       "fullscreen": {
         "dismiss": {

@@ -15,7 +15,7 @@ export const registerChatMessageActions = () => {
     // Create the entry
     const entry = {
       label: "share-media.layers.chat.share",
-      icon: `<i class="${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
+      icon: `<i class="fa ${CONFIG.shareMedia.CONST.ICONS.shareAgain}"></i>`,
       visible: (target) => {
         if (!game.user.isGM) return false;
         const message = game.messages.get(target.dataset.messageId);

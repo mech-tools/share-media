@@ -89,6 +89,7 @@ Hooks.once("setup", () => {
   // Expose ui
   module.ui.detector = new config.ui.MediaDetector.implementation();
   module.ui.overlay = new config.ui.MediaOverlay.implementation();
+  module.ui.browser = config.ui.MediaBrowser.implementation;
 
   // Expose canvas
   module.canvas.mediaSprite = config.canvas.MediaSprite.implementation;

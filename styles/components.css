@@ -159,10 +159,10 @@
       flex: 0 0 auto;
 
       gap: 0.5rem;
-      padding: 2px 0.5rem;
+      padding: 1px 0.5rem;
 
       font-family: var(--font-sans);
-      font-size: var(--font-size-14);
+      font-size: var(--font-size-13);
       white-space: nowrap;
 
       color: light-dark(rgba(var(--shm-charcoal) / 1), rgba(var(--shm-cream) / 1));
@@ -223,7 +223,6 @@
       &:not([role="button"])::before {
         content: "\f0d9";
         font-family: var(--font-awesome);
-        margin-right: 0.5rem;
       }
 
       &:not([role="button"])::after {
@@ -287,6 +286,7 @@
 
     display: inline flex;
     flex: 1;
+    width: fit-content;
     height: var(--shm-badge-size);
     padding: 0 0.25rem;
     align-items: center;

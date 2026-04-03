@@ -27,28 +27,37 @@ const registerSettings = () => {
     type: new StringField({ gmOnly: true }),
   });
 
+  game.settings.register("share-media", settings.mediaHistory, {
+    config: false,
+    scope: CONST.SETTING_SCOPES.WORLD,
+    type: new TypedObjectField(new ObjectField(), { initial: {}, gmOnly: true }),
+  });
+
+  game.settings.register("share-media", settings.mediaBrowserConfig, {
+    config: false,
+    scope: CONST.SETTING_SCOPES.WORLD,
+    type: new ObjectField({ initial: {}, gmOnly: true }),
+  });
+
   game.settings.register("share-media", settings.mediaSettings, {
     config: false,
     scope: CONST.SETTING_SCOPES.WORLD,
     type: new ObjectField({ initial: CONFIG.shareMedia.CONST.MEDIA_SETTINGS, gmOnly: true }),
   });
 
-  game.settings.register("share-media", settings.mediaHistory, {
-    config: false,
-    scope: CONST.SETTING_SCOPES.WORLD,
-    type: new TypedObjectField(new ObjectField(), { initial: {} }),
-  });
-
   game.settings.register("share-media", settings.mediaSidebarSettings, {
     config: false,
     scope: CONST.SETTING_SCOPES.WORLD,
-    type: new ObjectField({ initial: CONFIG.shareMedia.CONST.MEDIA_HISTORY_SETTINGS }),
+    type: new ObjectField({
+      initial: CONFIG.shareMedia.CONST.MEDIA_HISTORY_SETTINGS,
+      gmOnly: true,
+    }),
   });
 
   game.settings.register("share-media", settings.entitySharingSettings, {
     config: false,
     scope: CONST.SETTING_SCOPES.WORLD,
-    type: new ObjectField({ initial: CONFIG.shareMedia.CONST.ENTITY_SETTINGS }),
+    type: new ObjectField({ initial: CONFIG.shareMedia.CONST.ENTITY_SETTINGS, gmOnly: true }),
   });
 
   game.settings.register("share-media", settings.blacklistSettings, {

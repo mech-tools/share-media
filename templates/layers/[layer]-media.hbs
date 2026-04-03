@@ -8,7 +8,7 @@
         {{~/if}}
 
         {{!--  Media  --}}
-        {{> "share-media.media" passthrough=passthrough src=media metadata=metadata isVideo=isVideo videoIcon=videoIcon autoplay=autoplay}}
+        {{> "share-media.media" passthrough=passthrough src=media clickable=clickable metadata=metadata isVideo=isVideo videoIcon=@root.icons.play autoplay=autoplay}}
     </div>
 
     {{!--  Caption  --}}
