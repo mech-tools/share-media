@@ -88,6 +88,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       showMedia: MediaBrowser.#onShowMedia,
       toggleNames: MediaBrowser.#onToggleNames,
       toggleSidebar: MediaBrowser.#onToggleSidebar,
+      createDirectory: MediaBrowser.#onCreateDirectory,
     },
   };
 
@@ -152,6 +153,38 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     contentSelector: "section.body",
     callback: this._onSearchFilter.bind(this),
   });
+
+  /* -------------------------------------------- */
+  /*  Permissions
+  /* -------------------------------------------- */
+
+  /**
+   * Whether the current user is able to create folders.
+   * [NOTE] Code adapted from Foundry sources.
+   * @type {boolean}
+   */
+  get canCreateFolder() {
+    // Prevent uploading into the root package directories.
+    if (["worlds", "systems", "modules"].includes(this.target)) return false;
+    // Prevent uploading into a world or system that is not this one.
+    for (const [pkg, path] of [
+      [game.world, "worlds/"],
+      [game.system, "systems/"],
+    ]) {
+      if (pkg && this.target.startsWith(path)) {
+        const [, id] = this.target.split("/");
+        if (id !== pkg.id) return false;
+      }
+    }
+    // Prevent uploading into a module or system directory unless the canUpload flag is present.
+    if (this.target.startsWith("systems/") || this.target.startsWith("modules/")) {
+      const [type, id] = this.target.split("/");
+      const pkg =
+        type === "systems" ? (game.system ?? game.systems?.get(id)) : game.modules.get(id);
+      if (!pkg?.flags.canUpload) return false;
+    }
+    return game.user?.can("FILES_UPLOAD") !== false;
+  }
 
   /* -------------------------------------------- */
   /*  Browsing                                    */
@@ -241,6 +274,44 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Handle the folding of this application.
+   * @param {PointerEvent} path  The path to browse to.
+   * @returns {Promise<this>}
+   * @this {MediaBrowser}
+   */
+  async toggleDir(path) {
+    const node = this.nodes.get(path);
+
+    // If current target, toggle expanded and stop here
+    if (path === this.target) {
+      node.expanded = !node.expanded;
+      return this.render({ parts: ["sidebar"] });
+    }
+
+    // Collapse the siblings
+    if (this.target && !this.target.startsWith(`${path}/`)) {
+      const parentPath = path.split("/").slice(0, -1).join("/");
+      const parentNode = this.nodes.get(parentPath);
+      for (const child of parentNode.children) {
+        if (child.expanded) child.expanded = false;
+      }
+    }
+
+    // Fetch the new node data if not already in cache
+    if (node?.files === null) await this.browse(path);
+    node.expanded = true;
+
+    // Assign new target
+    this.target = path;
+    this.constructor.LAST_STATE.target = path;
+
+    // Render this application again
+    return this.render(["sidebar", "body"]);
+  }
+
+  /* -------------------------------------------- */
   /*  Context                                     */
   /* -------------------------------------------- */
 
@@ -266,6 +337,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     return {
       ...(await super._prepareContext(options)),
       icons: CONFIG.shareMedia.CONST.ICONS,
+      canCreateFolder: this.canCreateFolder,
       roots: this.nodes.get("").children,
       target: this.target,
       files: this.nodes.get(this.target).files,
@@ -397,7 +469,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
-   * Handle the folding of this application.
+   * Toggle the selected directory, browsing to it if necessary.
    * @param {PointerEvent} _event  The triggering event.
    * @param {HTMLElement}  target  The targeted DOM element.
    * @returns {Promise<this>}
@@ -405,33 +477,58 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    */
   static async #onToggleDir(_event, target) {
     const path = target.dataset.path;
-    const node = this.nodes.get(path);
+    return this.toggleDir(path);
+  }
 
-    // If current target, toggle expanded and stop here
-    if (path === this.target) {
-      node.expanded = !node.expanded;
-      return this.render({ parts: ["sidebar"] });
-    }
+  /* -------------------------------------------- */
 
-    // Collapse the siblings
-    if (this.target && !this.target.startsWith(`${path}/`)) {
-      const parentPath = path.split("/").slice(0, -1).join("/");
-      const parentNode = this.nodes.get(parentPath);
-      for (const child of parentNode.children) {
-        if (child.expanded) child.expanded = false;
-      }
-    }
+  /**
+   * Create a new subdirectory in the current working directory.
+   * [NOTE] Code adapted from Foundry sources.
+   * @param {PointerEvent} _event   The triggering event.
+   * @param {HTMLElement}  _target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onCreateDirectory(_event, _target) {
+    const labelText = _loc("FILES.DirectoryName.Label");
+    const placeholder = _loc("FILES.DirectoryName.Placeholder");
+    const content = `
+      <div class="form-group">
+        <label for="create-directory-name">${labelText}</label>
+        <div class="form-fields">
+          <input id="create-directory-name" type="text" name="dirname" placeholder="${foundry.utils.escapeHTML(placeholder)}" required autofocus>
+        </div>
+      </div>
+    `;
 
-    // Fetch the new node data if not already in cache
-    if (node.files === null) await this.browse(path);
-    node.expanded = true;
+    // Creation dialog
+    return foundry.applications.api.DialogV2.confirm({
+      id: "create-directory",
+      window: { title: "FILES.CreateSubfolder", icon: "fa-solid fa-folder-plus" },
+      content,
+      yes: {
+        label: "CONTROLS.CommonCreate",
+        default: true,
+        callback: async (event) => {
+          // Get the path and directory name
+          const dirname = event.currentTarget.querySelector("input").value?.trim() || placeholder;
+          const path = [this.target, dirname].filterJoin("/");
+          const encodedPath = [this.target, encodeURIComponent(dirname)].filterJoin("/");
 
-    // Assign new target
-    this.target = path;
-    this.constructor.LAST_STATE.target = path;
-
-    // Render this application again
-    return this.render(["sidebar", "body"]);
+          try {
+            // Using foundry to create a new folder and handling errors
+            await FilePicker.createDirectory("data", path);
+            // Browse to this new folder
+            await this.browse(this.target);
+            await this.toggleDir(encodedPath);
+          } catch (err) {
+            ui.notifications.error(err.message);
+          }
+        },
+      },
+      no: { label: "COMMON.Cancel" },
+    });
   }
 
   /* -------------------------------------------- */

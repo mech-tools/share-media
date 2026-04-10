@@ -303,6 +303,7 @@ export const ICONS = {
   mediaBrowser: "fa-sidebar",
   folderClosed: "fa-folder",
   folderOpen: "fa-folder-open",
+  folderCreate: "fa-folder-plus",
   collapseOn: "fa-caret-right",
   collapseOff: "fa-caret-left",
   title: "fa-input-text",

@@ -54,6 +54,12 @@
 
     /*  Collapsed state  */
     &.collapsed {
+      .header {
+        button[data-action="createDirectory"] {
+          display: none;
+        }
+      }
+
       .sidebar {
         display: none;
       }

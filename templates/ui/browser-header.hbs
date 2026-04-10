@@ -6,10 +6,17 @@
         data-tooltip-direction="UP">
     </button>
 
+    {{!--  Create directory button  --}}
+    <button type="button"
+        class="inline-control icon fa {{icons.folderCreate}}"
+        data-action="createDirectory"
+        data-tooltip="{{localize "FILES.CreateDirectory"}}"
+        data-tooltip-direction="UP"
+        {{~#unless canCreateFolder}} disabled {{~/unless}}>
+    </button>
 
     {{!--  Search field  --}}
     <input type="search" name="filter" placeholder="{{localize "FILES.Search"}}">
-
 
     {{!--  File name toggle  --}}
     <button type="button"
