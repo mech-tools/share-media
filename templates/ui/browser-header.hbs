@@ -6,13 +6,30 @@
         data-tooltip-direction="UP">
     </button>
 
+    {{!--  Previous folder button  --}}
+    <button type="button"
+        class="backTraverse inline-control icon fa {{icons.folderBack}}"
+        data-action="backTraverse"
+        data-tooltip="FILES.TraverseBack"
+        data-tooltip-direction="UP"
+        {{disabled (not canGoBack)}}>
+    </button>
+
     {{!--  Create directory button  --}}
     <button type="button"
-        class="inline-control icon fa {{icons.folderCreate}}"
+        class="createDirectory inline-control icon fa {{icons.folderCreate}}"
         data-action="createDirectory"
-        data-tooltip="{{localize "FILES.CreateDirectory"}}"
+        data-tooltip="FILES.CreateDirectory"
         data-tooltip-direction="UP"
-        {{~#unless canCreateFolder}} disabled {{~/unless}}>
+        {{disabled (not canCreateFolder)}}>
+    </button>
+
+    {{!--  Upload button  --}}
+    <button type="button"
+        class="uploadFiles inline-control icon fa {{icons.folderUpload}}"
+        data-tooltip="{{~ifThen canUpload "share-media.ui.browser.upload.label" "FILES.CannotUpload"}}"
+        data-tooltip-direction="UP"
+        {{disabled (not canUpload)}}>
     </button>
 
     {{!--  Search field  --}}

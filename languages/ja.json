@@ -107,8 +107,10 @@
     "ui.browser": {
       "label": "Media Browser",
       "empty": "No media available. Please navigate to another folder.",
+      "upload.label": "Drag and drop files into this window",
       "fileNames.label": "Toggle file names",
-      "layout.label": "Number of media columns to display"
+      "layout.label": "Number of media columns to display",
+      "drop.label": "Drop files here to upload to this folder: {target}"
     },
 
     "layers": {

@@ -4,7 +4,7 @@
     {{!-- Blacklist --}}
     <div class="scrollable flexcol">
         {{~#each users as |user|}}
-            <div class="form-group {{~#if user.isGM}} disabled{{~/if}}">
+            <div class="form-group {{disabled user.isGM}}">
                 {{!-- Label --}}
                 <label for="{{user.id}}" class="flexrow">
                     <i class="shm padded pip" style="--pip-color: {{user.color.css}}"></i>{{user.name}}

@@ -306,6 +306,8 @@ export const ICONS = {
   folderCreate: "fa-folder-plus",
   collapseOn: "fa-caret-right",
   collapseOff: "fa-caret-left",
+  folderUpload: "fa-upload fa-fw",
+  folderBack: "fa-turn-left-up",
   title: "fa-input-text",
   layout: "fa-table-layout",
 };

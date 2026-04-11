@@ -13,4 +13,10 @@
         {{!--  No media found  --}}
         <div class="flexrow empty-list">{{ localize "share-media.ui.browser.empty" }}</div>
     {{~/if}}
+
+    {{!--  Drag & Drop zone  --}}
+    <div class="drop-zone">
+        <i class="fa {{icons.folderUpload}}"></i>
+        <span>{{localize "share-media.ui.browser.drop.label" target=target}}</span>
+    </div>
 </section>

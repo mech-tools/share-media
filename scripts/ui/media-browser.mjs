@@ -1,7 +1,8 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const { implementation: FilePicker } = foundry.applications.apps.FilePicker;
+const { implementation: DragDrop } = foundry.applications.ux.DragDrop;
 const { SearchFilter } = foundry.applications.ux;
-const { isSubclass } = foundry.utils;
+const { isSubclass, escapeHTML } = foundry.utils;
 
 /**
  * A media browser application that displays an expandable folder tree and the image/video files of the currently selected
@@ -84,11 +85,12 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     },
     position: { height: 550 },
     actions: {
+      backTraverse: MediaBrowser.#onBackTraverse,
+      createDirectory: MediaBrowser.#onCreateDirectory,
+      toggleSidebar: MediaBrowser.#onToggleSidebar,
       toggleDir: MediaBrowser.#onToggleDir,
       showMedia: MediaBrowser.#onShowMedia,
       toggleNames: MediaBrowser.#onToggleNames,
-      toggleSidebar: MediaBrowser.#onToggleSidebar,
-      createDirectory: MediaBrowser.#onCreateDirectory,
     },
   };
 
@@ -107,13 +109,12 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
 
   /**
    * Allowed media file extensions.
-   * @type {Set<string>}
+   * @type {string[]}
    */
-  static MEDIA_EXTENSIONS = new Set(
-    Object.keys(CONST.IMAGE_FILE_EXTENSIONS)
-      .concat(Object.keys(CONST.VIDEO_FILE_EXTENSIONS))
-      .map((ext) => `.${ext}`),
-  );
+  static MEDIA_EXTENSIONS = [
+    ...Object.keys(CONST.IMAGE_FILE_EXTENSIONS),
+    ...Object.keys(CONST.VIDEO_FILE_EXTENSIONS),
+  ].map((ext) => `.${ext}`);
 
   /**
    * Last known browser state.
@@ -154,6 +155,13 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     callback: this._onSearchFilter.bind(this),
   });
 
+  /**
+   * Drag counter.
+   * Prevent children to fire unwanted events.
+   * @type {number}
+   */
+  #dragCounter = 0;
+
   /* -------------------------------------------- */
   /*  Permissions
   /* -------------------------------------------- */
@@ -187,6 +195,19 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Whether the current user is able to upload file content.
+   * [NOTE] Code adapted from Foundry sources.
+   * @type {boolean}
+   */
+  get canUpload() {
+    if (!this.canCreateFolder) return false;
+    // Prevent uploading to the root of Data/.
+    return this.target !== "";
+  }
+
+  /* -------------------------------------------- */
   /*  Browsing                                    */
   /* -------------------------------------------- */
 
@@ -197,7 +218,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    */
   async browse(target) {
     // Browse options
-    const options = { extensions: [...MediaBrowser.MEDIA_EXTENSIONS] };
+    const options = { extensions: this.constructor.MEDIA_EXTENSIONS };
 
     // Using foundry browse method
     const result = await FilePicker.browse("data", target, options).catch((error) => {
@@ -337,7 +358,9 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     return {
       ...(await super._prepareContext(options)),
       icons: CONFIG.shareMedia.CONST.ICONS,
+      canGoBack: this.target !== "",
       canCreateFolder: this.canCreateFolder,
+      canUpload: this.canUpload,
       roots: this.nodes.get("").children,
       target: this.target,
       files: this.nodes.get(this.target).files,
@@ -381,13 +404,30 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    */
   async _onRender(context, options) {
     await super._onRender(context, options);
+
     // Bind search
     this.#search.bind(this.element);
 
+    // Bind layout selector
     if (options.parts.includes("header")) {
       this.element
         .querySelector("select")
         .addEventListener("change", MediaBrowser.#onChangeLayout.bind(this));
+    }
+
+    // Bind drag & drop
+    if (options.parts.includes("body")) {
+      new DragDrop({
+        dropSelector: ".body",
+        permissions: {
+          drop: () => this.canUpload,
+        },
+        callbacks: {
+          dragenter: this.#onDragEnter.bind(this),
+          dragleave: this.#onDragLeave.bind(this),
+          drop: this.#onDrop.bind(this),
+        },
+      }).bind(this.element);
     }
   }
 
@@ -435,6 +475,20 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
 
   /* -------------------------------------------- */
   /*  Action Event Handlers
+  /* -------------------------------------------- */
+
+  /**
+   * Traverse back one directory level.
+   * @param {PointerEvent} _event   The triggering event.
+   * @param {HTMLElement}  _target  The targeted DOM element.
+   * @returns {Promise<this>}
+   * @this {MediaBrowser}
+   */
+  static async #onBackTraverse(_event, _target) {
+    const path = this.target.replace(/\/$/, "").split("/").slice(0, -1).join("/");
+    await await this.toggleDir(path);
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -497,7 +551,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       <div class="form-group">
         <label for="create-directory-name">${labelText}</label>
         <div class="form-fields">
-          <input id="create-directory-name" type="text" name="dirname" placeholder="${foundry.utils.escapeHTML(placeholder)}" required autofocus>
+          <input id="create-directory-name" type="text" name="dirname" placeholder="${escapeHTML(placeholder)}" required autofocus>
         </div>
       </div>
     `;
@@ -505,7 +559,10 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     // Creation dialog
     return foundry.applications.api.DialogV2.confirm({
       id: "create-directory",
-      window: { title: "FILES.CreateSubfolder", icon: "fa-solid fa-folder-plus" },
+      window: {
+        title: "FILES.CreateSubfolder",
+        icon: CONFIG.shareMedia.CONST.ICONS.createDirectory,
+      },
       content,
       yes: {
         label: "CONTROLS.CommonCreate",
@@ -529,6 +586,21 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       },
       no: { label: "COMMON.Cancel" },
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle the togglin of media names.
+   * @param {PointerEvent} _event   The triggering event.
+   * @param {HTMLElement}  _target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onToggleNames(_event, _target) {
+    this.displayNames = !this.displayNames;
+    this.constructor.LAST_STATE.displayNames = this.displayNames;
+    await this.render({ parts: ["header", "body"] });
   }
 
   /* -------------------------------------------- */
@@ -590,21 +662,6 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
-   * Handle the togglin of media names.
-   * @param {PointerEvent} _event   The triggering event.
-   * @param {HTMLElement}  _target  The targeted DOM element.
-   * @returns {Promise<void>}
-   * @this {MediaBrowser}
-   */
-  static async #onToggleNames(_event, _target) {
-    this.displayNames = !this.displayNames;
-    this.constructor.LAST_STATE.displayNames = this.displayNames;
-    await this.render({ parts: ["header", "body"] });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Search among shown media.
    * @param {KeyboardEvent} _event  The triggering event.
    * @param {string}        _query  The search input value.
@@ -630,6 +687,68 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Handle a dragenter event.
+   * @param {DragEvent} _event  The Triggering event.
+   */
+  #onDragEnter(_event) {
+    if (!this.canUpload) return;
+    if (++this.#dragCounter !== 1) return;
+    this.element.classList.add("drag-over");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dragleave event.
+   * @param {DragEvent} _event  The Triggering event.
+   */
+  #onDragLeave(_event) {
+    if (!this.canUpload) return;
+    if (--this.#dragCounter !== 0) return;
+    this.element.classList.remove("drag-over");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a drop event.
+   * @param {DragEvent} event  The Triggering event.
+   */
+  async #onDrop(event) {
+    if (!this.canUpload) return;
+    this.#dragCounter = 0;
+    this.element.classList.remove("drag-over");
+
+    // Process the data transfer
+    const files = [...(event.dataTransfer.files || [])];
+    if (!files.length) return;
+
+    // Create a set of promises to resolve
+    const uploads = files
+      .map((file) => {
+        const name = file.name.toLowerCase();
+
+        try {
+          this.#validateExtension(name);
+          return FilePicker.upload("data", this.target, file);
+        } catch (err) {
+          ui.notifications.error(err, { console: true });
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    // Resolve all validation and uploads
+    await Promise.allSettled(uploads);
+
+    // Fetch the new files and render
+    await this.browse(this.target);
+    await this.render({ parts: ["body"] });
+  }
+
+  /* -------------------------------------------- */
   /*  Helpers                                     */
   /* -------------------------------------------- */
 
@@ -648,13 +767,34 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
+   * Validate that the extension of the uploaded file.
+   * This is an initial client-side test, the MIME type will be further checked by the server.
+   * [NOTE] Code adapted from Foundry sources.
+   * @param {string} name  The file name attempted for upload.
+   */
+  #validateExtension(name) {
+    const ext = `.${name.split(".").pop()}`;
+    const allowedExtensions = Array.from(this.constructor.MEDIA_EXTENSIONS);
+    if (!allowedExtensions.includes(ext)) {
+      const msg = _loc("FILES.ErrorDisallowedExtension", {
+        name,
+        ext,
+        allowed: allowedExtensions.join(" "),
+      });
+      throw new Error(msg);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Calculate the width of the browser depending on the number of columns to display.
    * @param {number} [columns]  The number of columns to display.
    * @returns {number}
    */
   calculateBrowserWidth(columns = 2) {
     // Get styles
-    const scrollbarWidth = this.constructor.SCROLLBAR_WIDTH ?? this.getScrollbarWidth();
+    const scrollbarWidth = this.getScrollbarWidth();
     const fontSize = parseFloat(
       getComputedStyle(document.documentElement).getPropertyValue("font-size"),
     );
@@ -663,7 +803,6 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     const getValue = (styles, property) => {
       return parseFloat(styles.getPropertyValue(property)) * fontSize;
     };
-
     const sidebarExpandedWidth = getValue(styles, "--shm-sidebar-width");
     const bodyColumnWidth = getValue(styles, "--shm-body-col-min");
     const bodyGapWidth = getValue(styles, "--shm-body-gap");
@@ -687,6 +826,9 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    * @returns {number}
    */
   getScrollbarWidth() {
+    // Return cached value
+    if (this.constructor.SCROLLBAR_WIDTH) return this.constructor.SCROLLBAR_WIDTH;
+
     // Create an invisible element with a scrollbar and append it to the body
     const outer = document.createElement("div");
     outer.style.cssText = `

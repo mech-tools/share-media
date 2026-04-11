@@ -107,8 +107,10 @@
     "ui.browser": {
       "label": "Explorateur de médias",
       "empty": "Aucun média. Naviguez vers un autre dossier.",
+      "upload.label": "Glissez-déposez des fichiers dans cette fenêtre",
       "fileNames.label": "Basculer l'affichage des noms de fichier",
-      "layout.label": "Nombre de colonnes à afficher"
+      "layout.label": "Nombre de colonnes à afficher",
+      "drop.label": "Déposez des fichiers ici pour les ajouter à ce dossier : {target}"
     },
 
     "layers": {

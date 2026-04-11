@@ -10,7 +10,7 @@
                     class="button icon far {{lookup @root.icons action.icon}} {{~#if action.active}} active{{~/if}}"
                     data-action="configureMode" data-mode="{{action.mode}}"
                     data-option-name="{{action.optionName}}" data-option-value="{{action.optionValue}}"
-                    data-tooltip="{{localize (concat "share-media.ui.actions." action.label)}}"
+                    data-tooltip="{{concat "share-media.ui.actions." action.label}}"
                     data-tooltip-direction="UP">
                 </span>
             {{~/each}}
@@ -30,7 +30,7 @@
                         data-action="configureSetting"
                         data-category="{{setting.category}}"
                         data-setting="{{option.name}}"
-                        data-tooltip="{{localize (concat "share-media.ui.settings." option.description)}}"
+                        data-tooltip="{{concat "share-media.ui.settings." option.description}}"
                         data-tooltip-direction="UP">
                         <i class="fa {{lookup @root.icons option.name}}"></i>
                         {{localize (concat "share-media.ui.settings." option.label)}}
