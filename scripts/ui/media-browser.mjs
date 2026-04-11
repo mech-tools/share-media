@@ -1,4 +1,4 @@
-const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+const { HandlebarsApplicationMixin, ApplicationV2, DialogV2 } = foundry.applications.api;
 const { implementation: FilePicker } = foundry.applications.apps.FilePicker;
 const { implementation: DragDrop } = foundry.applications.ux.DragDrop;
 const { SearchFilter } = foundry.applications.ux;
@@ -375,6 +375,23 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
+   * Attach custom listeners.
+   * @inheritdoc
+   */
+  _attachFrameListeners() {
+    super._attachFrameListeners();
+    // Bind drag & drop
+    new DragDrop({
+      dropSelector: ".window-content",
+      callbacks: {
+        dragenter: this.#onDragEnter.bind(this),
+        dragleave: this.#onDragLeave.bind(this),
+        drop: this.#onDrop.bind(this),
+      },
+    }).bind(this.element);
+  }
+
+  /**
    * Restore last know position, if able.
    * Sync scene controls.
    * Set sidebar and browser width.
@@ -413,21 +430,6 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       this.element
         .querySelector("select")
         .addEventListener("change", MediaBrowser.#onChangeLayout.bind(this));
-    }
-
-    // Bind drag & drop
-    if (options.parts.includes("body")) {
-      new DragDrop({
-        dropSelector: ".body",
-        permissions: {
-          drop: () => this.canUpload,
-        },
-        callbacks: {
-          dragenter: this.#onDragEnter.bind(this),
-          dragleave: this.#onDragLeave.bind(this),
-          drop: this.#onDrop.bind(this),
-        },
-      }).bind(this.element);
     }
   }
 
@@ -557,11 +559,11 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     `;
 
     // Creation dialog
-    return foundry.applications.api.DialogV2.confirm({
+    return DialogV2.confirm({
       id: "create-directory",
       window: {
         title: "FILES.CreateSubfolder",
-        icon: CONFIG.shareMedia.CONST.ICONS.createDirectory,
+        icon: `fa ${CONFIG.shareMedia.CONST.ICONS.folderCreate}`,
       },
       content,
       yes: {
@@ -725,14 +727,17 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     const files = [...(event.dataTransfer.files || [])];
     if (!files.length) return;
 
-    // Create a set of promises to resolve
-    const uploads = files
+    const validFiles = files
       .map((file) => {
         const name = file.name.toLowerCase();
-
         try {
+          // Validate file by extension
           this.#validateExtension(name);
-          return FilePicker.upload("data", this.target, file);
+          // Only these types of images will be compressed
+          const shouldConvert = /^(image\/png|image\/jpe?g|image\/bmp|image\/tiff)$/i.test(
+            file.type,
+          );
+          return { file, shouldConvert };
         } catch (err) {
           ui.notifications.error(err, { console: true });
           return null;
@@ -740,8 +745,48 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       })
       .filter(Boolean);
 
-    // Resolve all validation and uploads
-    await Promise.allSettled(uploads);
+    // Check if images should be convert and prompt for quality
+    const hasConvertible = validFiles.some((file) => file.shouldConvert);
+    let quality = 90;
+    if (hasConvertible) {
+      try {
+        quality = await DialogV2.prompt({
+          window: {
+            title: "share-media.ui.browser.convert.label",
+            icon: `fa ${CONFIG.shareMedia.CONST.ICONS.convertFile}`,
+          },
+          content: `
+            <span>${_loc("share-media.ui.browser.convert.description")}</span>
+            <div class="form-fields">
+              <range-picker name="quality" value="90" min="10" max="100" step="5">
+                <input type="range" min="10" max="100" step="5">
+                <input type="number" min="10" max="100" step="5">
+              </range-picker>
+            </div>
+          `,
+          ok: {
+            label: "share-media.base.validate",
+            callback: (_event, button, _dialog) => button.form.elements.quality.valueAsNumber,
+          },
+        });
+      } catch {
+        return;
+      }
+      if (!quality) return;
+    }
+
+    // Function to process files (convert and upload)
+    const processFile = async ({ file, shouldConvert }) => {
+      const uploadFile = shouldConvert ? await this.#convertImageToWebp(file, quality) : file;
+      return FilePicker.upload("data", decodeURIComponent(this.target), uploadFile);
+    };
+
+    // Process in batches of 3
+    const batchSize = 3;
+    for (let i = 0; i < validFiles.length; i += batchSize) {
+      const batch = validFiles.slice(i, i + batchSize);
+      await Promise.allSettled(batch.map((file) => processFile(file)));
+    }
 
     // Fetch the new files and render
     await this.browse(this.target);
@@ -788,6 +833,39 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
+   * Convert an image to webp.
+   * The method can only convert the following: jpg, jpeg, png, bmp, tiff.
+   * The caller should make sure only these types of files are being converted.
+   * @param {File}   file       The file to convert.
+   * @param {number} [quality]  Quality setting (1 - 100).
+   * @returns {File}
+   */
+  async #convertImageToWebp(file, quality = 90) {
+    // Convert the image to a bitmap
+    const bitmap = await createImageBitmap(file);
+
+    // Create the canvas context
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+    const ctx = canvas.getContext("2d");
+
+    // Draw the image and convert it to webp
+    ctx.drawImage(bitmap, 0, 0);
+    const blob = await canvas.convertToBlob({
+      type: "image/webp",
+      quality: quality / 100,
+    });
+
+    // Close the context
+    bitmap.close?.();
+
+    // Return te converted image
+    const webpName = file.name.replace(/\.[^.]+$/, "") + ".webp";
+    return new File([blob], webpName, { type: "image/webp" });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Calculate the width of the browser depending on the number of columns to display.
    * @param {number} [columns]  The number of columns to display.
    * @returns {number}
@@ -810,7 +888,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     // Calculate final width
     return (
       (this.sidebarExpanded ? sidebarExpandedWidth : 0) + // Sidebar
-      bodyGapWidth * 2 + // Media list padding
+      bodyGapWidth + // Media list padding
       columns * bodyColumnWidth + // Columns
       (columns - 1) * bodyGapWidth + // Columns gap
       scrollbarWidth + // Scrollbar

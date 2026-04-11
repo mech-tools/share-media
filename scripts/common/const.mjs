@@ -308,6 +308,7 @@ export const ICONS = {
   collapseOff: "fa-caret-left",
   folderUpload: "fa-upload fa-fw",
   folderBack: "fa-turn-left-up",
+  convertFile: "fa-file-export",
   title: "fa-input-text",
   layout: "fa-table-layout",
 };

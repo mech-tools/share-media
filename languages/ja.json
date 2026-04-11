@@ -110,7 +110,9 @@
       "upload.label": "Drag and drop files into this window",
       "fileNames.label": "Toggle file names",
       "layout.label": "Number of media columns to display",
-      "drop.label": "Drop files here to upload to this folder: {target}"
+      "drop.label": "Drop files here to upload to this folder",
+      "convert.label": "Convert images to webp",
+      "convert.description": "Some files will be converted to WebP for better performance. Choose a compression value (10-100): lower values reduce size and quality, higher values increase both."
     },
 
     "layers": {

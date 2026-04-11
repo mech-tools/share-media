@@ -46,8 +46,8 @@
     }
 
     .body {
-      position: relative;
       overflow: hidden auto;
+      scrollbar-gutter: stable;
 
       flex: 1 1 0;
       height: calc(100% - var(--shm-header-height));
@@ -82,7 +82,7 @@
       input[name="filter"] {
         --input-height: 1.5rem;
         width: auto;
-        min-width: 5.5rem;
+        min-width: 5rem;
         max-width: 14rem;
       }
 
@@ -211,7 +211,7 @@
 
     .media-list {
       min-width: var(--shm-body-col-min);
-      padding: var(--shm-body-gap);
+      padding: var(--shm-body-gap) 0 var(--shm-body-gap) var(--shm-body-gap);
 
       columns: var(--shm-body-col-min);
       column-gap: var(--shm-body-gap);
@@ -271,11 +271,9 @@
     /* -------------------------------------------- */
 
     .drop-zone {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      position: fixed;
+      z-index: 1;
+      inset: 0;
 
       display: flex;
       flex-direction: column;
