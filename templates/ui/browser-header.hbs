@@ -32,6 +32,34 @@
         {{disabled (not canUpload)}}>
     </button>
 
+    {{!--  Favorites  --}}
+    <div class="favorites-wrapper flex0">
+        <button type="button"
+            class="favorites inline-control icon fa {{icons.favorites}}"
+            data-action="toggleFavorites"
+            data-tooltip="FILES.FavoritesLabel"
+            data-tooltip-direction="UP">
+        </button>
+
+        <div class="favorites-list flexrow">
+            {{~#each favorites}}
+                <div class="tag flexrow">
+                    <a class="link" data-action="goToFavorite" data-path="{{this.path}}">{{this.label}}</a>
+                    <button type="button" class="plain icon inline-control fa {{@root.icons.clear}}"
+                        data-action="removeFavorite"
+                        data-tooltip="FILES.RemoveFavorite"
+                        data-path="{{this.path}}">
+                    </button>
+                </div>
+            {{~/each}}
+
+            <button type="button" class="plain icon inline-control fa {{icons.addFavorites}}"
+                data-action="setFavorite"
+                data-tooltip="FILES.AddFavorite">
+            </button>
+        </div>
+    </div>
+
     {{!--  Search field  --}}
     <input type="search" name="filter" placeholder="{{localize "FILES.Search"}}">
 

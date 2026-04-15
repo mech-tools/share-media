@@ -309,6 +309,8 @@ export const ICONS = {
   folderUpload: "fa-upload fa-fw",
   folderBack: "fa-turn-left-up",
   convertFile: "fa-file-export",
+  favorites: "fa-bookmark",
+  addFavorites: "fa-plus",
   title: "fa-input-text",
   layout: "fa-table-layout",
 };

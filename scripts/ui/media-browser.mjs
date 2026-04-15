@@ -2,7 +2,7 @@ const { HandlebarsApplicationMixin, ApplicationV2, DialogV2 } = foundry.applicat
 const { implementation: FilePicker } = foundry.applications.apps.FilePicker;
 const { implementation: DragDrop } = foundry.applications.ux.DragDrop;
 const { SearchFilter } = foundry.applications.ux;
-const { isSubclass, escapeHTML } = foundry.utils;
+const { isSubclass, escapeHTML, deepClone } = foundry.utils;
 
 /**
  * A media browser application that displays an expandable folder tree and the image/video files of the currently selected
@@ -50,6 +50,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     2: 2,
     3: 3,
     4: 4,
+    5: 5,
   };
 
   /**
@@ -91,6 +92,10 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       toggleDir: MediaBrowser.#onToggleDir,
       showMedia: MediaBrowser.#onShowMedia,
       toggleNames: MediaBrowser.#onToggleNames,
+      toggleFavorites: MediaBrowser.#onToggleFavorites,
+      goToFavorite: MediaBrowser.#onGoToFavorite,
+      setFavorite: MediaBrowser.#onSetFavorite,
+      removeFavorite: MediaBrowser.#onRemoveFavorite,
     },
   };
 
@@ -161,6 +166,12 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    * @type {number}
    */
   #dragCounter = 0;
+
+  /**
+   * The favorites dropdown listener.
+   * @type {(() => void) | null}
+   */
+  #favoritesListener = null;
 
   /* -------------------------------------------- */
   /*  Permissions
@@ -320,8 +331,18 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       }
     }
 
+    // Collapse the root non sibling
+    if (this.target && !this.target.startsWith(path.split("/").at(0))) {
+      const targetRootNode = this.nodes.get(this.target.split("/").at(0));
+      targetRootNode.expanded = false;
+    }
+
     // Fetch the new node data if not already in cache
     if (node?.files === null) await this.browse(path);
+    if (!node)
+      return ui.notifications.warn(
+        `Error: Directory ${path} does not exist or is not accessible in this storage location`,
+      );
     node.expanded = true;
 
     // Assign new target
@@ -345,14 +366,21 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       // Recursively fetch each segment to reconstruct the tree
       if (this.target) {
         const segments = this.target.split("/");
-        let path = "";
+        let toPath = "";
         for (const segment of segments) {
-          path = path ? `${path}/${segment}` : segment;
-          const node = await this.browse(path);
-          node.expanded = true;
+          toPath = toPath ? `${toPath}/${segment}` : segment;
+          const node = await this.browse(toPath);
+          if (node) node.expanded = true;
         }
       }
     }
+
+    // Reformat favorites to this application needs (no trailing "/")
+    const favorites = Object.fromEntries(
+      Object.entries(game.settings.get("core", "favoritePaths")).map(([key, value]) => {
+        return [key, { ...value, path: value.path.replace(/\/$/, "") }];
+      }),
+    );
 
     // Return context
     return {
@@ -361,6 +389,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       canGoBack: this.target !== "",
       canCreateFolder: this.canCreateFolder,
       canUpload: this.canUpload,
+      favorites,
       roots: this.nodes.get("").children,
       target: this.target,
       files: this.nodes.get(this.target).files,
@@ -380,6 +409,14 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    */
   _attachFrameListeners() {
     super._attachFrameListeners();
+    // Bind favorites dropdown listener
+    this.#favoritesListener = (event) => {
+      if (!this.element.querySelector(".favorites-wrapper").contains(event.target)) {
+        this.element.querySelector(".favorites-list").classList.remove("open");
+      }
+    };
+    document.addEventListener("click", this.#favoritesListener);
+
     // Bind drag & drop
     new DragDrop({
       dropSelector: ".window-content",
@@ -390,6 +427,8 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
       },
     }).bind(this.element);
   }
+
+  /* -------------------------------------------- */
 
   /**
    * Restore last know position, if able.
@@ -459,6 +498,8 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
    */
   _onClose(options) {
     super._onClose(options);
+    document.removeEventListener("click", this.#favoritesListener);
+    this.#favoritesListener = null;
     this.nodes.clear();
     if (MediaBrowser._instance === this) MediaBrowser._instance = null;
     this.#toggleSceneControls(false);
@@ -593,7 +634,7 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
   /* -------------------------------------------- */
 
   /**
-   * Handle the togglin of media names.
+   * Handle the toggling of media names.
    * @param {PointerEvent} _event   The triggering event.
    * @param {HTMLElement}  _target  The targeted DOM element.
    * @returns {Promise<void>}
@@ -603,6 +644,94 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     this.displayNames = !this.displayNames;
     this.constructor.LAST_STATE.displayNames = this.displayNames;
     await this.render({ parts: ["header", "body"] });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle the toggling of favorites dropdown.
+   * @param {PointerEvent} _event   The triggering event.
+   * @param {HTMLElement}  _target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onToggleFavorites(_event, _target) {
+    this.element.querySelector(".favorites-list").classList.toggle("open");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Navigate to a favorited directory.
+   * @param {PointerEvent} _event  The triggering event.
+   * @param {HTMLElement}  target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onGoToFavorite(_event, target) {
+    const path = target.dataset.path ?? this.target;
+    // Do nothing if path is target already
+    if (this.target === path) {
+      MediaBrowser.#onToggleFavorites.call(this);
+      return;
+    }
+
+    // Expand tree to the favorite path
+    const segments = path.split("/");
+    let toPath = "";
+    for (const segment of segments) {
+      toPath = toPath ? `${toPath}/${segment}` : segment;
+      let node = this.nodes.get(toPath);
+      if (node?.files === null) node = await this.browse(toPath);
+      if (node) node.expanded = true;
+    }
+    await this.toggleDir(path);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add the given path for the source to the favorites.
+   * [NOTE] Code adapted from Foundry sources.
+   * @param {PointerEvent} _event  The triggering event.
+   * @param {HTMLElement}  target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onSetFavorite(_event, target) {
+    const source = "data";
+    // Standardize all paths to end with a "/".
+    // Has the side benefit of ensuring that the root path which is normally an empty string has content.
+    const path = `${target.dataset.path || this.target}/`.replace(/\/+$/, "/");
+    const favorites = deepClone(game.settings.get("core", "favoritePaths"));
+    if (`${source}-${path}` in favorites) {
+      ui.notifications.info("FILES.AlreadyFavorited", { format: { path } });
+      return;
+    }
+    const label = path === "/" ? "root" : path.split("/").at(-2); // Get the final part of the path for the label
+    favorites[`${source}-${path}`] = { source, path, label };
+    await game.settings.set("core", "favoritePaths", favorites);
+    await this.render({ parts: ["header"] });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove the given path from the favorites.
+   * [NOTE] Code adapted from Foundry sources.
+   * @param {PointerEvent} _event  The triggering event.
+   * @param {HTMLElement}  target  The targeted DOM element.
+   * @returns {Promise<void>}
+   * @this {MediaBrowser}
+   */
+  static async #onRemoveFavorite(_event, target) {
+    const source = "data";
+    let path = target.dataset.path || this.target;
+    path = path.endsWith("/") ? path : `${path}/`;
+    const favorites = deepClone(game.settings.get("core", "favoritePaths"));
+    delete favorites[`${source}-${path}`];
+    await game.settings.set("core", "favoritePaths", favorites);
+    await this.render({ parts: ["header"] });
   }
 
   /* -------------------------------------------- */
@@ -744,6 +873,9 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
         }
       })
       .filter(Boolean);
+
+    // Do not continue if no valid files
+    if (!validFiles.length) return;
 
     // Check if images should be convert and prompt for quality
     const hasConvertible = validFiles.some((file) => file.shouldConvert);

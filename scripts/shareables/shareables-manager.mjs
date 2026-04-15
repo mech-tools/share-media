@@ -312,7 +312,7 @@ export default class ShareablesManager {
     // If only one area is available, return it directly without opening the area selector
     const availableAreas = game.modules.shareMedia.utils.getAvailableAreas();
     if (availableAreas.length === 1) {
-      return { ...context, targetArea: availableAreas[0].uuid };
+      return { ...context, targetArea: availableAreas.at(0).uuid };
     }
 
     // Otherwise, open the area selector as usual

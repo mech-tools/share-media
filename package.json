@@ -23,10 +23,10 @@
   "private": true,
   "scripts": {
     "dev:js": "bun build --outdir=. --entry-naming=share-media.mjs --sourcemap=linked --watch ./scripts/module.mjs",
-    "dev:css": "bun build --outdir=. --entry-naming=share-media.css --watch ./styles/module.css",
+    "dev:css": "bun build --outdir=. --external='/ui/*' --entry-naming=share-media.css --watch ./styles/module.css",
     "dev": "concurrently -k -n 'MJS,CSS' -c 'yellow,blue' 'bun run dev:js' 'bun run dev:css'",
     "prod:js": "bun build --outdir=. --entry-naming=share-media.mjs ./scripts/module.mjs",
-    "prod:css": "bun build --outdir=. --entry-naming=share-media.css ./styles/module.css",
+    "prod:css": "bun build --outdir=. --external='/ui/*' --entry-naming=share-media.css ./styles/module.css",
     "prod": "bun run prod:js && bun run prod:css"
   },
   "type": "module"
