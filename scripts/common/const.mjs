@@ -159,6 +159,10 @@ export const MEDIA_HOOKS = [
       ".list-container .sheet-body",
     ],
   },
+  {
+    on: "renderCampaignCodexBaseSheet",
+    htmlContext: [".editor-content:not(.ProseMirror)", ".sheet-image"],
+  },
 ];
 
 /* -------------------------------------------- */
