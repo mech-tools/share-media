@@ -112,7 +112,7 @@
       "layout.label": "Nombre de colonnes à afficher",
       "drop.label": "Déposez des fichiers ici pour les ajouter à ce dossier",
       "convert.label": "Conversion des images au format webp",
-      "convert.description": "Certains fichiers seront convertis en WebP pour de meilleures performances. Choisissez une valeur de compression (10-100) : des valeurs plus faibles réduisent la taille et la qualité, des valeurs plus élevées augmentent les deux."
+      "convert.description": "Certains fichiers seront convertis en WebP pour de meilleures performances. Choisissez une valeur de qualité (10-100) : des valeurs plus faibles réduisent la taille et la qualité, des valeurs plus élevées augmentent les deux."
     },
 
     "layers": {

@@ -111,7 +111,7 @@
       "layout.label": "Number of media columns to display",
       "drop.label": "Drop files here to upload to this folder",
       "convert.label": "Convert Images to WebP",
-      "convert.description": "Some files will be converted to WebP for better performance. Choose a compression value (10-100): lower values reduce size and quality, higher values increase both."
+      "convert.description": "Some files will be converted to WebP for better performance. Choose a quality value (10-100): lower values reduce size and quality, higher values increase both."
     },
 
     "layers": {
