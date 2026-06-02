@@ -54,7 +54,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
 
-      font-size: var(--font-size-64);
+      font-size: var(--font-size-48);
       color: rgba(var(--shm-cream) / 0.8);
     }
   }

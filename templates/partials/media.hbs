@@ -6,7 +6,7 @@
             {{~#if eagerLoad}} data-src{{~else}} src{{~/if}}="{{src}}"
             {{~#if autoplay}} autoplay {{~/if}}>
         </video>
-        {{#if videoIcon}}
+        {{#if (and isVideo (not autoplay))}}
             <i class="video-icon fa {{videoIcon}}"></i>
         {{/if}}
     {{else}}
