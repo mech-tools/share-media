@@ -376,8 +376,11 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     }
 
     // Reformat favorites to this application needs (no trailing "/")
+    const favoritePaths = game.modules.shareMedia.settings.get(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserFavorites,
+    );
     const favorites = Object.fromEntries(
-      Object.entries(game.settings.get("core", "favoritePaths")).map(([key, value]) => {
+      Object.entries(favoritePaths).map(([key, value]) => {
         return [key, { ...value, path: value.path.replace(/\/$/, "") }];
       }),
     );
@@ -703,14 +706,20 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     // Standardize all paths to end with a "/".
     // Has the side benefit of ensuring that the root path which is normally an empty string has content.
     const path = `${target.dataset.path || this.target}/`.replace(/\/+$/, "/");
-    const favorites = deepClone(game.settings.get("core", "favoritePaths"));
+    const favoritePaths = game.modules.shareMedia.settings.get(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserFavorites,
+    );
+    const favorites = deepClone(favoritePaths);
     if (`${source}-${path}` in favorites) {
       ui.notifications.info("FILES.AlreadyFavorited", { format: { path } });
       return;
     }
     const label = path === "/" ? "root" : path.split("/").at(-2); // Get the final part of the path for the label
     favorites[`${source}-${path}`] = { source, path, label };
-    await game.settings.set("core", "favoritePaths", favorites);
+    await game.modules.shareMedia.settings.set(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserFavorites,
+      favorites,
+    );
     await this.render({ parts: ["header"] });
   }
 
@@ -728,9 +737,15 @@ export default class MediaBrowser extends HandlebarsApplicationMixin(Application
     const source = "data";
     let path = target.dataset.path || this.target;
     path = path.endsWith("/") ? path : `${path}/`;
-    const favorites = deepClone(game.settings.get("core", "favoritePaths"));
+    const favoritePaths = game.modules.shareMedia.settings.get(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserFavorites,
+    );
+    const favorites = deepClone(favoritePaths);
     delete favorites[`${source}-${path}`];
-    await game.settings.set("core", "favoritePaths", favorites);
+    await game.modules.shareMedia.settings.set(
+      CONFIG.shareMedia.CONST.MODULE_SETTINGS.mediaBrowserFavorites,
+      favorites,
+    );
     await this.render({ parts: ["header"] });
   }
 

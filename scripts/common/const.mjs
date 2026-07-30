@@ -62,6 +62,7 @@ export const MODULE_SETTINGS = {
   dataVersion: "dataVersion",
   mediaHistory: "mediaHistory",
   mediaBrowserConfig: "mediaBrowserConfig",
+  mediaBrowserFavorites: "mediaBrowserFavorites",
   // Foundry settings
   mediaSettings: "mediaSettings",
   mediaSidebarSettings: "mediaSidebarSettings",

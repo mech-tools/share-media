@@ -9,12 +9,12 @@
     "@eslint/js": "^10.0.1",
     "@homer0/prettier-plugin-jsdoc": "^12.0.0",
     "bun": "^1.3.14",
-    "concurrently": "^10.0.1",
-    "eslint": "^10.4.1",
+    "concurrently": "^10.0.4",
+    "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsdoc": "^63.0.1",
-    "globals": "^17.6.0",
-    "prettier": "^3.8.3"
+    "eslint-plugin-jsdoc": "^63.3.2",
+    "globals": "^17.8.0",
+    "prettier": "^3.9.6"
   },
   "engines": {
     "bun": ">=1.3.2"

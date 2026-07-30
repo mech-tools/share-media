@@ -39,6 +39,18 @@ const registerSettings = () => {
     type: new ObjectField({ initial: {}, gmOnly: true }),
   });
 
+  game.settings.register("share-media", settings.mediaBrowserFavorites, {
+    config: false,
+    scope: CONST.SETTING_SCOPES.CLIENT,
+    type: new ObjectField({
+      initial: {
+        "data-/": { source: "data", path: "/", label: "root" },
+        "data-assets/": { source: "data", path: "assets/", label: "assets" },
+      },
+      gmOnly: true,
+    }),
+  });
+
   game.settings.register("share-media", settings.mediaSettings, {
     config: false,
     scope: CONST.SETTING_SCOPES.WORLD,
