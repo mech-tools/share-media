@@ -83,6 +83,8 @@ const registerSettings = () => {
     scope: CONST.SETTING_SCOPES.CLIENT,
     type: Boolean,
     default: false,
+    name: "share-media.settings.reverseClickBehavior.name",
+    hint: "share-media.settings.reverseClickBehavior.hint",
   });
 };
 
