@@ -143,8 +143,17 @@ export const registerEntitySharingActions = () => {
 
         // Add the click handler to the button
         button.addEventListener("click", () => {
-          options.src = application.object.document.texture.src;
-          if (config.caption) options.settings.caption = application.object.document.name;
+          const reverse = game.settings.get(
+            "share-media",
+            CONFIG.shareMedia.CONST.MODULE_SETTINGS.reverseClickBehavior,
+          );
+          if (reverse && application.object[baseName]) {
+            options.src = application.object[baseName].img;
+            if (config.caption) options.settings.caption = application.object[baseName].name;
+          } else {
+            options.src = application.object.document.texture.src;
+            if (config.caption) options.settings.caption = application.object.document.name;
+          }
           new game.modules.shareMedia.shareables.apps.shareSelector(options).render({
             force: true,
           });
@@ -153,8 +162,17 @@ export const registerEntitySharingActions = () => {
         // Add the right click handler to the button
         if (application.object[baseName]) {
           button.addEventListener("contextmenu", () => {
-            options.src = application.object[baseName].img;
-            if (config.caption) options.settings.caption = application.object[baseName].name;
+            const reverse = game.settings.get(
+              "share-media",
+              CONFIG.shareMedia.CONST.MODULE_SETTINGS.reverseClickBehavior,
+            );
+            if (reverse) {
+              options.src = application.object.document.texture.src;
+              if (config.caption) options.settings.caption = application.object.document.name;
+            } else {
+              options.src = application.object[baseName].img;
+              if (config.caption) options.settings.caption = application.object[baseName].name;
+            }
             new game.modules.shareMedia.shareables.apps.shareSelector(options).render({
               force: true,
             });

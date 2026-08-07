@@ -68,6 +68,7 @@ export const MODULE_SETTINGS = {
   mediaSidebarSettings: "mediaSidebarSettings",
   entitySharingSettings: "entitySharingSettings",
   blacklistSettings: "blacklistSettings",
+  reverseClickBehavior: "reverseClickBehavior",
 };
 
 /* -------------------------------------------- */

@@ -248,6 +248,10 @@
         "name": "Configure User Blacklist",
         "hint": "Exclude specific users from receiving shared media.",
         "description": "Check the boxes next to users you want to exclude from receiving shared media."
+      },
+      "reverseClickBehavior": {
+        "name": "Reverse Click Behavior",
+        "hint": "Swap the actions of the HUD share button. When enabled, left click shares the actor image and right click shares the token art. When disabled, left click shares the token art and right click shares the actor image."
       }
     }
   },

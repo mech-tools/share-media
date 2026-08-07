@@ -77,6 +77,13 @@ const registerSettings = () => {
     scope: CONST.SETTING_SCOPES.WORLD,
     type: new ArrayField(new StringField(), { initial: [], gmOnly: true }),
   });
+
+  game.settings.register("share-media", settings.reverseClickBehavior, {
+    config: true,
+    scope: CONST.SETTING_SCOPES.CLIENT,
+    type: Boolean,
+    default: false,
+  });
 };
 
 /* -------------------------------------------- */
